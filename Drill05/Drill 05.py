@@ -229,19 +229,19 @@ def goto_0():
         update_canvas()
         delay(0.02)
 
-
+#step 12
 while True:
 
 
-   # goto_1()
-   # goto_2()
-   # goto_3()
-   # goto_4()
-   # goto_5()
-   # goto_6()
-   # goto_7()
-   # goto_8()
-   # goto_9()
+    goto_1()
+    goto_2()
+    goto_3()
+    goto_4()
+    goto_5()
+    goto_6()
+    goto_7()
+    goto_8()
+    goto_9()
     goto_0()
 
 
