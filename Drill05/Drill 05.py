@@ -141,8 +141,27 @@ def goto_6():
         update_canvas()
         delay(0.02)
 
+#step 8
 def goto_7():
-    pass
+    x, y = point[6][0], point[6][1]
+    next = point[7]
+    frame = 0
+
+    while x < next[0]:
+        clear_canvas()
+        x += 5
+        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        frame = (frame + 1) % 8
+        update_canvas()
+        delay(0.02)
+
+    while y < next[1]:
+        clear_canvas()
+        y += 5
+        character.clip_draw(frame * 100, 100, 100, 100, x, y)
+        frame = (frame + 1) % 8
+        update_canvas()
+        delay(0.02)
 
 def goto_8():
     pass
@@ -162,7 +181,7 @@ while True:
    # goto_3()
    # goto_4()
    # goto_5()
-    goto_6()
+   # goto_6()
     goto_7()
     goto_8()
     goto_9()
