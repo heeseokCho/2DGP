@@ -209,7 +209,25 @@ def goto_9():
 
 #step 11
 def goto_0():
-    
+    x, y = point[9][0], point[9][1]
+    next = point[0]
+    frame = 0
+
+    while x > next[0]:
+        clear_canvas()
+        x -= 5
+        character.clip_draw(frame * 100, 0, 100, 100, x, y)
+        frame = (frame + 1) % 8
+        update_canvas()
+        delay(0.02)
+
+    while y < next[1]:
+        clear_canvas()
+        y += 5
+        character.clip_draw(frame * 100, 0, 100, 100, x, y)
+        frame = (frame + 1) % 8
+        update_canvas()
+        delay(0.02)
 
 
 while True:
