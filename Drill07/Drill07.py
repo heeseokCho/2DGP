@@ -21,14 +21,21 @@ def handle_events():
 
 
 def draw_point(p):
+    global frame, n
     clear_canvas()
     kpu_ground.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
 
+    if points[n - 1][0] > points[n][0]:
+        character.clip_draw(frame * 100, 0, 100, 100, p[0], p[1])
+    else:
+        character.clip_draw(frame * 100, 100, 100, 100, p[0], p[1])
+
+    frame = (frame + 1) % 8
     update_canvas()
 
 def draw_line(p1,p2):
 
-    for i in range(0,100,2):
+    for i in range(0,100,4):
         t = i /100
         x = (1-t)*p1[0] + t*p2[0]
         y = (1-t)*p1[1] + t*p2[1]
@@ -45,7 +52,8 @@ character = load_image('animation_sheet.png')
 x, y = KPU_WIDTH // 2, KPU_HEIGHT // 2
 frame = 0
 n = 1
-points = [(random.randint(0+200,1280-200),random.randint(0+200,1024-200)) for i in range(5)]
+points = [(random.randint(0+200,1280-200),random.randint(0+200,1024-200)) for i in range(3)]
+size = len(points)
 
 
 while True:
@@ -53,6 +61,7 @@ while True:
 
     draw_line(points[n-1],points[n])
 
+    n = (n+1) % size
 
 
 
