@@ -45,13 +45,13 @@ character = load_image('animation_sheet.png')
 x, y = KPU_WIDTH // 2, KPU_HEIGHT // 2
 frame = 0
 n = 1
-
+points = [(random.randint(0+200,1280-200),random.randint(0+200,1024-200)) for i in range(5)]
 
 
 while True:
 
 
-    draw_line((0,0),(0,0))
+    draw_line(points[n-1],points[n])
 
 
 
