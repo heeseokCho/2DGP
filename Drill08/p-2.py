@@ -3,6 +3,8 @@ import random
 
 KPU_WIDTH, KPU_HEIGHT = 1280, 1024
 
+points = [(random.randint(0,1280),random.randint(0,1024)) for i in range(10)]
+size = len(points)
 
 def handle_events():
     global running
@@ -17,8 +19,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             running = False
 
-points = [(random.randint(0,1280),random.randint(0,1024)) for i in range(10)]
-size = len(points)
+
 
 x, y = KPU_WIDTH // 2, KPU_HEIGHT // 2
 frame = 0
@@ -37,8 +38,6 @@ def draw_point(p):
     frame = (frame+1) % 8
     update_canvas()
     delay(0.05)
-
-    update_canvas()
 
 def draw_curve(n):
     for i in range(0, 100, 4):
@@ -60,6 +59,8 @@ character = load_image('animation_sheet.png')
 
 while True:
     draw_curve(n)
+
+    n=(n+1)%size
 
     handle_events()
 
