@@ -38,6 +38,7 @@ def prepare_turtle_canvas():
     turtle.listen()
 
 
+points = [(-300,200),(400,350),(300,-300),(100,100),(-200,-200)]
 
 def draw_big_point(p):
     turtle.goto(p)
@@ -50,9 +51,15 @@ def draw_point(p):
     turtle.dot(5, random.random(), random.random(), random.random())
 
 def draw_curve(n):
-    pass
+    for i in range(5):
+        draw_big_point(points[i])
 
 
 prepare_turtle_canvas()
+
+n = 0
+draw_curve(n)
+n = (n+1) % 5
+
 
 turtle.done()
