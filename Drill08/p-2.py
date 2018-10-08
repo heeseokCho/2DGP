@@ -25,10 +25,18 @@ frame = 0
 n = 0
 
 def draw_point(p):
-    global fame,n
+    global frame,n
     clear_canvas()
     kpu_ground.draw(KPU_WIDTH//2,KPU_HEIGHT//2)
 
+    if points[n][0] > points[(n+1)%size][0]:
+        character.clip_draw(frame*100,0,100,100,p[0],p[1])
+    else:
+        character.clip_draw(frame * 100, 100, 100, 100, p[0], p[1])
+
+    frame = (frame+1) % 8
+    update_canvas()
+    delay(0.05)
 
     update_canvas()
 
