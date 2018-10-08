@@ -54,12 +54,22 @@ def draw_curve(n):
     for i in range(5):
         draw_big_point(points[i])
 
+    for i in range(0, 100, 4):
+        t = i / 100
+
+        x = ((-t ** 3 + 2 * t ** 2 - t) * points[(n - 1) % 5][0] + (3 * t ** 3 - 5 * t ** 2 + 2) * points[(n) % 5][0] + (
+            -3 * t ** 3 + 4 * t ** 2 + t) * points[(n + 1) % 5][0] + (t ** 3 - t ** 2) * points[(n + 2) % 5][0]) / 2
+        y = ((-t ** 3 + 2 * t ** 2 - t) * points[(n - 1) % 5][1] + (3 * t ** 3 - 5 * t ** 2 + 2) * points[(n) % 5][1] + (
+            -3 * t ** 3 + 4 * t ** 2 + t) * points[(n + 1) % 5][1] + (t ** 3 - t ** 2) * points[(n + 2) % 5][1]) / 2
+        draw_point((x,y))
+    draw_point(points[(n + 2) % 5])
 
 prepare_turtle_canvas()
 
 n = 0
-draw_curve(n)
-n = (n+1) % 5
+while True:
+    draw_curve(n)
+    n = (n+1) % 5
 
 
 turtle.done()
