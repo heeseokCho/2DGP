@@ -61,6 +61,7 @@ grass = Grass()
 running = True
 
 # game main loop code
+
 while running:
     handle_events()
     clear_canvas()
