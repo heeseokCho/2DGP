@@ -31,13 +31,13 @@ class Ball:
             self.image = load_image('ball41x41.png')
             self.size = 41 / 2
 
-        self.x,self.y = random.randint(100,700),500
+        self.x,self.y = random.randint(100,700),600
         self.speed = random.randint(2,7)
 
     def update(self):
         pass
     def draw(self):
-        pass
+        self.image.draw(self.x,self.y)
 
 def handle_events():
     global running
@@ -52,7 +52,7 @@ def handle_events():
 open_canvas()
 
 team = [Boy() for i in range(11)]
-balls = (Ball() for i in range(20))
+balls = [Ball() for i in range(20)]
 grass = Grass()
 
 running = True
