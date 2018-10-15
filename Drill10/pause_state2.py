@@ -30,6 +30,8 @@ def handle_events():
 
 def draw():
     clear_canvas()
+    main_state.boy.draw()
+    main_state.grass.draw()
     image.clip_draw(250,250,400,400,800//2,600//2)
 
     update_canvas()
