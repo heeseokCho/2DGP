@@ -5,6 +5,7 @@ import main_state
 
 name = "PauseState"
 image = None
+frame = 0
 
 def enter():
     global image
@@ -15,6 +16,8 @@ def exit():
     del(image)
 
 def handle_events():
+    global frame
+
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
@@ -25,6 +28,7 @@ def handle_events():
             elif(event.type,event.key) == (SDL_KEYDOWN,SDLK_SPACE):
                 game_framework.change_state(main_state)
             elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
+                frame = 0
                 game_framework.pop_state()
 
 
@@ -32,12 +36,14 @@ def draw():
     clear_canvas()
     main_state.boy.draw()
     main_state.grass.draw()
-    image.clip_draw(250,250,400,400,800//2,600//2)
+    if(frame % 400 < 200):
+        image.clip_draw(250,250,400,400,800//2,600//2)
 
     update_canvas()
 
 def update():
-    pass
+    global frame
+    frame = (frame+1)%400
 
 def pause():
     pass
