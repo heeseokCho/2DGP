@@ -22,6 +22,8 @@ Boss1 = None
 Boss2 = None
 Circle = None
 
+Timer = 0
+
 class LINK:
     def __init__(self):
         self.image = load_image('Standing.png')
@@ -84,15 +86,18 @@ class LINK:
         self.x += self.dirX * 8
         self.y += self.dirY * 8
 
-        self.RectBody[0] +=self.dirX * 8
-        self.RectBody[2] += self.dirX * 8
-        self.RectBody[1] += self.dirY * 8
-        self.RectBody[3] += self.dirY * 8
+        self.RectBody[0] = self.x-16
+        self.RectBody[2] = self.x+16
+        self.RectBody[1] = self.y-20
+        self.RectBody[3] = self.y+20
 
-        self.RectFoot[0] += self.dirX * 8
-        self.RectFoot[2] += self.dirX * 8
-        self.RectFoot[1] += self.dirY * 8
-        self.RectFoot[3] += self.dirY * 8
+        self.RectFoot[0] = self.x-8
+        self.RectFoot[2] = self.x-8
+        self.RectFoot[1] = self.y+12
+        self.RectFoot[3] = self.y-12
+
+        self.x = clamp(SIZE/2,self.x,WINX-SIZE/2)
+        self.y = clamp(SIZE/2, self.y, WINY-SIZE/2-200)
 
         #조준시작했는지 체크
         self.AimCheck()
@@ -207,10 +212,14 @@ class BOSS2:
         self.y += self.dirY * 8
 
 class CIRCLE:
+    global Timer
+
     def __init__(self):
         self.image = load_image('Circle.png')
         self.x,self.y = WINX//2,WINY//2
         self.r = 380
+        self.DirX,self.DirY = 0,0
+        self.Speed = 1
         self.Rect =[[self.x - self.r + 320, self.y + self.r - 20 , self.x + self.r - 320, self.y - self.r + 20 ],
                     [self.x - self.r + 300, self.y + self.r - 25 , self.x + self.r - 300, self.y - self.r + 25 ],
                     [self.x - self.r + 275, self.y + self.r - 30 , self.x + self.r - 275, self.y - self.r + 30 ],
@@ -238,22 +247,51 @@ class CIRCLE:
                     [self.x - self.r + 25 , self.y + self.r - 300, self.x + self.r - 25 , self.y - self.r + 300],
                     [self.x - self.r + 20 , self.y + self.r - 320, self.x + self.r - 20 , self.y - self.r + 320]
                     ]
+        self.RectNum = len(self.Rect)
 
 
     def Draw(self):
         self.image.draw(self.x - self.r * 0.01, self.y - self.r * 0.01, WINX * 2 + self.r, WINX * 2 + self.r)
 
     def DrawRectangle(self):
-        for i in range(len(self.Rect)):
+        for i in range(self.RectNum):
             draw_rectangle(self.Rect[i][0],self.Rect[i][1],self.Rect[i][2],self.Rect[i][3])
 
     def Update(self):
-        pass
+        if Timer == 100:
+            if random.randint(1,2) % 2 == 1:
+                self.DirX = 1
+            else:
+                self.DirX = -1
+
+            if random.randint(1,2) % 2 == 1:
+                self.DirY = 1
+            else:
+                self.DirY = -1
+
+        self.x += self.DirX * self.Speed
+        self.y += self.DirY * self.Speed
+        for i in range(self.RectNum):
+            self.Rect[i][0] += self.DirX * self.Speed
+            self.Rect[i][2] += self.DirX * self.Speed
+            self.Rect[i][1] += self.DirY * self.Speed
+            self.Rect[i][3] += self.DirY * self.Speed
+
+
+
+        if(self.x > WINX-self.r):
+            self.DirX = -1
+        elif(self.x < self.r):
+            self.DirX = 1
+        if (self.y > WINY-30 - self.r):
+            self.DirY = -1
+        elif (self.y < self.r):
+            self.DirY = 1
+
 
 class BACKGROUND:
     def __init__(self):
         self.image = load_image('Background.png')
-        self.timer = 0
 
     def Draw(self):
         self.image.draw(WINX // 2, WINY // 2, WINX, WINY)
@@ -350,8 +388,12 @@ def handle_events():
 
 
 def update():
+    global Timer
+    Timer +=1
+
     Link.Update()
     Boss2.Update()
+    Circle.Update()
 
 
 def draw():
