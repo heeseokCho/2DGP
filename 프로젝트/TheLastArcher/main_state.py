@@ -21,10 +21,56 @@ Link =None
 Boss1 = None
 Boss2 = None
 Circle = None
-
+Arrow = []
 Timer = 0
 
+class ARROW:
+    global Link
+    image = None
+    Num = 0
+
+    def __init__(self):
+        self.x,self.y = Link.x,Link.y
+        self.Dir = None
+        self.Speed = 4
+
+        if ARROW.image == None:
+            self.image = load_image('Arrow.png')
+
+    def Update(self):
+        if self.Dir == UP:
+            self.y += self.Speed
+        elif self.Dir == DOWN:
+            self.y -=self.Speed
+        elif self.Dir == LEFT:
+            self.x -=self.Speed
+        elif self.Dir == RIGHT:
+            self.x +=self.Speed
+
+
+        for i in range(ARROW.Num):
+             if Arrow[i].x > WINX:
+                Arrow.pop(i)
+                ARROW.Num = len(Arrow)
+             elif Arrow[i].x < 0:
+                Arrow.pop(i)
+                ARROW.Num = len(Arrow)
+             if Arrow[i].y > WINY:
+                Arrow.pop(i)
+                ARROW.Num = len(Arrow)
+             elif Arrow[i].y < 0:
+                Arrow.pop(i)
+                ARROW.Num = len(Arrow)
+        ARROW.Num = len(Arrow)
+
+
+
+    def Draw(self):
+        self.image.clip_draw(0, self.Dir//2,SIZE//2, SIZE//2, self.x, self.y)
+
 class LINK:
+    global Arrow
+
     def __init__(self):
         self.image = load_image('Standing.png')
         self.state = STANDING
@@ -92,9 +138,9 @@ class LINK:
         self.RectBody[3] = self.y+20
 
         self.RectFoot[0] = self.x-8
-        self.RectFoot[2] = self.x-8
-        self.RectFoot[1] = self.y+12
-        self.RectFoot[3] = self.y-12
+        self.RectFoot[2] = self.x+8
+        self.RectFoot[1] = self.y-12
+        self.RectFoot[3] = self.y-20
 
         self.x = clamp(SIZE/2,self.x,WINX-SIZE/2)
         self.y = clamp(SIZE/2, self.y, WINY-SIZE/2-200)
@@ -119,15 +165,23 @@ class LINK:
 
         if self.aimCnt > AIMING[1]:
             self.SetState(AIMWALKING)
+            self.aimStart = False
 
     def ShootCheck(self):
         if self.shootStart == True:
             Link.SetState(SHOOTING)
+
+            if self.shootCnt == 0:
+                Arrow.append(ARROW())
+                Arrow[ARROW.Num].Dir = Link.look
+                ARROW.Num += 1
+
             self.shootCnt += 1
 
         if self.shootCnt > SHOOTING[1]:
             self.shootCnt = 0
             self.shootStart = False
+
 
             if self.dirX == 0 and self.dirY == 0:
                 self.SetState(STANDING)
@@ -218,8 +272,9 @@ class CIRCLE:
         self.image = load_image('Circle.png')
         self.x,self.y = WINX//2,WINY//2
         self.r = 380
+        self.Zoom = 0
         self.DirX,self.DirY = 0,0
-        self.Speed = 1
+        self.Speed = 0.2
         self.Rect =[[self.x - self.r + 320, self.y + self.r - 20 , self.x + self.r - 320, self.y - self.r + 20 ],
                     [self.x - self.r + 300, self.y + self.r - 25 , self.x + self.r - 300, self.y - self.r + 25 ],
                     [self.x - self.r + 275, self.y + self.r - 30 , self.x + self.r - 275, self.y - self.r + 30 ],
@@ -258,7 +313,7 @@ class CIRCLE:
             draw_rectangle(self.Rect[i][0],self.Rect[i][1],self.Rect[i][2],self.Rect[i][3])
 
     def Update(self):
-        if Timer == 100:
+        if Timer == 50:
             if random.randint(1,2) % 2 == 1:
                 self.DirX = 1
             else:
@@ -269,13 +324,25 @@ class CIRCLE:
             else:
                 self.DirY = -1
 
+            self.Zoom = -1
+
+        if Timer % 100 == 0:
+            self.Speed += 0.2
+
         self.x += self.DirX * self.Speed
         self.y += self.DirY * self.Speed
+        self.r += self.Zoom * self.Speed
+
+        if self.r < 100:
+            self.Zoom = 1
+        elif self.r > 400:
+            self.Zoom = -1
+
         for i in range(self.RectNum):
-            self.Rect[i][0] += self.DirX * self.Speed
-            self.Rect[i][2] += self.DirX * self.Speed
-            self.Rect[i][1] += self.DirY * self.Speed
-            self.Rect[i][3] += self.DirY * self.Speed
+            self.Rect[i][0] += self.DirX * self.Speed - self.Zoom*self.Speed/10
+            self.Rect[i][2] += self.DirX * self.Speed + self.Zoom*self.Speed/10
+            self.Rect[i][1] += self.DirY * self.Speed + self.Zoom*self.Speed/10
+            self.Rect[i][3] += self.DirY * self.Speed - self.Zoom*self.Speed/10
 
 
 
@@ -283,7 +350,7 @@ class CIRCLE:
             self.DirX = -1
         elif(self.x < self.r):
             self.DirX = 1
-        if (self.y > WINY-30 - self.r):
+        if (self.y > WINY-200 - self.r):
             self.DirY = -1
         elif (self.y < self.r):
             self.DirY = 1
@@ -314,6 +381,7 @@ def exit():
     del(Boss1)
     del(Boss2)
     del(Circle)
+    del(Arrow)
 
 def pause():
     pass
@@ -389,11 +457,16 @@ def handle_events():
 
 def update():
     global Timer
+
     Timer +=1
 
     Link.Update()
     Boss2.Update()
     Circle.Update()
+
+    if ARROW.Num > 0:
+        for i in range(ARROW.Num):
+            Arrow[i].Update()
 
 
 def draw():
@@ -401,14 +474,19 @@ def draw():
 
     Background.Draw()
 
+    Boss2.Draw()
+    Boss2.DrawRectangle()
+
     Circle.Draw()
     Circle.DrawRectangle()
 
     Link.Draw()
     Link.DrawRectangle()
 
-    Boss2.Draw()
-    Boss2.DrawRectangle()
+    for i in range(ARROW.Num):
+        Arrow[i].Draw()
+
+
 
     update_canvas()
     delay(0.03)
