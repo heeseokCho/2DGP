@@ -27,12 +27,11 @@ Timer = 0
 class ARROW:
     global Link
     image = None
-    Num = 0
 
     def __init__(self):
         self.x,self.y = Link.x,Link.y
         self.Dir = None
-        self.Speed = 4
+        self.Speed = 8
 
         if ARROW.image == None:
             self.image = load_image('Arrow.png')
@@ -47,21 +46,20 @@ class ARROW:
         elif self.Dir == RIGHT:
             self.x +=self.Speed
 
+        DeleteArrow = []
+        for i in Arrow:
+            if i.x > WINX:
+                DeleteArrow.append(i)
+            elif i.x < 0:
+                DeleteArrow.append(i)
+            if i.y > WINY:
+                DeleteArrow.append(i)
+            elif i.y < 0:
+                DeleteArrow.append(i)
 
-        for i in range(ARROW.Num):
-             if Arrow[i].x > WINX:
-                Arrow.pop(i)
-                ARROW.Num = len(Arrow)
-             elif Arrow[i].x < 0:
-                Arrow.pop(i)
-                ARROW.Num = len(Arrow)
-             if Arrow[i].y > WINY:
-                Arrow.pop(i)
-                ARROW.Num = len(Arrow)
-             elif Arrow[i].y < 0:
-                Arrow.pop(i)
-                ARROW.Num = len(Arrow)
-        ARROW.Num = len(Arrow)
+        for i in DeleteArrow:
+            Arrow.remove(i)
+
 
 
 
@@ -173,8 +171,7 @@ class LINK:
 
             if self.shootCnt == 0:
                 Arrow.append(ARROW())
-                Arrow[ARROW.Num].Dir = Link.look
-                ARROW.Num += 1
+                Arrow[len(Arrow)-1].Dir = Link.look
 
             self.shootCnt += 1
 
@@ -358,7 +355,7 @@ class CIRCLE:
 
 class BACKGROUND:
     def __init__(self):
-        self.image = load_image('Background.png')
+        self.image = load_image('Background2.png')
 
     def Draw(self):
         self.image.draw(WINX // 2, WINY // 2, WINX, WINY)
@@ -464,9 +461,9 @@ def update():
     Boss2.Update()
     Circle.Update()
 
-    if ARROW.Num > 0:
-        for i in range(ARROW.Num):
-            Arrow[i].Update()
+    if len(Arrow) > 0:
+        for i in Arrow:
+            i.Update()
 
 
 def draw():
@@ -475,16 +472,18 @@ def draw():
     Background.Draw()
 
     Boss2.Draw()
-    Boss2.DrawRectangle()
+    #Boss2.DrawRectangle()
+
+    for i in Arrow:
+        i.Draw()
 
     Circle.Draw()
-    Circle.DrawRectangle()
+    #Circle.DrawRectangle()
 
     Link.Draw()
-    Link.DrawRectangle()
+    #Link.DrawRectangle()
 
-    for i in range(ARROW.Num):
-        Arrow[i].Draw()
+
 
 
 
