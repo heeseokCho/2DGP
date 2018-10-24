@@ -28,7 +28,8 @@ Boss1 = None
 Boss2 = None
 Arrow = []
 Boss2_Bullet = []
-Enemy = None
+Enemy = []
+Boss2_Enemy = []
 Timer = 0
 
 
@@ -97,48 +98,77 @@ class BOSS2_BULLET:
         draw_rectangle(self.Rect[0],self.Rect[1],self.Rect[2],self.Rect[3])
 
 class ENEMY:
+    global Circle
     image = None
     def __init__(self):
-        self.image = load_image('Enemy.png')
         self.x, self.y = WINX // 2, WINY // 2 + Circle.r / 2
-        self.dir = None
+        self.dir = 0
+        self.dirX,self.dirY = 0,0
+
         self.Rect = [0,0,0,0]
+        self.speed = 5
 
         if ENEMY.image == None:
             ENEMY.image = load_image('Enemy.png')
 
+        if self.dir == LEFTUP or self.dir == UP or self.dir == RIGHTUP:
+            self.dirY = 1
+        elif self.dir == LEFTDOWN or self.dir == DOWN or self.dir == RIGHTDOWN:
+            self.dirY = -1
+        if self.dir == LEFTUP or self.dir == LEFT or self.dir == LEFTDOWN:
+            self.dirX= -1
+        elif self.dir == RIGHTUP or self.dir == RIGHT or self.dir == RIGHTDOWN:
+            self.dirX = 1
+
     def Draw(self):
         if self.dir == LEFTUP:
-            self.image.clip_draw(0,64, SIZE/2, SIZE/2, self.x, self.y)
+            ENEMY.image.clip_draw(0,64, SIZE/2, SIZE/2, self.x, self.y)
         elif self.dir == UP:
-            self.image.clip_draw(32,64, SIZE/2, SIZE/2, self.x, self.y)
+            ENEMY.image.clip_draw(32,64, SIZE/2, SIZE/2, self.x, self.y)
         elif self.dir == RIGHTUP:
-            self.image.clip_draw(64,64, SIZE/2, SIZE/2, self.x, self.y)
+            ENEMY.image.clip_draw(64,64, SIZE/2, SIZE/2, self.x, self.y)
         elif self.dir == RIGHT:
-            self.image.clip_draw(64,32, SIZE/2, SIZE/2, self.x, self.y)
+            ENEMY.image.clip_draw(64,32, SIZE/2, SIZE/2, self.x, self.y)
         elif self.dir == RIGHTDOWN:
-            self.image.clip_draw(64,0, SIZE/2, SIZE/2, self.x, self.y)
+            ENEMY.image.clip_draw(64,0, SIZE/2, SIZE/2, self.x, self.y)
         elif self.dir == DOWN:
-            self.image.clip_draw(32,0, SIZE/2, SIZE/2, self.x, self.y)
+            ENEMY.image.clip_draw(32,0, SIZE/2, SIZE/2, self.x, self.y)
         elif self.dir == LEFTDOWN:
-            self.image.clip_draw(0,0, SIZE/2, SIZE/2, self.x, self.y)
+            ENEMY.image.clip_draw(0,0, SIZE/2, SIZE/2, self.x, self.y)
         elif self.dir == LEFT:
-            self.image.clip_draw(0,32, SIZE/2, SIZE/2, self.x, self.y)
+            ENEMY.image.clip_draw(0,32, SIZE/2, SIZE/2, self.x, self.y)
 
     def DrawRectangle(self):
         draw_rectangle(self.Rect[0],self.Rect[1],self.Rect[2],self.Rect[3])
 
     def Update(self):
-        self.frame = (self.frame + 1) % self.state[1]
 
-        self.x += self.dirX * 8
-        self.y += self.dirY * 8
+        self.x += self.dirX * self.speed
+        self.y += self.dirY * self.speed
+
+        if(len(Boss2_Enemy) > 0):
+            DeleteEnemy = []
+            for i in Boss2_Enemy:
+                if i.x > Circle.x + 400:
+                    DeleteEnemy.append(i)
+                elif i.x < Circle.x - 400:
+                    DeleteEnemy.append(i)
+                if i.y > Circle.y + 400:
+                    DeleteEnemy.append(i)
+                elif i.y < Circle.y - 400:
+                    DeleteEnemy.append(i)
+
+            for i in DeleteEnemy:
+                Boss2_Enemy.remove(i)
+
+
 
 class BOSS2:
     global Circle
     global Link
     global Boss2_Bullet
     global Boss2_Revolution_Bollet
+    global Boss2_Enemy
 
     def __init__(self):
         self.image = load_image('Boss2.png')
@@ -168,22 +198,34 @@ class BOSS2:
 
         if self.timer % 10 == 0:
             Boss2_Bullet.append(BOSS2_BULLET())
-            Boss2_Bullet[len(Boss2_Bullet) - 1].startX = self.x
-            Boss2_Bullet[len(Boss2_Bullet) - 1].startY = self.y
-            Boss2_Bullet[len(Boss2_Bullet) - 1].endX = Link.x + 500 * math.cos(
+            Boss2_Bullet[-1].startX = self.x
+            Boss2_Bullet[-1].startY = self.y
+            Boss2_Bullet[-1].endX = Link.x + 500 * math.cos(
                 math.atan2(Link.y - self.y, Link.x - self.x))
-            Boss2_Bullet[len(Boss2_Bullet) - 1].endY = Link.y + 500 * math.sin(
+            Boss2_Bullet[-1].endY = Link.y + 500 * math.sin(
                 math.atan2(Link.y - self.y, Link.x - self.x))
 
+            if self.timer % 20 == 0:
 
-            if self.timer % 200 == 0:
-                if self.timer % 1000 == 0:
-                    pass
+                if self.timer % 40 == 0:
 
-                self.dir *= -1
+                    for i in range(8):
+
+                        Boss2_Enemy.append(ENEMY())
+                        Boss2_Enemy[i].x = self.x
+                        #Boss2_Enemy[i].y = self.y
+                        #Boss2_Enemy[0].dir = LEFTUP
+                   # Boss2_Enemy[1].dir = UP
+                   # Boss2_Enemy[2].dir = RIGHTUP
+                   # Boss2_Enemy[3].dir = RIGHT
+                   # Boss2_Enemy[4].dir = RIGHTDOWN
+                   # Boss2_Enemy[5].dir = DOWN
+                   # Boss2_Enemy[6].dir = LEFTDOWN
+                   # Boss2_Enemy[7].dir = LEFT
 
                 if self.timer > 2000:
                     self.timer = 1
+                    self.dir *= -1
 
         self.frame = (self.frame + 1) % (4 * 4)
 
@@ -364,7 +406,7 @@ class LINK:
             if self.shootCnt == 0:
                 #화살만듬
                 Arrow.append(ARROW())
-                Arrow[len(Arrow)-1].Dir = Link.look
+                Arrow[-1].Dir = Link.look
 
             self.shootCnt += 1
 
@@ -647,6 +689,10 @@ def update():
         for i in Boss2_Bullet:
             i.Update()
 
+    if len(Boss2_Enemy) > 0:
+        for i in Boss2_Enemy:
+            i.Update()
+
 
 def draw():
     clear_canvas()
@@ -656,14 +702,19 @@ def draw():
     Boss2.Draw()
     Boss2.DrawRectangle()
 
+    if(len(Arrow) > 0):
+        for i in Arrow:
+            i.Draw()
+            i.DrawRectangle()
 
-    for i in Arrow:
-        i.Draw()
-        i.DrawRectangle()
-
-    for i in Boss2_Bullet:
-        i.Draw()
-        i.DrawRectangle()
+    if(len(Boss2_Bullet) > 0):
+        for i in Boss2_Bullet:
+            i.Draw()
+            i.DrawRectangle()
+    if(len(Boss2_Enemy) > 0):
+        for i in Boss2_Enemy:
+            i.Draw()
+            i.DrawRectangle()
 
     Circle.Draw()
     #Circle.DrawRectangle()
