@@ -2,6 +2,7 @@ from pico2d import*
 import random
 import title_state
 import game_framework
+import math
 
 name = "MainState"
 
@@ -17,12 +18,126 @@ STANDING,WALKING,SHOOTING,AIMING,AIMWALKING,DIEING,AIMSTANDING,WINNING =\
 [0,1],   [1,10], [2,6],   [3,3], [4,8],     [5,9], [6,1],       [7,1]
 
 Background = None
-Link =None
+Link = None
+Circle = None
 Boss1 = None
 Boss2 = None
-Circle = None
 Arrow = []
+Boss2_Bullet = []
 Timer = 0
+
+
+class BOSS2_BULLET:
+    global Boss2
+    global Link
+    image = None
+
+    def __init__(self):
+        self.x,self.y = Boss2.x,Boss2.y
+        self. Speed = 8
+        self.Rect = [self.x, self.y, self.x, self.y]
+        self.angle_rotation = 0
+        self.angle_target = 0
+        self.angle= 0
+        self.dir_rotation = 0
+        self.dirX,self.dirY = 0,0
+        self.speed = 3
+
+
+        if BOSS2_BULLET.image == None:
+            BOSS2_BULLET.image = load_image('Boss2_Bullet.png')
+
+        if random.randint(0,1) == 1:
+            self.dir_rotation = 1
+        else: self.dir_rotation = -1
+
+    def Update(self):
+        self.angle_rotation += 10*self.dir_rotation
+        self.x =self.dirX*self.speed
+        self.y =self.dirY*self.speed
+        self.Rect[0] = self.x-4
+        self.Rect[1] = self.y+4
+        self.Rect[2] = self.x+4
+        self.Rect[3] = self.y-4
+
+        DeleteBullet = []
+        for i in Boss2_Bullet:
+            if i.x > WINX:
+                DeleteBullet.append(i)
+            elif i.x < 0:
+                DeleteBullet.append(i)
+            if i.y > WINY:
+                DeleteBullet.append(i)
+            elif i.y < 0:
+                DeleteBullet.append(i)
+
+        for i in DeleteBullet:
+            Boss2_Bullet.remove(i)
+
+
+
+    def Draw(self):
+        draw_rectangle(200, 100, 300, 0)
+        BOSS2_BULLET.image.rotate_draw(math.radians(self.angle_rotation),self.x,self.y,SIZE/2,SIZE/2)
+
+
+    def DrawRectangle(self):
+        draw_rectangle(self.Rect[0],self.Rect[1],self.Rect[2],self.Rect[3])
+
+
+class BOSS2:
+    global Circle
+    global Boss2_Bullet
+
+    def __init__(self):
+        self.image = load_image('Boss2.png')
+        self.frame = 0
+        self.x, self.y = WINX // 2, WINY // 2 + Circle.r / 2
+        self.dir = 1
+        self.Rect = [self.x - 60, self.y + 50, self.x + 60, self.y - 70]
+        self.timer = 0
+        self.angle_rotation = 0
+        self.angle_revolution = 0
+
+    def SetState(self, _state):
+        self.state = _state
+
+    def Draw(self):
+        # self.image.clip_draw((int(self.frame / 4)) * SIZE*3, 0, SIZE*3, SIZE*3, self.x, self.y)
+
+        self.image.clip_composite_draw((int(self.frame / 4)) * SIZE * 3, 0, SIZE * 3, SIZE * 3, self.angle_rotation,
+                                       'a', self.x, self.y, SIZE * 3, SIZE * 3)
+        # self.image.rotate_draw(self.angle_rotation,WINX//2,WINY//2,500,100)
+
+    def DrawRectangle(self):
+        draw_rectangle(self.Rect[0], self.Rect[1], self.Rect[2], self.Rect[3])
+
+    def Update(self):
+        self.frame = (self.frame + 1) % (4 * 4)
+
+        self.angle_rotation = math.atan2(Circle.y - self.y, Circle.x - self.x) * self.dir
+
+        self.angle_revolution += self.dir * 0.02
+        self.x = Circle.x + (Circle.r - SIZE) * math.cos(self.angle_revolution)
+        self.y = Circle.y + (Circle.r - SIZE) * math.sin(self.angle_revolution)
+
+        self.Rect[0] = self.x - 60
+        self.Rect[1] = self.y + 50
+        self.Rect[2] = self.x + 60
+        self.Rect[3] = self.y - 70
+
+        self.timer += 1
+
+        if self.timer % 10 == 0:
+            Boss2_Bullet.append(BOSS2_BULLET())
+
+            if self.timer % 200 == 0:
+
+                self.dir *= -1
+
+                if self.timer > 2000:
+                    self.timer = 1
+
 
 class ARROW:
     global Link
@@ -31,10 +146,12 @@ class ARROW:
     def __init__(self):
         self.x,self.y = Link.x,Link.y
         self.Dir = None
-        self.Speed = 8
+        self.Speed = 10
+        #좌상우하
+        self.Rect = [self.x,self.y,self.x,self.y]
 
         if ARROW.image == None:
-            self.image = load_image('Arrow.png')
+            ARROW.image = load_image('Arrow.png')
 
     def Update(self):
         if self.Dir == UP:
@@ -45,6 +162,15 @@ class ARROW:
             self.x -=self.Speed
         elif self.Dir == RIGHT:
             self.x +=self.Speed
+
+        if self.Dir == UP:
+            self.Rect = [self.x - 4, self.y + 16, self.x + 4, self.y + 8]
+        elif self.Dir == DOWN:
+            self.Rect = [self.x - 4, self.y - 8, self.x + 4, self.y - 16]
+        elif self.Dir == LEFT:
+            self.Rect = [self.x - 16, self.y + 4, self.x - 8, self.y - 4]
+        elif self.Dir == RIGHT:
+            self.Rect = [self.x + 8, self.y + 4, self.x + 16, self.y - 4]
 
         DeleteArrow = []
         for i in Arrow:
@@ -64,7 +190,10 @@ class ARROW:
 
 
     def Draw(self):
-        self.image.clip_draw(0, self.Dir//2,SIZE//2, SIZE//2, self.x, self.y)
+        ARROW.image.clip_draw(0, self.Dir//2,SIZE//2, SIZE//2, self.x, self.y)
+
+    def DrawRectangle(self):
+        draw_rectangle(self.Rect[0],self.Rect[1],self.Rect[2],self.Rect[3])
 
 class LINK:
     global Arrow
@@ -170,6 +299,7 @@ class LINK:
             Link.SetState(SHOOTING)
 
             if self.shootCnt == 0:
+                #화살만듬
                 Arrow.append(ARROW())
                 Arrow[len(Arrow)-1].Dir = Link.look
 
@@ -239,28 +369,12 @@ class BOSS1:
         self.x += self.dirX * 8
         self.y += self.dirY * 8
 
-class BOSS2:
-    def __init__(self):
-        self.image = load_image('Boss2.png')
-        self.frame = 0
-        self.x,self.y = WINX//2, WINY//2
-        self.dirX,self.dirY = 0,0
-        self.Rect = [self.x-60,self.y+50,self.x+60,self.y-70]
+class BOSS1_BULLET:
+    pass
 
-    def SetState(self,_state):
-        self.state = _state
 
-    def Draw(self):
-        self.image.clip_draw((int(self.frame / 4)) * SIZE*3, 0, SIZE*3, SIZE*3, self.x, self.y)
-
-    def DrawRectangle(self):
-        draw_rectangle(self.Rect[0], self.Rect[1], self.Rect[2], self.Rect[3])
-
-    def Update(self):
-        self.frame = (self.frame + 1) % (4*4)
-
-        self.x += self.dirX * 8
-        self.y += self.dirY * 8
+class BULLET:
+    pass
 
 class CIRCLE:
     global Timer
@@ -368,9 +482,10 @@ def enter():
 
     Background = BACKGROUND()
     Link = LINK()
+    Circle = CIRCLE()
     Boss1 = BOSS1()
     Boss2 = BOSS2()
-    Circle =CIRCLE()
+
 
 def exit():
     global Link, Boss1, Boss2, Circle
@@ -465,6 +580,10 @@ def update():
         for i in Arrow:
             i.Update()
 
+    if len(Boss2_Bullet) > 0:
+        for i in Boss2_Bullet:
+            i.Update()
+
 
 def draw():
     clear_canvas()
@@ -472,10 +591,16 @@ def draw():
     Background.Draw()
 
     Boss2.Draw()
-    #Boss2.DrawRectangle()
+    Boss2.DrawRectangle()
+
 
     for i in Arrow:
         i.Draw()
+        i.DrawRectangle()
+
+    for i in Boss2_Bullet:
+        i.Draw()
+        i.DrawRectangle()
 
     Circle.Draw()
     #Circle.DrawRectangle()
