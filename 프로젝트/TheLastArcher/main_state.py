@@ -250,8 +250,6 @@ class BOSS2:
         self.Rect[3] = self.y - 70
 
 
-
-
 class ARROW:
     global Link
     global Circle
@@ -590,6 +588,10 @@ class BACKGROUND:
 
     def Update(self):
         pass
+
+
+def DeleteBullets():
+    pass
 
 def enter():
     global Link,Boss1,Boss2,Circle,Background
