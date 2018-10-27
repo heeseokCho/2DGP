@@ -304,11 +304,11 @@ class CIRCLE:
 
     def __init__(self):
         self.image = load_image('Circle.png')
-        self.x,self.y = WINX//2+380,WINY//2
-        self.r = 380
-        self.dir =0
+        self.x,self.y = WINX//2+500,WINY//2
+        self.r = 300
+        self.dir =1
         self.angle_revolution = 0
-        self.speed = 0.2
+        self.speed = 0.005
         self.Rect =[[self.x - self.r + 320, self.y + self.r - 20 , self.x + self.r - 320, self.y - self.r + 20 ],
                     [self.x - self.r + 300, self.y + self.r - 25 , self.x + self.r - 300, self.y - self.r + 25 ],
                     [self.x - self.r + 275, self.y + self.r - 30 , self.x + self.r - 275, self.y - self.r + 30 ],
@@ -348,16 +348,16 @@ class CIRCLE:
             draw_rectangle(self.Rect[i][0],self.Rect[i][1],self.Rect[i][2],self.Rect[i][3])
 
     def Update(self):
-        if Timer == 50:
+        if Timer == 5000:
             if random.randint(0,1) == 0:
-                self.dir * -1
+                self.dir *= -1
 
         self.angle_revolution += self.dir * self.speed
         self.x = WINX//2 + self.r * math.cos(self.angle_revolution)
         self.y = WINY//2 + self.r * math.sin(self.angle_revolution)
 
-        if Timer % 100 == 0:
-            self.speed += 0.2
+        if Timer % 1000 == 0:
+            self.speed += 0.005
 
 
 
@@ -486,6 +486,9 @@ def update():
     global Timer
 
     Timer +=1
+
+    if Timer > 9999:
+        Timer = 0
 
     Link.Update()
     Boss1.Update()
