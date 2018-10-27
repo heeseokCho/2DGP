@@ -309,33 +309,32 @@ class CIRCLE:
         self.dir =1
         self.angle_revolution = 0
         self.speed = 0.005
-        self.Rect =[[self.x - self.r + 320, self.y + self.r - 20 , self.x + self.r - 320, self.y - self.r + 20 ],
-                    [self.x - self.r + 300, self.y + self.r - 25 , self.x + self.r - 300, self.y - self.r + 25 ],
-                    [self.x - self.r + 275, self.y + self.r - 30 , self.x + self.r - 275, self.y - self.r + 30 ],
-                    [self.x - self.r + 260, self.y + self.r - 35 , self.x + self.r - 260, self.y - self.r + 35 ],
-                    [self.x - self.r + 235, self.y + self.r - 40 , self.x + self.r - 235, self.y - self.r + 40 ],
-                    [self.x - self.r + 200, self.y + self.r - 55 , self.x + self.r - 200, self.y - self.r + 55 ],
-                    [self.x - self.r + 180, self.y + self.r - 65 , self.x + self.r - 180, self.y - self.r + 65 ],
-                    [self.x - self.r + 160, self.y + self.r - 80 , self.x + self.r - 160, self.y - self.r + 80 ],
-                    [self.x - self.r + 140, self.y + self.r - 100, self.x + self.r - 140, self.y - self.r + 100],
-                    [self.x - self.r + 130, self.y + self.r - 110, self.x + self.r - 130, self.y - self.r + 110],
-                    [self.x - self.r + 120, self.y + self.r - 120, self.x + self.r - 120, self.y - self.r + 120],
-                    [self.x - self.r + 110, self.y + self.r - 130, self.x + self.r - 110, self.y - self.r + 130],
-                    [self.x - self.r + 100, self.y + self.r - 140, self.x + self.r - 100, self.y - self.r + 140],
-                    [self.x - self.r + 90 , self.y + self.r - 150, self.x + self.r - 90 , self.y - self.r + 150],
-                    [self.x - self.r + 80 , self.y + self.r - 160, self.x + self.r - 80 , self.y - self.r + 160],
-                    [self.x - self.r + 75 , self.y + self.r - 170, self.x + self.r - 75 , self.y - self.r + 170],
-                    [self.x - self.r + 70 , self.y + self.r - 180, self.x + self.r - 70 , self.y - self.r + 180],
-                    [self.x - self.r + 65 , self.y + self.r - 190, self.x + self.r - 65 , self.y - self.r + 190],
-                    [self.x - self.r + 60 , self.y + self.r - 200, self.x + self.r - 60 , self.y - self.r + 200],
-                    [self.x - self.r + 55 , self.y + self.r - 210, self.x + self.r - 55 , self.y - self.r + 210],
-                    [self.x - self.r + 50 , self.y + self.r - 220, self.x + self.r - 50 , self.y - self.r + 220],
-                    [self.x - self.r + 45 , self.y + self.r - 235, self.x + self.r - 45 , self.y - self.r + 235],
-                    [self.x - self.r + 40 , self.y + self.r - 245, self.x + self.r - 40 , self.y - self.r + 245],
-                    [self.x - self.r + 30 , self.y + self.r - 260, self.x + self.r - 30 , self.y - self.r + 260],
-                    [self.x - self.r + 25 , self.y + self.r - 300, self.x + self.r - 25 , self.y - self.r + 300],
-                    [self.x - self.r + 20 , self.y + self.r - 320, self.x + self.r - 20 , self.y - self.r + 320]
-                    ]
+        self.Rect = [[self.x - self.r + 320 - 70, self.y + self.r - 20 + 70, self.x + self.r - 320 + 70,self.y - self.r + 20 - 70],
+                     [self.x - self.r + 300 - 70, self.y + self.r - 25 + 70, self.x + self.r - 300 + 70,self.y - self.r + 25 - 70],
+                     [self.x - self.r + 275 - 70, self.y + self.r - 30 + 70, self.x + self.r - 275 + 70,self.y - self.r + 30 - 70],
+                     [self.x - self.r + 260 - 70, self.y + self.r - 35 + 70, self.x + self.r - 260 + 70,self.y - self.r + 35 - 70],
+                     [self.x - self.r + 235 - 70, self.y + self.r - 40 + 70, self.x + self.r - 235 + 70,self.y - self.r + 40 - 70],
+                     [self.x - self.r + 200 - 70, self.y + self.r - 55 + 70, self.x + self.r - 200 + 70,self.y - self.r + 55 - 70],
+                     [self.x - self.r + 180 - 70, self.y + self.r - 65 + 70, self.x + self.r - 180 + 70,self.y - self.r + 65 - 70],
+                     [self.x - self.r + 160 - 70, self.y + self.r - 80 + 70, self.x + self.r - 160 + 70,self.y - self.r + 80 - 70],
+                     [self.x - self.r + 140 - 70, self.y + self.r - 100 + 70, self.x + self.r - 140 + 70,self.y - self.r + 100 - 70],
+                     [self.x - self.r + 130 - 70, self.y + self.r - 110 + 70, self.x + self.r - 130 + 70,self.y - self.r + 110 - 70],
+                     [self.x - self.r + 120 - 70, self.y + self.r - 120 + 70, self.x + self.r - 120 + 70,self.y - self.r + 120 - 70],
+                     [self.x - self.r + 110 - 70, self.y + self.r - 130 + 70, self.x + self.r - 110 + 70, self.y - self.r + 130 - 70],
+                     [self.x - self.r + 100 - 70, self.y + self.r - 140 + 70, self.x + self.r - 100 + 70,self.y - self.r + 140 - 70],
+                     [self.x - self.r + 90 - 70, self.y + self.r - 150 + 70, self.x + self.r - 90 + 70,self.y - self.r + 150 - 70],
+                     [self.x - self.r + 80 - 70, self.y + self.r - 160 + 70, self.x + self.r - 80 + 70,self.y - self.r + 160 - 70],
+                     [self.x - self.r + 75 - 70, self.y + self.r - 170 + 70, self.x + self.r - 75 + 70,self.y - self.r + 170 - 70],
+                     [self.x - self.r + 70 - 70, self.y + self.r - 180 + 70, self.x + self.r - 70 + 70,self.y - self.r + 180 - 70],
+                     [self.x - self.r + 65 - 70, self.y + self.r - 190 + 70, self.x + self.r - 65 + 70,self.y - self.r + 190 - 70],
+                     [self.x - self.r + 60 - 70, self.y + self.r - 200 + 70, self.x + self.r - 60 + 70,self.y - self.r + 200 - 70],
+                     [self.x - self.r + 55 - 70, self.y + self.r - 210 + 70, self.x + self.r - 55 + 70,self.y - self.r + 210 - 70],
+                     [self.x - self.r + 50 - 70, self.y + self.r - 220 + 70, self.x + self.r - 50 + 70,self.y - self.r + 220 - 70],
+                     [self.x - self.r + 45 - 70, self.y + self.r - 235 + 70, self.x + self.r - 45 + 70,self.y - self.r + 235 - 70],
+                     [self.x - self.r + 40 - 70, self.y + self.r - 245 + 70, self.x + self.r - 40 + 70,self.y - self.r + 245 - 70],
+                     [self.x - self.r + 30 - 70, self.y + self.r - 260 + 70, self.x + self.r - 30 + 70,self.y - self.r + 260 - 70],
+                     [self.x - self.r + 25 - 70, self.y + self.r - 300 + 70, self.x + self.r - 25 + 70,self.y - self.r + 300 - 70],
+                     [self.x - self.r + 20 - 70, self.y + self.r - 320 + 70, self.x + self.r - 20 + 70,self.y - self.r + 320 - 70]]
         self.RectNum = len(self.Rect)
         self.timer = 0
 
@@ -359,13 +358,33 @@ class CIRCLE:
         if Timer % 1000 == 0:
             self.speed += 0.005
 
+        self.Rect = [[self.x - self.r +320-70, self.y + self.r - 20 +70, self.x + self.r - 320+70, self.y - self.r + 20 -70],
+                    [self.x - self.r + 300-70, self.y + self.r - 25 +70, self.x + self.r - 300+70, self.y - self.r + 25 -70],
+                    [self.x - self.r + 275-70, self.y + self.r - 30 +70, self.x + self.r - 275+70, self.y - self.r + 30 -70],
+                    [self.x - self.r + 260-70, self.y + self.r - 35 +70, self.x + self.r - 260+70, self.y - self.r + 35 -70],
+                    [self.x - self.r + 235-70, self.y + self.r - 40 +70, self.x + self.r - 235+70, self.y - self.r + 40 -70],
+                    [self.x - self.r + 200-70, self.y + self.r - 55 +70, self.x + self.r - 200+70, self.y - self.r + 55 -70],
+                    [self.x - self.r + 180-70, self.y + self.r - 65 +70, self.x + self.r - 180+70, self.y - self.r + 65 -70],
+                    [self.x - self.r + 160-70, self.y + self.r - 80 +70, self.x + self.r - 160+70, self.y - self.r + 80 -70],
+                    [self.x - self.r + 140-70, self.y + self.r - 100+70, self.x + self.r - 140+70, self.y - self.r + 100-70],
+                    [self.x - self.r + 130-70, self.y + self.r - 110+70, self.x + self.r - 130+70, self.y - self.r + 110-70],
+                    [self.x - self.r + 120-70, self.y + self.r - 120+70, self.x + self.r - 120+70, self.y - self.r + 120-70],
+                    [self.x - self.r + 110-70, self.y + self.r - 130+70, self.x + self.r - 110+70, self.y - self.r + 130-70],
+                    [self.x - self.r + 100-70, self.y + self.r - 140+70, self.x + self.r - 100+70, self.y - self.r + 140-70],
+                    [self.x - self.r + 90 -70, self.y + self.r - 150+70, self.x + self.r - 90 +70, self.y - self.r + 150-70],
+                    [self.x - self.r + 80 -70, self.y + self.r - 160+70, self.x + self.r - 80 +70, self.y - self.r + 160-70],
+                    [self.x - self.r + 75 -70, self.y + self.r - 170+70, self.x + self.r - 75 +70, self.y - self.r + 170-70],
+                    [self.x - self.r + 70 -70, self.y + self.r - 180+70, self.x + self.r - 70 +70, self.y - self.r + 180-70],
+                    [self.x - self.r + 65 -70, self.y + self.r - 190+70, self.x + self.r - 65 +70, self.y - self.r + 190-70],
+                    [self.x - self.r + 60 -70, self.y + self.r - 200+70, self.x + self.r - 60 +70, self.y - self.r + 200-70],
+                    [self.x - self.r + 55 -70, self.y + self.r - 210+70, self.x + self.r - 55 +70, self.y - self.r + 210-70],
+                    [self.x - self.r + 50 -70, self.y + self.r - 220+70, self.x + self.r - 50 +70, self.y - self.r + 220-70],
+                    [self.x - self.r + 45 -70, self.y + self.r - 235+70, self.x + self.r - 45 +70, self.y - self.r + 235-70],
+                    [self.x - self.r + 40 -70, self.y + self.r - 245+70, self.x + self.r - 40 +70, self.y - self.r + 245-70],
+                    [self.x - self.r + 30 -70, self.y + self.r - 260+70, self.x + self.r - 30 +70, self.y - self.r + 260-70],
+                    [self.x - self.r + 25 -70, self.y + self.r - 300+70, self.x + self.r - 25 +70, self.y - self.r + 300-70],
+                    [self.x - self.r + 20 -70, self.y + self.r - 320+70, self.x + self.r - 20 +70, self.y - self.r + 320-70] ]
 
-
-        #for i in range(self.RectNum):
-        #    self.Rect[i][0] += self.DirX * self.Speed - self.Zoom*self.Speed/10
-        #    self.Rect[i][2] += self.DirX * self.Speed + self.Zoom*self.Speed/10
-        #    self.Rect[i][1] += self.DirY * self.Speed + self.Zoom*self.Speed/10
-        #    self.Rect[i][3] += self.DirY * self.Speed - self.Zoom*self.Speed/10
 
 
 class BACKGROUND:
@@ -514,7 +533,7 @@ def draw():
 
 
     Circle.Draw()
-    #Circle.DrawRectangle()
+    Circle.DrawRectangle()
 
     Link.Draw()
     #Link.DrawRectangle()
