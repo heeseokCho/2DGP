@@ -299,30 +299,50 @@ class BOSS1_BULLET2:
     def __init__(self):
         self.x,self.y = Boss1.x,Boss1.y
         self.dir = BOSS1_BULLET2.Direction
+        self.speed = 1
 
         if BOSS1_BULLET2.image == None:
             BOSS1_BULLET2.image = load_image('Boss1Bullet2.png')
 
     def Draw(self):
         if self.dir == 0:
-            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE*2,SIZE,SIZE,WINX//2,WINY//2)
+            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
         elif self.dir == 1:
-            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE*1,SIZE,SIZE,WINX//2,WINY//2)
+            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE//2*1,SIZE//2,SIZE//2,self.x,self.y)
         elif self.dir == 2:
-            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE*0,SIZE,SIZE,WINX//2,WINY//2)
+            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
         elif self.dir == 3:
-            BOSS1_BULLET2.image.clip_draw(SIZE*1,SIZE*0,SIZE,SIZE,WINX//2,WINY//2)
+            BOSS1_BULLET2.image.clip_draw(SIZE//2*1,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
         elif self.dir == 4:
-            BOSS1_BULLET2.image.clip_draw(SIZE*2,SIZE*0,SIZE,SIZE,WINX//2,WINY//2)
+            BOSS1_BULLET2.image.clip_draw(SIZE//2*2,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
         elif self.dir == 5:
-            BOSS1_BULLET2.image.clip_draw(SIZE*2,SIZE*1,SIZE,SIZE,WINX//2,WINY//2)
+            BOSS1_BULLET2.image.clip_draw(SIZE//2*2,SIZE//2*1,SIZE//2,SIZE//2,self.x,self.y)
         elif self.dir == 6:
-            BOSS1_BULLET2.image.clip_draw(SIZE*2,SIZE*2,SIZE,SIZE,WINX//2,WINY//2)
+            BOSS1_BULLET2.image.clip_draw(SIZE//2*2,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
         elif self.dir == 7:
-            BOSS1_BULLET2.image.clip_draw(SIZE*1,SIZE*2,SIZE,SIZE,WINX//2,WINY//2)
+            BOSS1_BULLET2.image.clip_draw(SIZE//2*1,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
 
     def Update(self):
-        pass
+        if self.dir == 0:
+            self.x -= self.speed
+            self.y += self.speed
+        elif self.dir == 1:
+            self.x -= self.speed
+        elif self.dir == 2:
+            self.x -= self.speed
+            self.y -= self.speed
+        elif self.dir == 3:
+            self.y -= self.speed
+        elif self.dir == 4:
+            self.x += self.speed
+            self.y -= self.speed
+        elif self.dir == 5:
+            self.x += self.speed
+        elif self.dir == 6:
+            self.x += self.speed
+            self.y += self.speed
+        elif self.dir == 7:
+            self.y += self.speed
 
 class BOSS1:
     global Boss1_Bullet1
@@ -333,6 +353,7 @@ class BOSS1:
         self.frame = 0
         self.x,self.y = WINX//2, WINY//2
         self.dirX,self.dirY = 0,0
+        self.timer = 0
 
 
     def SetState(self,_state):
@@ -343,11 +364,13 @@ class BOSS1:
 
 
     def Update(self):
+        self.timer+=1
         self.frame = (self.frame + 1) % (5*10)
 
         if self.frame == 4:
             Boss1_Bullet1.append(BOSS1_BULLET1())
 
+        if self.timer%40 ==0:
             for i in range(8):
                 Boss1_Bullet2.append(BOSS1_BULLET2())
                 BOSS1_BULLET2.Direction = (BOSS1_BULLET2.Direction+1)%8
@@ -575,6 +598,8 @@ def update():
 
     for i in Arrow:
         i.Update()
+    for i in Boss1_Bullet2:
+        i.Update()
 
    # for i in Boss1_Bullet1:
       #  i.Update()
@@ -599,7 +624,7 @@ def draw():
             i.DrawRectangle()
 
 
-    Circle.Draw()
+    #Circle.Draw()
     #Circle.DrawRectangle()
 
     Link.Draw()
