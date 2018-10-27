@@ -88,7 +88,7 @@ class ENEMY:
     global Circle
     image = None
     def __init__(self):
-        self.x, self.y = WINX // 2, WINY // 2 + Circle.r / 2
+        self.x, self.y = 0,0
         self.dir = 0
         self.dirX,self.dirY = 0,0
 
@@ -189,17 +189,18 @@ class BOSS2:
                 if self.timer % 40 == 0:
 
                     for i in range(8):
-                        Boss2_Enemy.append(ENEMY())
-                        Boss2_Enemy[i].x = self.x
-                        Boss2_Enemy[i].y = self.y
-                        Boss2_Enemy[0].dir = LEFTUP
-                        Boss2_Enemy[1].dir = UP
-                        Boss2_Enemy[2].dir = RIGHTUP
-                        Boss2_Enemy[3].dir = RIGHT
-                        Boss2_Enemy[4].dir = RIGHTDOWN
-                        Boss2_Enemy[5].dir = DOWN
-                        Boss2_Enemy[6].dir = LEFTDOWN
-                        Boss2_Enemy[7].dir = LEFT
+                        pass
+               #         Boss2_Enemy.append(ENEMY())
+               #         Boss2_Enemy[i].x = self.x
+               #         Boss2_Enemy[i].y = self.y
+               #     Boss2_Enemy[0].dir = LEFTUP
+               #     Boss2_Enemy[1].dir = UP
+               #     Boss2_Enemy[2].dir = RIGHTUP
+               #     Boss2_Enemy[3].dir = RIGHT
+               #     Boss2_Enemy[4].dir = RIGHTDOWN
+               #     Boss2_Enemy[5].dir = DOWN
+               #     Boss2_Enemy[6].dir = LEFTDOWN
+               #     Boss2_Enemy[7].dir = LEFT
 
 
                 if self.timer > 2000:
