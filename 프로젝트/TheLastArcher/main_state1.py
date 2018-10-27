@@ -17,7 +17,7 @@ UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 #8방
 LEFTUP,RIGHTUP,RIGHTDOWN,LEFTDOWN = 11,22,33,44
 
-#상태 (상태이름, 프레임개수,현재 프레임)
+#상태 (상태이름, 프레임개수)
 STANDING,WALKING,SHOOTING,AIMING,AIMWALKING,DIEING,AIMSTANDING,WINNING =\
 [0,1],   [1,10], [2,6],   [3,3], [4,8],     [5,9], [6,1],       [7,1]
 
@@ -25,6 +25,7 @@ Background = None
 Link = None
 Circle = None
 Boss1 = None
+Boss1_Bullet = []
 Arrow = []
 Enemy = []
 Timer = 0
@@ -275,6 +276,7 @@ class LINK:
         self.look = RIGHT
 
 class BOSS1:
+    global Boss1_Bullet
     def __init__(self):
         self.image = load_image('Boss1.png')
         self.frame = 0
@@ -286,14 +288,21 @@ class BOSS1:
         self.state = _state
 
     def Draw(self):
-        self.image.clip_draw((int(self.frame / 4)) * SIZE, 0, SIZE*3, SIZE*3, self.x, self.y)
+        self.image.clip_draw((int(self.frame / 10)) * SIZE*3, 0, SIZE*3, SIZE*3, self.x, self.y)
 
 
     def Update(self):
-        self.frame = (self.frame + 1) % 4
+        self.frame = (self.frame + 1) % (5*10)
+
+        if self.frame == 4:
+            Boss1_Bullet.append(BOSS1_BULLET)
+
 
 class BOSS1_BULLET:
-    pass
+    image = None
+    def __init__(self):
+        self.x, self. y = 0
+
 
 
 class BULLET:
@@ -533,7 +542,7 @@ def draw():
 
 
     Circle.Draw()
-    Circle.DrawRectangle()
+    #Circle.DrawRectangle()
 
     Link.Draw()
     #Link.DrawRectangle()

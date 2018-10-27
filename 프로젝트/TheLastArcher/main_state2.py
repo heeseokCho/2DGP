@@ -136,7 +136,7 @@ class BOSS2:
     global Circle
     global Link
     global Boss2_Bullet
-    global Boss2_Revolution_Bollet
+    global Boss2_Revolution_Bullet
     global Boss2_Enemy
 
     def __init__(self):
