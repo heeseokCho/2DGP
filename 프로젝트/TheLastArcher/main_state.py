@@ -205,14 +205,22 @@ class BOSS2:
             Boss2_Bullet[-1].endY = Link.y + 500 * math.sin(
                 math.atan2(Link.y - self.y, Link.x - self.x))
 
+            Boss2_Bullet.append(BOSS2_BULLET())
+            Boss2_Bullet[-1].startX = self.x
+            Boss2_Bullet[-1].startY = self.y
+            Boss2_Bullet[-1].endX = Link.x + 500 * math.sin(
+                math.atan2(Link.y - self.y, Link.x - self.x))
+            Boss2_Bullet[-1].endY = Link.y + 500 * math.cos(
+                math.atan2(Link.y - self.y, Link.x - self.x))
+
             if self.timer % 20 == 0:
 
                 if self.timer % 40 == 0:
 
                     for i in range(8):
-
-                        Boss2_Enemy.append(ENEMY())
-                        Boss2_Enemy[i].x = self.x
+                        pass
+                        #Boss2_Enemy.append(ENEMY())
+                        #Boss2_Enemy[i].x = self.x
                         #Boss2_Enemy[i].y = self.y
                         #Boss2_Enemy[0].dir = LEFTUP
                    # Boss2_Enemy[1].dir = UP
@@ -222,6 +230,7 @@ class BOSS2:
                    # Boss2_Enemy[5].dir = DOWN
                    # Boss2_Enemy[6].dir = LEFTDOWN
                    # Boss2_Enemy[7].dir = LEFT
+
 
                 if self.timer > 2000:
                     self.timer = 1
@@ -574,7 +583,7 @@ class CIRCLE:
 
 class BACKGROUND:
     def __init__(self):
-        self.image = load_image('Background2.png')
+        self.image = load_image('Background.png')
 
     def Draw(self):
         self.image.draw(WINX // 2, WINY // 2, WINX, WINY)
