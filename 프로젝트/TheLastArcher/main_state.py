@@ -133,7 +133,6 @@ class ENEMY:
         self.x += self.dirX * self.speed
         self.y += self.dirY * self.speed
 
-
 class BOSS2:
     global Circle
     global Link
@@ -219,7 +218,6 @@ class BOSS2:
         self.Rect[1] = self.y + 50
         self.Rect[2] = self.x + 60
         self.Rect[3] = self.y - 70
-
 
 class ARROW:
     global Link
@@ -419,9 +417,7 @@ class LINK:
 
 class BOSS1:
     def __init__(self):
-        self.image = load_image('Standing.png')
-        self.state = STANDING
-        self.look = DOWN
+        self.image = load_image('Boss1.png')
         self.frame = 0
         self.x,self.y = WINX//2, WINY//2
         self.dirX,self.dirY = 0,0
@@ -431,14 +427,11 @@ class BOSS1:
         self.state = _state
 
     def Draw(self):
-        self.image.clip_draw((int(self.frame / 4)) * SIZE, self.look, SIZE, SIZE, self.x, self.y)
+        self.image.clip_draw((int(self.frame / 4)) * SIZE, 0, SIZE*3, SIZE*3, self.x, self.y)
 
 
     def Update(self):
-        self.frame = (self.frame + 1) % self.state[1]
-
-        self.x += self.dirX * 8
-        self.y += self.dirY * 8
+        self.frame = (self.frame + 1) % 4
 
 class BOSS1_BULLET:
     pass
@@ -695,6 +688,7 @@ def update():
 
     Link.Update()
     Boss2.Update()
+    Boss1.Update()
     Circle.Update()
     DeleteBullets()
 
@@ -718,22 +712,23 @@ def draw():
 
     Background.Draw()
 
-    Boss2.Draw()
-    Boss2.DrawRectangle()
+    #Boss2.Draw()
+   # Boss2.DrawRectangle()
+    Boss1.Draw()
 
     if(len(Arrow) > 0):
         for i in Arrow:
             i.Draw()
             i.DrawRectangle()
 
-    if(len(Boss2_Bullet) > 0):
-        for i in Boss2_Bullet:
-            i.Draw()
-            i.DrawRectangle()
-    if(len(Boss2_Enemy) > 0):
-        for i in Boss2_Enemy:
-            i.Draw()
-            i.DrawRectangle()
+    #if(len(Boss2_Bullet) > 0):
+    #    for i in Boss2_Bullet:
+    #        i.Draw()
+    #        i.DrawRectangle()
+    #if(len(Boss2_Enemy) > 0):
+    #    for i in Boss2_Enemy:
+    #        i.Draw()
+    #        i.DrawRectangle()
 
     Circle.Draw()
     #Circle.DrawRectangle()
