@@ -304,11 +304,11 @@ class CIRCLE:
 
     def __init__(self):
         self.image = load_image('Circle.png')
-        self.x,self.y = WINX//2,WINY//2
+        self.x,self.y = WINX//2+380,WINY//2
         self.r = 380
-        self.Zoom = 0
-        self.DirX,self.DirY = 0,0
-        self.Speed = 0.2
+        self.dir =0
+        self.angle_revolution = 0
+        self.speed = 0.2
         self.Rect =[[self.x - self.r + 320, self.y + self.r - 20 , self.x + self.r - 320, self.y - self.r + 20 ],
                     [self.x - self.r + 300, self.y + self.r - 25 , self.x + self.r - 300, self.y - self.r + 25 ],
                     [self.x - self.r + 275, self.y + self.r - 30 , self.x + self.r - 275, self.y - self.r + 30 ],
@@ -337,6 +337,7 @@ class CIRCLE:
                     [self.x - self.r + 20 , self.y + self.r - 320, self.x + self.r - 20 , self.y - self.r + 320]
                     ]
         self.RectNum = len(self.Rect)
+        self.timer = 0
 
 
     def Draw(self):
@@ -348,46 +349,23 @@ class CIRCLE:
 
     def Update(self):
         if Timer == 50:
-            if random.randint(1,2) % 2 == 1:
-                self.DirX = 1
-            else:
-                self.DirX = -1
+            if random.randint(0,1) == 0:
+                self.dir * -1
 
-            if random.randint(1,2) % 2 == 1:
-                self.DirY = 1
-            else:
-                self.DirY = -1
-
-            self.Zoom = -1
+        self.angle_revolution += self.dir * self.speed
+        self.x = WINX//2 + self.r * math.cos(self.angle_revolution)
+        self.y = WINY//2 + self.r * math.sin(self.angle_revolution)
 
         if Timer % 100 == 0:
-            self.Speed += 0.2
-
-        self.x += self.DirX * self.Speed
-        self.y += self.DirY * self.Speed
-        self.r += self.Zoom * self.Speed
-
-        if self.r < 100:
-            self.Zoom = 1
-        elif self.r > 400:
-            self.Zoom = -1
-
-        for i in range(self.RectNum):
-            self.Rect[i][0] += self.DirX * self.Speed - self.Zoom*self.Speed/10
-            self.Rect[i][2] += self.DirX * self.Speed + self.Zoom*self.Speed/10
-            self.Rect[i][1] += self.DirY * self.Speed + self.Zoom*self.Speed/10
-            self.Rect[i][3] += self.DirY * self.Speed - self.Zoom*self.Speed/10
+            self.speed += 0.2
 
 
 
-        if(self.x > WINX-self.r):
-            self.DirX = -1
-        elif(self.x < self.r):
-            self.DirX = 1
-        if (self.y > WINY-200 - self.r):
-            self.DirY = -1
-        elif (self.y < self.r):
-            self.DirY = 1
+        #for i in range(self.RectNum):
+        #    self.Rect[i][0] += self.DirX * self.Speed - self.Zoom*self.Speed/10
+        #    self.Rect[i][2] += self.DirX * self.Speed + self.Zoom*self.Speed/10
+        #    self.Rect[i][1] += self.DirY * self.Speed + self.Zoom*self.Speed/10
+        #    self.Rect[i][3] += self.DirY * self.Speed - self.Zoom*self.Speed/10
 
 
 class BACKGROUND:
@@ -405,7 +383,7 @@ def DeleteBullets():
     #링크 화살
 
     if(len(Arrow) > 0):
-        DeleteArrow = []
+        DeleteArrow = []#
         for i in Arrow:
             if i.x > Circle.x + 400:
                 DeleteArrow.append(i)
@@ -510,7 +488,6 @@ def update():
     Timer +=1
 
     Link.Update()
-    Boss2.Update()
     Boss1.Update()
     Circle.Update()
     DeleteBullets()
