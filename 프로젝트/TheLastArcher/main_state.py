@@ -72,19 +72,6 @@ class BOSS2_BULLET:
         self.Rect[2] = self.x+4
         self.Rect[3] = self.y-4
 
-        DeleteBullet = []
-        for i in Boss2_Bullet:
-            if i.x > Circle.x + 400:
-                DeleteBullet.append(i)
-            elif i.x < Circle.x - 400:
-                DeleteBullet.append(i)
-            if i.y > Circle.y + 400:
-                DeleteBullet.append(i)
-            elif i.y < Circle.y - 400:
-                DeleteBullet.append(i)
-
-        for i in DeleteBullet:
-            Boss2_Bullet.remove(i)
 
 
 
@@ -284,19 +271,7 @@ class ARROW:
         elif self.Dir == RIGHT:
             self.Rect = [self.x + 8, self.y + 4, self.x + 16, self.y - 4]
 
-        DeleteArrow = []
-        for i in Arrow:
-            if i.x > Circle.x + 400:
-                DeleteArrow.append(i)
-            elif i.x < Circle.x - 400:
-                DeleteArrow.append(i)
-            if i.y > Circle.y + 400:
-                DeleteArrow.append(i)
-            elif i.y < Circle.y - 400:
-                DeleteArrow.append(i)
 
-        for i in DeleteArrow:
-            Arrow.remove(i)
 
 
 
@@ -591,7 +566,33 @@ class BACKGROUND:
 
 
 def DeleteBullets():
-    pass
+    DeleteBullet = []
+    for i in Boss2_Bullet:
+        if i.x > Circle.x + 400:
+            DeleteBullet.append(i)
+        elif i.x < Circle.x - 400:
+            DeleteBullet.append(i)
+        if i.y > Circle.y + 400:
+            DeleteBullet.append(i)
+        elif i.y < Circle.y - 400:
+            DeleteBullet.append(i)
+
+    for i in DeleteBullet:
+        Boss2_Bullet.remove(i)
+
+    DeleteArrow = []
+    for i in Arrow:
+        if i.x > Circle.x + 400:
+            DeleteArrow.append(i)
+        elif i.x < Circle.x - 400:
+            DeleteArrow.append(i)
+        if i.y > Circle.y + 400:
+            DeleteArrow.append(i)
+        elif i.y < Circle.y - 400:
+            DeleteArrow.append(i)
+
+    for i in DeleteArrow:
+        Arrow.remove(i)
 
 def enter():
     global Link,Boss1,Boss2,Circle,Background
@@ -691,6 +692,7 @@ def update():
     Link.Update()
     Boss2.Update()
     Circle.Update()
+    DeleteBullets()
 
     if len(Arrow) > 0:
         for i in Arrow:
@@ -703,6 +705,8 @@ def update():
     if len(Boss2_Enemy) > 0:
         for i in Boss2_Enemy:
             i.Update()
+
+
 
 
 def draw():
