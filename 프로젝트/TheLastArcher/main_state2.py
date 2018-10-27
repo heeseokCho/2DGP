@@ -625,6 +625,8 @@ def handle_events():
             elif event.key == SDLK_ESCAPE:
                 game_framework.change_state(title_state)
 
+
+
         #키를 땠을 때
         if event.type == SDL_KEYUP:
             if event.key == SDLK_d:
