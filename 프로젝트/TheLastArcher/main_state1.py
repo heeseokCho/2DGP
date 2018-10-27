@@ -308,6 +308,18 @@ class BOSS1_BULLET2:
             BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE*2,SIZE,SIZE,WINX//2,WINY//2)
         elif self.dir == 1:
             BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE*1,SIZE,SIZE,WINX//2,WINY//2)
+        elif self.dir == 2:
+            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE*0,SIZE,SIZE,WINX//2,WINY//2)
+        elif self.dir == 3:
+            BOSS1_BULLET2.image.clip_draw(SIZE*1,SIZE*0,SIZE,SIZE,WINX//2,WINY//2)
+        elif self.dir == 4:
+            BOSS1_BULLET2.image.clip_draw(SIZE*2,SIZE*0,SIZE,SIZE,WINX//2,WINY//2)
+        elif self.dir == 5:
+            BOSS1_BULLET2.image.clip_draw(SIZE*2,SIZE*1,SIZE,SIZE,WINX//2,WINY//2)
+        elif self.dir == 6:
+            BOSS1_BULLET2.image.clip_draw(SIZE*2,SIZE*2,SIZE,SIZE,WINX//2,WINY//2)
+        elif self.dir == 7:
+            BOSS1_BULLET2.image.clip_draw(SIZE*1,SIZE*2,SIZE,SIZE,WINX//2,WINY//2)
 
     def Update(self):
         pass
