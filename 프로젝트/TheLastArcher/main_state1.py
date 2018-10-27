@@ -26,6 +26,7 @@ Link = None
 Circle = None
 Boss1 = None
 Boss1_Bullet1 = []
+Boss1_Bullet2 = []
 Arrow = []
 Enemy = []
 Timer = 0
@@ -271,24 +272,36 @@ class LINK:
         self.dirX += 1
         self.look = RIGHT
 
-class BOSS1_BULLET:
+class BOSS1_BULLET1:
     image = None
     def __init__(self):
         self.x = random.randint(100,WINX-100)
         self.y = random.randint(100,WINY-300)
         self.Rect = [self.x-SIZE/4,self.y+SIZE/4,self.x+SIZE/4,self.y-SIZE/4]
 
-        if BOSS1_BULLET.image == None:
-            BOSS1_BULLET.image = load_image('Boss1Bullet1.png')
+        if BOSS1_BULLET1.image == None:
+            BOSS1_BULLET1.image = load_image('Boss1Bullet1.png')
 
     def Draw(self):
-        BOSS1_BULLET.image.draw(self.x,self.y,SIZE,SIZE)
+        BOSS1_BULLET1.image.draw(self.x,self.y,SIZE,SIZE)
 
     def DrawRectangle(self):
         draw_rectangle(self.Rect[0],self.Rect[1],self.Rect[2],self.Rect[3])
 
     def Update(self):
             pass
+
+class BOSS1_BULLET2:
+    global Boss1
+    
+    def __init__(self):
+        self.x,self.y = Boss1.x,Boss1.y
+
+    def Draw(self):
+        pass
+
+    def Update(self):
+        pass
 
 class BOSS1:
     global Boss1_Bullet1
@@ -310,7 +323,9 @@ class BOSS1:
         self.frame = (self.frame + 1) % (5*10)
 
         if self.frame == 4:
-            Boss1_Bullet1.append(BOSS1_BULLET())
+            Boss1_Bullet1.append(BOSS1_BULLET1())
+            Boss1_Bullet2.append(BOSS1_BULLET2())
+
 
 
 
