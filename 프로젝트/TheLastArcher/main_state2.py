@@ -14,9 +14,6 @@ SIZE = 64
 #방향별 사진
 UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 
-#8방
-LEFTUP,RIGHTUP,RIGHTDOWN,LEFTDOWN = 11,22,33,44
-
 #상태 (상태이름, 프레임개수,현재 프레임)
 STANDING,WALKING,SHOOTING,AIMING,AIMWALKING,DIEING,AIMSTANDING,WINNING =\
 [0,1],   [1,10], [2,6],   [3,3], [4,8],     [5,9], [6,1],       [7,1]
@@ -26,9 +23,9 @@ Link = None
 Circle = None
 Boss2 = None
 Arrow = []
-Boss2_Bullet = []
+Boss2_Bullet1 = []
 Enemy = []
-Boss2_Enemy = []
+Boss2_Bullet2 = []
 Timer = 0
 
 
@@ -86,56 +83,66 @@ class BOSS2_BULLET:
 class ENEMY:
     global Circle
     image = None
+    Direction = 0
     def __init__(self):
         self.x, self.y = 0,0
-        self.dir = 0
-        self.dirX,self.dirY = 0,0
+        self.dir = ENEMY.Direction
 
-        self.Rect = [0,0,0,0]
+        self.Rect = [self.x-SIZE//2,self.y+SIZE//2,self.x+SIZE//2,self.y-SIZE//2]
         self.speed = 5
 
         if ENEMY.image == None:
             ENEMY.image = load_image('Enemy.png')
 
-        if self.dir == LEFTUP or self.dir == UP or self.dir == RIGHTUP:
-            self.dirY = 1
-        elif self.dir == LEFTDOWN or self.dir == DOWN or self.dir == RIGHTDOWN:
-            self.dirY = -1
-        if self.dir == LEFTUP or self.dir == LEFT or self.dir == LEFTDOWN:
-            self.dirX= -1
-        elif self.dir == RIGHTUP or self.dir == RIGHT or self.dir == RIGHTDOWN:
-            self.dirX = 1
-
     def Draw(self):
-        if self.dir == LEFTUP:
-            ENEMY.image.clip_draw(0,64, SIZE/2, SIZE/2, self.x, self.y)
-        elif self.dir == UP:
-            ENEMY.image.clip_draw(32,64, SIZE/2, SIZE/2, self.x, self.y)
-        elif self.dir == RIGHTUP:
-            ENEMY.image.clip_draw(64,64, SIZE/2, SIZE/2, self.x, self.y)
-        elif self.dir == RIGHT:
-            ENEMY.image.clip_draw(64,32, SIZE/2, SIZE/2, self.x, self.y)
-        elif self.dir == RIGHTDOWN:
-            ENEMY.image.clip_draw(64,0, SIZE/2, SIZE/2, self.x, self.y)
-        elif self.dir == DOWN:
-            ENEMY.image.clip_draw(32,0, SIZE/2, SIZE/2, self.x, self.y)
-        elif self.dir == LEFTDOWN:
-            ENEMY.image.clip_draw(0,0, SIZE/2, SIZE/2, self.x, self.y)
-        elif self.dir == LEFT:
-            ENEMY.image.clip_draw(0,32, SIZE/2, SIZE/2, self.x, self.y)
+        if self.dir == 0:
+            ENEMY.image.clip_draw(SIZE * 0, SIZE // 2 * 2, SIZE // 2, SIZE // 2, self.x, self.y)
+        elif self.dir == 1:
+            ENEMY.image.clip_draw(SIZE * 0, SIZE // 2 * 1, SIZE // 2, SIZE // 2, self.x, self.y)
+        elif self.dir == 2:
+            ENEMY.image.clip_draw(SIZE * 0, SIZE // 2 * 0, SIZE // 2, SIZE // 2, self.x, self.y)
+        elif self.dir == 3:
+            ENEMY.image.clip_draw(SIZE // 2 * 1, SIZE // 2 * 0, SIZE // 2, SIZE // 2, self.x, self.y)
+        elif self.dir == 4:
+            ENEMY.image.clip_draw(SIZE // 2 * 2, SIZE // 2 * 0, SIZE // 2, SIZE // 2, self.x, self.y)
+        elif self.dir == 5:
+            ENEMY.image.clip_draw(SIZE // 2 * 2, SIZE // 2 * 1, SIZE // 2, SIZE // 2, self.x, self.y)
+        elif self.dir == 6:
+            ENEMY.image.clip_draw(SIZE // 2 * 2, SIZE // 2 * 2, SIZE // 2, SIZE // 2, self.x, self.y)
+        elif self.dir == 7:
+            ENEMY.image.clip_draw(SIZE // 2 * 1, SIZE // 2 * 2, SIZE // 2, SIZE // 2, self.x, self.y)
 
     def DrawRectangle(self):
         draw_rectangle(self.Rect[0],self.Rect[1],self.Rect[2],self.Rect[3])
 
     def Update(self):
+        if self.dir == 0:
+            self.x -= self.speed
+            self.y += self.speed
+        elif self.dir == 1:
+            self.x -= self.speed
+        elif self.dir == 2:
+            self.x -= self.speed
+            self.y -= self.speed
+        elif self.dir == 3:
+            self.y -= self.speed
+        elif self.dir == 4:
+            self.x += self.speed
+            self.y -= self.speed
+        elif self.dir == 5:
+            self.x += self.speed
+        elif self.dir == 6:
+            self.x += self.speed
+            self.y += self.speed
+        elif self.dir == 7:
+            self.y += self.speed
 
-        self.x += self.dirX * self.speed
-        self.y += self.dirY * self.speed
+        self.Rect = [self.x - SIZE // 8, self.y + SIZE // 8, self.x + SIZE // 8, self.y - SIZE // 8]
 
 class BOSS2:
     global Circle
     global Link
-    global Boss2_Bullet
+    global Boss2_Bullet1
     global Boss2_Revolution_Bullet
     global Boss2_Enemy
 
@@ -166,21 +173,21 @@ class BOSS2:
         self.timer += 1
 
         if self.timer % 10 == 0:
-            Boss2_Bullet.append(BOSS2_BULLET())
-            Boss2_Bullet.append(BOSS2_BULLET())
+            Boss2_Bullet1.append(BOSS2_BULLET())
+            Boss2_Bullet1.append(BOSS2_BULLET())
 
-            Boss2_Bullet[-1].startX = self.x
-            Boss2_Bullet[-1].startY = self.y
-            Boss2_Bullet[-1].endX = Link.x + 500 * math.cos(
+            Boss2_Bullet1[-1].startX = self.x
+            Boss2_Bullet1[-1].startY = self.y
+            Boss2_Bullet1[-1].endX = Link.x + 500 * math.cos(
                 math.atan2(Link.y - self.y, Link.x - self.x))
-            Boss2_Bullet[-1].endY = Link.y + 500 * math.sin(
+            Boss2_Bullet1[-1].endY = Link.y + 500 * math.sin(
                 math.atan2(Link.y - self.y, Link.x - self.x))
 
-            Boss2_Bullet[-2].startX = self.x
-            Boss2_Bullet[-2].startY = self.y
-            Boss2_Bullet[-2].endX = Link.x + 500 * math.cos(
+            Boss2_Bullet1[-2].startX = self.x
+            Boss2_Bullet1[-2].startY = self.y
+            Boss2_Bullet1[-2].endX = Link.x + 500 * math.cos(
                 -math.atan2(Link.y - self.y, Link.x - self.x))
-            Boss2_Bullet[-2].endY = Link.y + 500 * math.sin(
+            Boss2_Bullet1[-2].endY = Link.y + 500 * math.sin(
                 -math.atan2(Link.y - self.y, Link.x - self.x))
             if self.timer % 20 == 0:
 
@@ -519,9 +526,9 @@ class BACKGROUND:
 
 def DeleteBullets():
     #보스2 탄
-    if(len(Boss2_Bullet) > 0):
+    if(len(Boss2_Bullet1) > 0):
         DeleteBullet = []
-        for i in Boss2_Bullet:
+        for i in Boss2_Bullet1:
             if i.x > Circle.x + 400:
                 DeleteBullet.append(i)
             elif i.x < Circle.x - 400:
@@ -532,8 +539,8 @@ def DeleteBullets():
                 DeleteBullet.append(i)
 
         for i in DeleteBullet:
-            if i in Boss2_Bullet:
-                Boss2_Bullet.remove(i)
+            if i in Boss2_Bullet1:
+                Boss2_Bullet1.remove(i)
 
     #링크 화살
 
@@ -669,8 +676,8 @@ def update():
         for i in Arrow:
             i.Update()
 
-    if len(Boss2_Bullet) > 0:
-        for i in Boss2_Bullet:
+    if len(Boss2_Bullet1) > 0:
+        for i in Boss2_Bullet1:
             i.Update()
 
     if len(Boss2_Enemy) > 0:
@@ -693,8 +700,8 @@ def draw():
             i.Draw()
             i.DrawRectangle()
 
-    if(len(Boss2_Bullet) > 0):
-        for i in Boss2_Bullet:
+    if(len(Boss2_Bullet1) > 0):
+        for i in Boss2_Bullet1:
             i.Draw()
             i.DrawRectangle()
     if(len(Boss2_Enemy) > 0):
