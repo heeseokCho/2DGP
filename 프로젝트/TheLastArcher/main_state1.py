@@ -278,6 +278,7 @@ class BOSS1_BULLET1:
         self.x = random.randint(100,WINX-100)
         self.y = random.randint(100,WINY-300)
         self.Rect = [self.x-SIZE/4,self.y+SIZE/4,self.x+SIZE/4,self.y-SIZE/4]
+        self.timer = 0
 
         if BOSS1_BULLET1.image == None:
             BOSS1_BULLET1.image = load_image('Boss1Bullet1.png')
@@ -289,7 +290,23 @@ class BOSS1_BULLET1:
         draw_rectangle(self.Rect[0],self.Rect[1],self.Rect[2],self.Rect[3])
 
     def Update(self):
-            pass
+        self. timer += 1
+
+        if self.timer % 160 == 0:
+            self.timer = 0
+
+
+            if random.randint(0, 1) == 1:
+                BOSS1_BULLET2.Direction = 1
+
+            for i in range(4):
+
+                Boss1_Bullet2.append(BOSS1_BULLET2())
+                Boss1_Bullet2[-1].x = self.x
+                Boss1_Bullet2[-1].y = self.y
+                BOSS1_BULLET2.Direction = BOSS1_BULLET2.Direction + 2
+
+            BOSS1_BULLET2.Direction = 0
 
 class BOSS1_BULLET2:
     global Boss1
@@ -299,7 +316,7 @@ class BOSS1_BULLET2:
     def __init__(self):
         self.x,self.y = Boss1.x,Boss1.y
         self.dir = BOSS1_BULLET2.Direction
-        self.speed = 1
+        self.speed = 4
         self.Rect = [self.x-SIZE//8,self.y+SIZE//8,self.x+SIZE//8,self.y-SIZE//8]
 
         if BOSS1_BULLET2.image == None:
@@ -490,21 +507,36 @@ class BACKGROUND:
 def DeleteBullets():
     #링크 화살
 
-    if(len(Arrow) > 0):
-        DeleteArrow = []
-        for i in Arrow:
-            if i.x > Circle.x + 400:
-                DeleteArrow.append(i)
-            elif i.x < Circle.x - 400:
-                DeleteArrow.append(i)
-            if i.y > Circle.y + 400:
-                DeleteArrow.append(i)
-            elif i.y < Circle.y - 400:
-                DeleteArrow.append(i)
+    DeleteArrow = []
+    for i in Arrow:
+        if i.x > Circle.x + 400:
+            DeleteArrow.append(i)
+        elif i.x < Circle.x - 400:
+            DeleteArrow.append(i)
+        if i.y > Circle.y + 400:
+            DeleteArrow.append(i)
+        elif i.y < Circle.y - 400:
+            DeleteArrow.append(i)
 
-        for i in DeleteArrow:
-            if i in Arrow:
-                Arrow.remove(i)
+    for i in DeleteArrow:
+        if i in Arrow:
+            Arrow.remove(i)
+
+
+    DeleteBullet2 = []
+    for i in Boss1_Bullet2:
+        if i.x > Circle.x + 400:
+            DeleteBullet2.append(i)
+        elif i.x < Circle.x - 400:
+            DeleteBullet2.append(i)
+        if i.y > Circle.y + 400:
+            DeleteBullet2.append(i)
+        elif i.y < Circle.y - 400:
+            DeleteBullet2.append(i)
+
+    for i in DeleteBullet2:
+        if i in Boss1_Bullet2:
+            Boss1_Bullet2.remove(i)
 
 
 
@@ -605,11 +637,12 @@ def update():
 
     for i in Arrow:
         i.Update()
+    for i in Boss1_Bullet1:
+        i.Update()
     for i in Boss1_Bullet2:
         i.Update()
 
-   # for i in Boss1_Bullet1:
-      #  i.Update()
+
 
 def draw():
     clear_canvas()
@@ -624,7 +657,7 @@ def draw():
 
     for i in Boss1_Bullet2:
         i.Draw()
-        i.DrawRectangle()
+        #i.DrawRectangle()
 
     if(len(Arrow) > 0):
         for i in Arrow:
@@ -632,7 +665,7 @@ def draw():
             i.DrawRectangle()
 
 
-    #Circle.Draw()
+    Circle.Draw()
     #Circle.DrawRectangle()
 
     Link.Draw()
