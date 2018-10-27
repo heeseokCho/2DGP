@@ -25,7 +25,7 @@ Background = None
 Link = None
 Circle = None
 Boss1 = None
-Boss1_Bullet = []
+Boss1_Bullet1 = []
 Arrow = []
 Enemy = []
 Timer = 0
@@ -112,10 +112,6 @@ class ARROW:
             self.Rect = [self.x - 16, self.y + 4, self.x - 8, self.y - 4]
         elif self.Dir == RIGHT:
             self.Rect = [self.x + 8, self.y + 4, self.x + 16, self.y - 4]
-
-
-
-
 
 
     def Draw(self):
@@ -275,8 +271,27 @@ class LINK:
         self.dirX += 1
         self.look = RIGHT
 
+class BOSS1_BULLET:
+    image = None
+    def __init__(self):
+        self.x = random.randint(100,WINX-100)
+        self.y = random.randint(100,WINY-300)
+        self.Rect = [self.x-SIZE/4,self.y+SIZE/4,self.x+SIZE/4,self.y-SIZE/4]
+
+        if BOSS1_BULLET.image == None:
+            BOSS1_BULLET.image = load_image('Boss1Bullet1.png')
+
+    def Draw(self):
+        BOSS1_BULLET.image.draw(self.x,self.y,SIZE,SIZE)
+
+    def DrawRectangle(self):
+        draw_rectangle(self.Rect[0],self.Rect[1],self.Rect[2],self.Rect[3])
+
+    def Update(self):
+            pass
+
 class BOSS1:
-    global Boss1_Bullet
+    global Boss1_Bullet1
     def __init__(self):
         self.image = load_image('Boss1.png')
         self.frame = 0
@@ -295,13 +310,7 @@ class BOSS1:
         self.frame = (self.frame + 1) % (5*10)
 
         if self.frame == 4:
-            Boss1_Bullet.append(BOSS1_BULLET)
-
-
-class BOSS1_BULLET:
-    image = None
-    def __init__(self):
-        self.x, self. y = 0
+            Boss1_Bullet1.append(BOSS1_BULLET())
 
 
 
@@ -411,7 +420,7 @@ def DeleteBullets():
     #링크 화살
 
     if(len(Arrow) > 0):
-        DeleteArrow = []#
+        DeleteArrow = []
         for i in Arrow:
             if i.x > Circle.x + 400:
                 DeleteArrow.append(i)
@@ -523,10 +532,11 @@ def update():
     Circle.Update()
     DeleteBullets()
 
-    if len(Arrow) > 0:
-        for i in Arrow:
-            i.Update()
+    for i in Arrow:
+        i.Update()
 
+   # for i in Boss1_Bullet1:
+      #  i.Update()
 
 def draw():
     clear_canvas()
@@ -534,6 +544,10 @@ def draw():
     Background.Draw()
 
     Boss1.Draw()
+
+    for i in Boss1_Bullet1:
+        i.Draw()
+        i.DrawRectangle()
 
     if(len(Arrow) > 0):
         for i in Arrow:
