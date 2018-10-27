@@ -293,18 +293,29 @@ class BOSS1_BULLET1:
 
 class BOSS1_BULLET2:
     global Boss1
-    
+    image = None
+    Direction = 0
+
     def __init__(self):
         self.x,self.y = Boss1.x,Boss1.y
+        self.dir = BOSS1_BULLET2.Direction
+
+        if BOSS1_BULLET2.image == None:
+            BOSS1_BULLET2.image = load_image('Boss1Bullet2.png')
 
     def Draw(self):
-        pass
+        if self.dir == 0:
+            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE*2,SIZE,SIZE,WINX//2,WINY//2)
+        elif self.dir == 1:
+            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE*1,SIZE,SIZE,WINX//2,WINY//2)
 
     def Update(self):
         pass
 
 class BOSS1:
     global Boss1_Bullet1
+    global Boss2_Bullet2
+
     def __init__(self):
         self.image = load_image('Boss1.png')
         self.frame = 0
@@ -324,7 +335,10 @@ class BOSS1:
 
         if self.frame == 4:
             Boss1_Bullet1.append(BOSS1_BULLET1())
-            Boss1_Bullet2.append(BOSS1_BULLET2())
+
+            for i in range(8):
+                Boss1_Bullet2.append(BOSS1_BULLET2())
+                BOSS1_BULLET2.Direction = (BOSS1_BULLET2.Direction+1)%8
 
 
 
@@ -563,6 +577,9 @@ def draw():
     for i in Boss1_Bullet1:
         i.Draw()
         i.DrawRectangle()
+
+    for i in Boss1_Bullet2:
+        i.Draw()
 
     if(len(Arrow) > 0):
         for i in Arrow:
