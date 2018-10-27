@@ -198,6 +198,8 @@ class BOSS2:
 
         if self.timer % 10 == 0:
             Boss2_Bullet.append(BOSS2_BULLET())
+            Boss2_Bullet.append(BOSS2_BULLET())
+
             Boss2_Bullet[-1].startX = self.x
             Boss2_Bullet[-1].startY = self.y
             Boss2_Bullet[-1].endX = Link.x + 500 * math.cos(
@@ -205,14 +207,12 @@ class BOSS2:
             Boss2_Bullet[-1].endY = Link.y + 500 * math.sin(
                 math.atan2(Link.y - self.y, Link.x - self.x))
 
-            Boss2_Bullet.append(BOSS2_BULLET())
-            Boss2_Bullet[-1].startX = self.x
-            Boss2_Bullet[-1].startY = self.y
-            Boss2_Bullet[-1].endX = Link.x + 500 * math.sin(
-                math.atan2(Link.y - self.y, Link.x - self.x))
-            Boss2_Bullet[-1].endY = Link.y + 500 * math.cos(
-                math.atan2(Link.y - self.y, Link.x - self.x))
-
+            Boss2_Bullet[-2].startX = self.x
+            Boss2_Bullet[-2].startY = self.y
+            Boss2_Bullet[-2].endX = Link.x + 500 * math.cos(
+                -math.atan2(Link.y - self.y, Link.x - self.x))
+            Boss2_Bullet[-2].endY = Link.y + 500 * math.sin(
+                -math.atan2(Link.y - self.y, Link.x - self.x))
             if self.timer % 20 == 0:
 
                 if self.timer % 40 == 0:
