@@ -28,54 +28,67 @@ Arrow = []
 Enemy = []
 Timer = 0
 
+class Iterm:
+    pass
+
 class ENEMY:
     global Circle
     image = None
-    def __init__(self):
-        self.x, self.y = 0,0
-        self.dir = 0
-        self.dirX,self.dirY = 0,0
+    Direction = 0
 
-        self.Rect = [0,0,0,0]
-        self.speed = 5
+    def __init__(self):
+        self.x, self.y = Boss1.x, Boss1.y
+        self.dir = ENEMY.Direction
+        self.speed = 4
+        self.Rect = [self.x - SIZE // 8, self.y + SIZE // 8, self.x + SIZE // 8, self.y - SIZE // 8]
 
         if ENEMY.image == None:
             ENEMY.image = load_image('Enemy.png')
 
-        if self.dir == LEFTUP or self.dir == UP or self.dir == RIGHTUP:
-            self.dirY = 1
-        elif self.dir == LEFTDOWN or self.dir == DOWN or self.dir == RIGHTDOWN:
-            self.dirY = -1
-        if self.dir == LEFTUP or self.dir == LEFT or self.dir == LEFTDOWN:
-            self.dirX= -1
-        elif self.dir == RIGHTUP or self.dir == RIGHT or self.dir == RIGHTDOWN:
-            self.dirX = 1
-
     def Draw(self):
-        if self.dir == LEFTUP:
-            ENEMY.image.clip_draw(0,64, SIZE/2, SIZE/2, self.x, self.y)
-        elif self.dir == UP:
-            ENEMY.image.clip_draw(32,64, SIZE/2, SIZE/2, self.x, self.y)
-        elif self.dir == RIGHTUP:
-            ENEMY.image.clip_draw(64,64, SIZE/2, SIZE/2, self.x, self.y)
-        elif self.dir == RIGHT:
-            ENEMY.image.clip_draw(64,32, SIZE/2, SIZE/2, self.x, self.y)
-        elif self.dir == RIGHTDOWN:
-            ENEMY.image.clip_draw(64,0, SIZE/2, SIZE/2, self.x, self.y)
-        elif self.dir == DOWN:
-            ENEMY.image.clip_draw(32,0, SIZE/2, SIZE/2, self.x, self.y)
-        elif self.dir == LEFTDOWN:
-            ENEMY.image.clip_draw(0,0, SIZE/2, SIZE/2, self.x, self.y)
-        elif self.dir == LEFT:
-            ENEMY.image.clip_draw(0,32, SIZE/2, SIZE/2, self.x, self.y)
+        if self.dir == 0:
+            ENEMY.image.clip_draw(SIZE * 0, SIZE // 2 * 2, SIZE // 2, SIZE // 2, self.x, self.y)
+        elif self.dir == 1:
+            ENEMY.image.clip_draw(SIZE * 0, SIZE // 2 * 1, SIZE // 2, SIZE // 2, self.x, self.y)
+        elif self.dir == 2:
+            ENEMY.image.clip_draw(SIZE * 0, SIZE // 2 * 0, SIZE // 2, SIZE // 2, self.x, self.y)
+        elif self.dir == 3:
+            ENEMY.image.clip_draw(SIZE // 2 * 1, SIZE // 2 * 0, SIZE // 2, SIZE // 2, self.x, self.y)
+        elif self.dir == 4:
+            ENEMY.image.clip_draw(SIZE // 2 * 2, SIZE // 2 * 0, SIZE // 2, SIZE // 2, self.x, self.y)
+        elif self.dir == 5:
+            ENEMY.image.clip_draw(SIZE // 2 * 2, SIZE // 2 * 1, SIZE // 2, SIZE // 2, self.x, self.y)
+        elif self.dir == 6:
+            ENEMY.image.clip_draw(SIZE // 2 * 2, SIZE // 2 * 2, SIZE // 2, SIZE // 2, self.x, self.y)
+        elif self.dir == 7:
+            ENEMY.image.clip_draw(SIZE // 2 * 1, SIZE // 2 * 2, SIZE // 2, SIZE // 2, self.x, self.y)
 
     def DrawRectangle(self):
-        draw_rectangle(self.Rect[0],self.Rect[1],self.Rect[2],self.Rect[3])
+        draw_rectangle(self.Rect[0], self.Rect[1], self.Rect[2], self.Rect[3])
 
     def Update(self):
+        if self.dir == 0:
+            self.x -= self.speed
+            self.y += self.speed
+        elif self.dir == 1:
+            self.x -= self.speed
+        elif self.dir == 2:
+            self.x -= self.speed
+            self.y -= self.speed
+        elif self.dir == 3:
+            self.y -= self.speed
+        elif self.dir == 4:
+            self.x += self.speed
+            self.y -= self.speed
+        elif self.dir == 5:
+            self.x += self.speed
+        elif self.dir == 6:
+            self.x += self.speed
+            self.y += self.speed
+        elif self.dir == 7:
+            self.y += self.speed
 
-        self.x += self.dirX * self.speed
-        self.y += self.dirY * self.speed
+        self.Rect = [self.x - SIZE // 8, self.y + SIZE // 8, self.x + SIZE // 8, self.y - SIZE // 8]
 
 class ARROW:
     global Link
@@ -269,7 +282,6 @@ class LINK:
         self.dirX += 1
         self.look = RIGHT
 
-
 class CIRCLE:
     global Timer
 
@@ -384,7 +396,6 @@ def DeleteBullets():
     for i in DeleteArrow:
         if i in Arrow:
             Arrow.remove(i)
-
 
 def enter():
     global Link,Circle,Background
