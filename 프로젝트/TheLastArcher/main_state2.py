@@ -161,11 +161,9 @@ class BOSS2:
         self.state = _state
 
     def Draw(self):
-        # self.image.clip_draw((int(self.frame / 4)) * SIZE*3, 0, SIZE*3, SIZE*3, self.x, self.y)
 
         self.image.clip_composite_draw((int(self.frame / 4)) * SIZE * 3, 0, SIZE * 3, SIZE * 3, self.angle_rotation,
                                        'a', self.x, self.y, SIZE * 3, SIZE * 3)
-        # self.image.rotate_draw(self.angle_rotation,WINX//2,WINY//2,500,100)
 
     def DrawRectangle(self):
         draw_rectangle(self.Rect[0], self.Rect[1], self.Rect[2], self.Rect[3])
@@ -196,6 +194,7 @@ class BOSS2:
             for i in range(8):
                 Boss2_Bullet2.append(BOSS2_BULLET2())
                 BOSS2_BULLET2.Direction += 1
+            BOSS2_BULLET2.Direction = 0
 
         if self.timer > 2000:
             self.timer = 1
@@ -673,16 +672,16 @@ def draw():
     if(len(Arrow) > 0):
         for i in Arrow:
             i.Draw()
-            i.DrawRectangle()
+            #i.DrawRectangle()
 
     if(len(Boss2_Bullet1) > 0):
         for i in Boss2_Bullet1:
             i.Draw()
-            i.DrawRectangle()
+            #i.DrawRectangle()
     if(len(Boss2_Bullet2) > 0):
         for i in Boss2_Bullet2:
             i.Draw()
-            i.DrawRectangle()
+            #i.DrawRectangle()
 
     Circle.Draw()
     #Circle.DrawRectangle()
