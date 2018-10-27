@@ -133,22 +133,6 @@ class ENEMY:
         self.x += self.dirX * self.speed
         self.y += self.dirY * self.speed
 
-        if(len(Boss2_Enemy) > 0):
-            DeleteEnemy = []
-            for i in Boss2_Enemy:
-                if i.x > Circle.x + 400:
-                    DeleteEnemy.append(i)
-                elif i.x < Circle.x - 400:
-                    DeleteEnemy.append(i)
-                if i.y > Circle.y + 400:
-                    DeleteEnemy.append(i)
-                elif i.y < Circle.y - 400:
-                    DeleteEnemy.append(i)
-
-            for i in DeleteEnemy:
-                Boss2_Enemy.remove(i)
-
-
 
 class BOSS2:
     global Circle
@@ -205,18 +189,17 @@ class BOSS2:
                 if self.timer % 40 == 0:
 
                     for i in range(8):
-                        pass
-                        #Boss2_Enemy.append(ENEMY())
-                        #Boss2_Enemy[i].x = self.x
-                        #Boss2_Enemy[i].y = self.y
-                        #Boss2_Enemy[0].dir = LEFTUP
-                   # Boss2_Enemy[1].dir = UP
-                   # Boss2_Enemy[2].dir = RIGHTUP
-                   # Boss2_Enemy[3].dir = RIGHT
-                   # Boss2_Enemy[4].dir = RIGHTDOWN
-                   # Boss2_Enemy[5].dir = DOWN
-                   # Boss2_Enemy[6].dir = LEFTDOWN
-                   # Boss2_Enemy[7].dir = LEFT
+                        Boss2_Enemy.append(ENEMY())
+                        Boss2_Enemy[i].x = self.x
+                        Boss2_Enemy[i].y = self.y
+                        Boss2_Enemy[0].dir = LEFTUP
+                        Boss2_Enemy[1].dir = UP
+                        Boss2_Enemy[2].dir = RIGHTUP
+                        Boss2_Enemy[3].dir = RIGHT
+                        Boss2_Enemy[4].dir = RIGHTDOWN
+                        Boss2_Enemy[5].dir = DOWN
+                        Boss2_Enemy[6].dir = LEFTDOWN
+                        Boss2_Enemy[7].dir = LEFT
 
 
                 if self.timer > 2000:
@@ -566,6 +549,7 @@ class BACKGROUND:
 
 
 def DeleteBullets():
+    #보스2 탄
     DeleteBullet = []
     for i in Boss2_Bullet:
         if i.x > Circle.x + 400:
@@ -580,6 +564,7 @@ def DeleteBullets():
     for i in DeleteBullet:
         Boss2_Bullet.remove(i)
 
+    #링크 화살
     DeleteArrow = []
     for i in Arrow:
         if i.x > Circle.x + 400:
@@ -593,6 +578,24 @@ def DeleteBullets():
 
     for i in DeleteArrow:
         Arrow.remove(i)
+
+    #보스2 적
+    if (len(Boss2_Enemy) > 0):
+        DeleteEnemy = []
+        for i in Boss2_Enemy:
+            if i.x > Circle.x + 400:
+                DeleteEnemy.append(i)
+            elif i.x < Circle.x - 400:
+                DeleteEnemy.append(i)
+            if i.y > Circle.y + 400:
+                DeleteEnemy.append(i)
+            elif i.y < Circle.y - 400:
+                DeleteEnemy.append(i)
+
+        for i in DeleteEnemy:
+            Boss2_Enemy.remove(i)
+
+
 
 def enter():
     global Link,Boss1,Boss2,Circle,Background
@@ -650,8 +653,6 @@ def handle_events():
             elif event.key == SDLK_ESCAPE:
                 game_framework.change_state(title_state)
 
-
-
         #키를 땠을 때
         if event.type == SDL_KEYUP:
             if event.key == SDLK_d:
@@ -677,12 +678,8 @@ def handle_events():
                     Link.aimStart = False
                     Link.SetState(WALKING)
 
-
-
         #현재 멈춰있는지
             Link.MoveToStopCheck()
-
-
 
 def update():
     global Timer
