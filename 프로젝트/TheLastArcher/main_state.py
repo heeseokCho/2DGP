@@ -551,34 +551,39 @@ class BACKGROUND:
 
 def DeleteBullets():
     #보스2 탄
-    DeleteBullet = []
-    for i in Boss2_Bullet:
-        if i.x > Circle.x + 400:
-            DeleteBullet.append(i)
-        elif i.x < Circle.x - 400:
-            DeleteBullet.append(i)
-        if i.y > Circle.y + 400:
-            DeleteBullet.append(i)
-        elif i.y < Circle.y - 400:
-            DeleteBullet.append(i)
+    if(len(Boss2_Bullet) > 0):
+        DeleteBullet = []
+        for i in Boss2_Bullet:
+            if i.x > Circle.x + 400:
+                DeleteBullet.append(i)
+            elif i.x < Circle.x - 400:
+                DeleteBullet.append(i)
+            if i.y > Circle.y + 400:
+                DeleteBullet.append(i)
+            elif i.y < Circle.y - 400:
+                DeleteBullet.append(i)
 
-    for i in DeleteBullet:
-        Boss2_Bullet.remove(i)
+        for i in DeleteBullet:
+            if i in Boss2_Bullet:
+                Boss2_Bullet.remove(i)
 
     #링크 화살
-    DeleteArrow = []
-    for i in Arrow:
-        if i.x > Circle.x + 400:
-            DeleteArrow.append(i)
-        elif i.x < Circle.x - 400:
-            DeleteArrow.append(i)
-        if i.y > Circle.y + 400:
-            DeleteArrow.append(i)
-        elif i.y < Circle.y - 400:
-            DeleteArrow.append(i)
 
-    for i in DeleteArrow:
-        Arrow.remove(i)
+    if(len(Arrow) > 0):
+        DeleteArrow = []
+        for i in Arrow:
+            if i.x > Circle.x + 400:
+                DeleteArrow.append(i)
+            elif i.x < Circle.x - 400:
+                DeleteArrow.append(i)
+            if i.y > Circle.y + 400:
+                DeleteArrow.append(i)
+            elif i.y < Circle.y - 400:
+                DeleteArrow.append(i)
+
+        for i in DeleteArrow:
+            if i in Arrow:
+                Arrow.remove(i)
 
     #보스2 적
     if (len(Boss2_Enemy) > 0):
@@ -594,7 +599,8 @@ def DeleteBullets():
                 DeleteEnemy.append(i)
 
         for i in DeleteEnemy:
-            Boss2_Enemy.remove(i)
+            if i in Boss2_Enemy:
+                Boss2_Enemy.remove(i)
 
 
 
