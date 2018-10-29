@@ -115,7 +115,15 @@ class SleepState:
             boy.image.clip_composite_draw(boy.frame*100,200,100,100,
             -3.141592/2,'',boy.x+25,boy.y-25,100,100)
 
-
+class DashState:
+    def enter(boy,event):
+        pass
+    def exit(boy,event):
+        pass
+    def do(boy):
+        pass
+    def draw(boy):
+        pass
 
 
 
