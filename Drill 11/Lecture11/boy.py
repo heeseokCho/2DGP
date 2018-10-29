@@ -117,23 +117,22 @@ class SleepState:
 
 class DashState:
     def enter(boy,event):
-        if event == RIGHT_DOWN:
-            boy.velocity += 1
-        elif event == LEFT_DOWN:
-            boy.velocity -= 1
-        elif event == RIGHT_UP:
-            boy.velocity -= 1
-        elif event == LEFT_UP:
-            boy.velocity += 1
-        boy.dir = boy.velocity
+        boy.frame = 0
+        boy.timer = 100
 
     def exit(boy,event):
-        pass
+        if event == SPACE:
+            boy.fire_ball()
+
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
         boy.timer -= 1
-        boy.x += boy.velocity
+        boy.x += boy.velocity*5
         boy.x = clamp(25, boy.x, 1600 - 25)
+
+        if boy.timer == 0:
+            boy.add_event(LSHIFT_UP)
+            boy.add_event(RSHIFT_UP)
 
     def draw(boy):
         if boy.velocity == 1:
