@@ -117,25 +117,42 @@ class SleepState:
 
 class DashState:
     def enter(boy,event):
-        pass
+        if event == RIGHT_DOWN:
+            boy.velocity += 1
+        elif event == LEFT_DOWN:
+            boy.velocity -= 1
+        elif event == RIGHT_UP:
+            boy.velocity -= 1
+        elif event == LEFT_UP:
+            boy.velocity += 1
+        boy.dir = boy.velocity
+
     def exit(boy,event):
         pass
     def do(boy):
-        pass
+        boy.frame = (boy.frame + 1) % 8
+        boy.timer -= 1
+        boy.x += boy.velocity
+        boy.x = clamp(25, boy.x, 1600 - 25)
+
     def draw(boy):
-        pass
+        if boy.velocity == 1:
+            boy.image.clip_draw(boy.frame * 100, 100, 100, 100, boy.x, boy.y)
+        else:
+            boy.image.clip_draw(boy.frame * 100, 0, 100, 100, boy.x, boy.y)
+
 
 
 
 next_state_table = {
     IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState,SLEEP_TIMER: SleepState,
-                LSHIFT_DOWN: IdleState,LSHIFT_UP: IdleState, RSHIFT_DOWN: IdleState,RSHIFT_UP: IdleState},
+                SPACE: IdleState,LSHIFT_DOWN: IdleState,LSHIFT_UP: IdleState, RSHIFT_DOWN: IdleState,RSHIFT_UP: IdleState},
     RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState,SPACE: RunState,
                LSHIFT_DOWN : DashState, LSHIFT_UP:RunState,RSHIFT_DOWN:DashState,RSHIFT_UP: RunState},
     SleepState: {LEFT_DOWN: RunState,RIGHT_DOWN:RunState,LEFT_UP: RunState, RIGHT_UP: RunState,SPACE: IdleState,
                  LSHIFT_DOWN : IdleState,LSHIFT_UP:SleepState, RSHIFT_DOWN:IdleState, RIGHT_UP:SleepState},
     DashState : {RIGHT_UP: IdleState, LEFT_UP: IdleState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState,SLEEP_TIMER: SleepState,
-                LSHIFT_DOWN: DashState,LSHIFT_UP: RunState, RSHIFT_DOWN: DashState,RSHIFT_UP: RunState}
+                SPACE: DashState,LSHIFT_DOWN: DashState,LSHIFT_UP: RunState, RSHIFT_DOWN: DashState,RSHIFT_UP: RunState}
 }
 
 class Boy:
