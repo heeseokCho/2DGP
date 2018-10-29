@@ -128,13 +128,14 @@ class DashState:
 
 
 next_state_table = {
-    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState,
-                SLEEP_TIMER: SleepState,SPACE : IdleState},
-    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState,
-               SPACE: RunState},
-    SleepState: {LEFT_DOWN: RunState,RIGHT_DOWN:RunState,
-                 LEFT_UP: RunState, RIGHT_UP: RunState,
-                 SPACE: IdleState}
+    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState,SLEEP_TIMER: SleepState,
+                LSHIFT_DOWN: IdleState,LSHIFT_UP: IdleState, RSHIFT_DOWN: IdleState,RSHIFT_UP: IdleState},
+    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState,SPACE: RunState,
+               LSHIFT_DOWN : DashState, LSHIFT_UP:RunState,RSHIFT_DOWN:DashState,RSHIFT_UP: RunState},
+    SleepState: {LEFT_DOWN: RunState,RIGHT_DOWN:RunState,LEFT_UP: RunState, RIGHT_UP: RunState,SPACE: IdleState,
+                 LSHIFT_DOWN : IdleState,LSHIFT_UP:SleepState, RSHIFT_DOWN:IdleState, RIGHT_UP:SleepState},
+    DashState : {RIGHT_UP: IdleState, LEFT_UP: IdleState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState,SLEEP_TIMER: SleepState,
+                LSHIFT_DOWN: DashState,LSHIFT_UP: RunState, RSHIFT_DOWN: DashState,RSHIFT_UP: RunState}
 }
 
 class Boy:
