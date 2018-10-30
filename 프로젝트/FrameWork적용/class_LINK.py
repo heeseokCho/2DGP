@@ -31,6 +31,46 @@ key_event_table = {
     (SDL_KEYDOWN, SDLK_j):ATTACK_DOWN,
     (SDL_KEYUP,SDLK_j): ATTACK_UP
 }
+
+class IdleState:
+
+    @staticmethod
+    def enter(Link, event):
+        if event == RIGHT_DOWN:
+            Link.velocityX += 1
+        elif event == LEFT_DOWN:
+            Link.velocityX -= 1
+        elif event == RIGHT_UP:
+            Link.velocityX -= 1
+        elif event == LEFT_UP:
+            Link.velocityX += 1
+        elif event == RIGHT_DOWN:
+            Link.velocityY += 1
+        elif event == LEFT_DOWN:
+            Link.velocityY -= 1
+        elif event == RIGHT_UP:
+            Link.velocityY -= 1
+        elif event == LEFT_UP:
+            Link.velocityY += 1
+
+    @staticmethod
+    def exit(Link, event):
+        pass
+
+    @staticmethod
+    def do(Link):
+        Link.frame = 0
+
+    @staticmethod
+    def draw(Link):
+        if Link.dir == UP:
+            Link.image.clip_draw(Link.frame * 100, 300, 100, 100, Link.x, Link.y)
+        elif Link.dir == DOWN:
+            Link.image.clip_draw(Link.frame * 100, 200, 100, 100, Link.x, Link.y)
+        elif Link.dir == LEFT:
+            Link.image.clip_draw(Link.frame * 100, 100, 100, 100, Link.x, Link.y)
+        elif Link.dir == RIGHT:
+            Link.image.clip_draw(Link.frame * 100, 0, 100, 100, Link.x, Link.y)
 class LINK:
     global Arrow
 
@@ -46,7 +86,8 @@ class LINK:
         self.chargeCnt = 0
         self.shootCnt = 0
         self.x,self.y = WINX//2, WINY//2
-        self.dirX,self.dirY = 0,0
+        self.dir
+        self.velocityX,self.velocityY = 0,0
 
         #좌상우하
         self.RectBody = [self.x-16,self.y+20,self.x+16,self.y-20]
