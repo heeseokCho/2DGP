@@ -142,22 +142,26 @@ class GhostState:
     @staticmethod
     def enter(boy,event):
         boy.timer = 0
+        boy.degree = 0
         boy.cur_time = get_time()
 
     @staticmethod
     def exit(boy,event):
-        pass
+        boy.image.opacify(1)
 
     @staticmethod
     def do(boy):
-        pass
+        boy.frame = (boy.frame+FRAMES_PER_ACTION*ACTION_PER_TIME*game_framework.frame_time)%8
+        boy.degree += DEGREE_PER_TIME*game_framework.frame_time
 
+        boy.timer += get_time()-boy.cur_time
+        boy.cur_time = get_time()
     @staticmethod
     def draw(boy):
         boy.image.opacify(0.5)
 
         boy.image.clip_composite_draw(int(boy.frame)*100, 300, 100, 100, PI / 2, '', boy.x - 25, boy.y - 25, 100,100)
-
+        
 
 
 
