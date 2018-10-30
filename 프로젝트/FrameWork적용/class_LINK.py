@@ -36,22 +36,22 @@ class IdleState:
 
     @staticmethod
     def enter(Link, event):
-        if event == RIGHT_DOWN:
-            Link.velocityX += 1
+        if event == UP_DOWN:
+            Link.velocityY += 1
+        elif event == DOWN_DOWN:
+            Link.velocityY -= 1
         elif event == LEFT_DOWN:
             Link.velocityX -= 1
-        elif event == RIGHT_UP:
-            Link.velocityX -= 1
-        elif event == LEFT_UP:
-            Link.velocityX += 1
         elif event == RIGHT_DOWN:
-            Link.velocityY += 1
-        elif event == LEFT_DOWN:
+            Link.velocityX += 1
+        elif event == UP_UP:
             Link.velocityY -= 1
+        elif event == DOWN_UP:
+            Link.velocityY += 1
         elif event == RIGHT_UP:
-            Link.velocityY -= 1
+            Link.velocityX -= 1
         elif event == LEFT_UP:
-            Link.velocityY += 1
+            Link.velocityX += 1
 
     @staticmethod
     def exit(Link, event):
@@ -64,13 +64,62 @@ class IdleState:
     @staticmethod
     def draw(Link):
         if Link.dir == UP:
-            Link.image.clip_draw(Link.frame * 100, 300, 100, 100, Link.x, Link.y)
+            Link.image.clip_draw(Link.frame, 300, 100, 100, Link.x, Link.y)
         elif Link.dir == DOWN:
-            Link.image.clip_draw(Link.frame * 100, 200, 100, 100, Link.x, Link.y)
+            Link.image.clip_draw(Link.frame, 200, 100, 100, Link.x, Link.y)
         elif Link.dir == LEFT:
-            Link.image.clip_draw(Link.frame * 100, 100, 100, 100, Link.x, Link.y)
+            Link.image.clip_draw(Link.frame, 100, 100, 100, Link.x, Link.y)
         elif Link.dir == RIGHT:
-            Link.image.clip_draw(Link.frame * 100, 0, 100, 100, Link.x, Link.y)
+            Link.image.clip_draw(Link.frame, 0, 100, 100, Link.x, Link.y)
+
+class RunState:
+    @staticmethod
+    def enter(Link, event):
+        if event == UP_DOWN:
+            Link.velocityY += 1
+            Link.dir = UP
+        elif event == DOWN_DOWN:
+            Link.velocityY -= 1
+            Link.dir = DOWN
+        elif event == LEFT_DOWN:
+            Link.velocityX -= 1
+            Link.dir = LEFT
+        elif event == RIGHT_DOWN:
+            Link.velocityX += 1
+            Link.dir = RIGHT
+        elif event == UP_UP:
+            Link.velocityY -= 1
+        elif event == DOWN_UP:
+            Link.velocityY += 1
+        elif event == RIGHT_UP:
+            Link.velocityX -= 1
+        elif event == LEFT_UP:
+            Link.velocityX += 1
+
+
+    @staticmethod
+    def exit(Link, event):
+        pass
+
+    @staticmethod
+    def do(Link):
+        Link.frame = (Link.frame + 1) % 10
+        Link.x += Link.velocityX
+        Link.y += Link.velocityY
+        Link.x = clamp(SIZE, Link.x, 1600 - SIZE)
+        Link.y = clamp(SIZE, Link.y, 1000 - SIZE)
+
+    @staticmethod
+    def draw(Link):
+        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
+
+
+
+
+
+
+
+
 class LINK:
     global Arrow
 
