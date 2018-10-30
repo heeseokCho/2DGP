@@ -117,7 +117,7 @@ class AimState:
     def enter(Link, event):
         Link.image = load_image('Aiming.png')
         Link.frame = 0
-        Link.timer = 10
+        Link.timer = 3
         Link.enable = False
 
     @staticmethod
@@ -127,10 +127,16 @@ class AimState:
     @staticmethod
     def do(Link):
         Link.frame = (Link.frame + 1) % 3
+
+        Link.x += Link.velocityX
+        Link.y += Link.velocityY
+        Link.x = clamp(SIZE, Link.x, 1600 - SIZE)
+        Link.y = clamp(SIZE, Link.y, 1000 - SIZE)
+
         Link.timer -=1
 
         if Link.timer == 0:
-            Link.enable = True
+            Link.add_event(AIM_TIMER)
 
     @staticmethod
     def draw(Link):
@@ -300,7 +306,7 @@ next_state_table = {
 
     AimState:{UP_DOWN:AimState,DOWN_DOWN:AimState,LEFT_DOWN:AimState,RIGHT_DOWN:AimState,
                UP_UP:AimState,DOWN_UP:AimState,LEFT_UP:AimState,RIGHT_UP:AimState,
-               ATTACK_DOWN:AimState,ATTACK_UP:IdleState,AIM_TIMER:AimState},
+               ATTACK_DOWN:AimState,ATTACK_UP:IdleState,AIM_TIMER:AimIdleState},
 
     AimIdleState:{UP_DOWN:AimRunState,DOWN_DOWN:AimRunState,LEFT_DOWN:AimRunState,RIGHT_DOWN:AimRunState,
                UP_UP:AimIdleState,DOWN_UP:AimIdleState,LEFT_UP:AimIdleState,RIGHT_UP:AimIdleState,
