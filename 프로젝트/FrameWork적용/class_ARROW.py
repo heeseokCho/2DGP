@@ -1,9 +1,8 @@
 from pico2d import*
 import game_world
+from class_LINK import LINK
+from class_CIRCLE import Circle
 
-#윈도우 크기
-WINX  = 1600
-WINY  = 1000
 #사진 크기
 SIZE = 64
 #방향별 사진
@@ -11,46 +10,37 @@ UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 
 
 class ARROW:
-    global Link
-    global Circle
+    global Link,Circle
     image = None
 
     def __init__(self):
-        self.x,self.y = 0,0
-        self.Dir = None
-        self.Speed = 10
-        #좌상우하
-        self.Rect = [self.x,self.y,self.x,self.y]
-
         if ARROW.image == None:
             ARROW.image = load_image('Arrow.png')
 
-    def Update(self):
-        if self.Dir == UP:
-            self.y += self.Speed
-        elif self.Dir == DOWN:
-            self.y -=self.Speed
-        elif self.Dir == LEFT:
-            self.x -=self.Speed
-        elif self.Dir == RIGHT:
-            self.x +=self.Speed
+        self.x,self.y = Link.x,Link.y
+        self.dir = DOWN
+        self.velocity = 0
 
-        if self.Dir == UP:
-            self.Rect = [self.x - 4, self.y + 16, self.x + 4, self.y + 8]
-        elif self.Dir == DOWN:
-            self.Rect = [self.x - 4, self.y - 8, self.x + 4, self.y - 16]
-        elif self.Dir == LEFT:
-            self.Rect = [self.x - 16, self.y + 4, self.x - 8, self.y - 4]
-        elif self.Dir == RIGHT:
-            self.Rect = [self.x + 8, self.y + 4, self.x + 16, self.y - 4]
+    def draw(self):
+        ARROW.image.clip_draw(0, self.dir // 2, SIZE // 2, SIZE // 2, self.x, self.y)
+
+    def draw_rect(self):
+        pass
 
 
+    def update(self):
 
+        if self.dir == UP:
+            self.y += self.velocity
+        elif self.dir == DOWN:
+            self.y -= self.velocity
+        elif self.dir == LEFT:
+            self.x -= self.velocity
+        elif self.dir == RIGHT:
+            self.x += self.velocity
 
+        if self.x < Circle.x-Circle.r or self.x > Circle.x + Circle.r:
+            game_world.remove_object(self)
 
-
-    def Draw(self):
-        ARROW.image.clip_draw(0, self.Dir//2,SIZE//2, SIZE//2, self.x, self.y)
-
-    def DrawRectangle(self):
-        draw_rectangle(self.Rect[0],self.Rect[1],self.Rect[2],self.Rect[3])
+    def update_rect(self):
+        pass
