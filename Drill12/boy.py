@@ -68,7 +68,7 @@ class IdleState:
         boy.timer += get_time() - boy.cur_time
         boy.cur_time = get_time()
 
-        if boy.timer >= 10:
+        if boy.timer >= 3:
             boy.add_event(SLEEP_TIMER)
 
     @staticmethod
@@ -142,7 +142,7 @@ class GhostState:
     @staticmethod
     def enter(boy,event):
         boy.timer = 0
-        boy.degree = 0
+        boy.degree = PI
         boy.cur_time = get_time()
 
     @staticmethod
@@ -158,10 +158,13 @@ class GhostState:
         boy.cur_time = get_time()
     @staticmethod
     def draw(boy):
-        boy.image.opacify(0.5)
-
+        boy.image.opacify(1)
         boy.image.clip_composite_draw(int(boy.frame)*100, 300, 100, 100, PI / 2, '', boy.x - 25, boy.y - 25, 100,100)
-        
+
+        if boy.timer < 1:
+            boy.image.opacify(0.5)
+            boy.image.clip_composite_draw(int(boy.frame)*100,300,100,100, -boy.degree,'',
+                                          boy.x-25,boy.y+boy.velocity*PIXEL_PER_METER,100,100)
 
 
 
