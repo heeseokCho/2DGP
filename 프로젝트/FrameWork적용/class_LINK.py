@@ -344,7 +344,8 @@ class LINK:
         pass
 
     def shoot_arrow(self):
-        pass
+        Arrow = ARROW(self.x,self.y,self.dir*3)
+        game_world.add_object(Arrow,1)
 
     def add_event(self,event):
         self.event_que.imsert(0,event)

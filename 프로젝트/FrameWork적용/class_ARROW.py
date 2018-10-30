@@ -1,7 +1,7 @@
 from pico2d import*
 import game_world
 from class_LINK import LINK
-from class_CIRCLE import Circle
+from class_CIRCLE import
 
 #사진 크기
 SIZE = 64
@@ -13,13 +13,14 @@ class ARROW:
     global Link,Circle
     image = None
 
-    def __init__(self):
+    def __init__(self,x = 0,y = 0,velocity = 1):
         if ARROW.image == None:
             ARROW.image = load_image('Arrow.png')
 
-        self.x,self.y = Link.x,Link.y
+        self.x,self.y = x,y
+        self.velocity = velocity
         self.dir = DOWN
-        self.velocity = 0
+
 
     def draw(self):
         ARROW.image.clip_draw(0, self.dir // 2, SIZE // 2, SIZE // 2, self.x, self.y)

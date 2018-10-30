@@ -32,7 +32,6 @@ Background = None
 Link = None
 Circle = None
 Arrow = []
-Timer = 0
 
 
 
