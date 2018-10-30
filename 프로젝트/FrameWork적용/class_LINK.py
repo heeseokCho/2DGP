@@ -140,8 +140,8 @@ class AimState:
 
 class AimIdleState:
     def enter(Link, event):
-        Link.frame = 0
         Link.image = load_image('AimStanding.png')
+        Link.frame = 0
 
         if event == UP_DOWN:
             Link.velocityY += 1
@@ -168,13 +168,61 @@ class AimIdleState:
     def do(Link):
         Link.timer -=1
 
+        if Link.timer == 0:
+            Link.enable = True
+
     @staticmethod
     def draw(Link):
         Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
 
 
 class AimRunState:
-    pass
+    @staticmethod
+    def enter(Link, event):
+        Link.image = load_image('AimWalking.png')
+        Link.frame = 0
+
+        if event == UP_DOWN:
+            Link.velocityY += 1
+            Link.dir = UP
+        elif event == DOWN_DOWN:
+            Link.velocityY -= 1
+            Link.dir = DOWN
+        elif event == LEFT_DOWN:
+            Link.velocityX -= 1
+            Link.dir = LEFT
+        elif event == RIGHT_DOWN:
+            Link.velocityX += 1
+            Link.dir = RIGHT
+        elif event == UP_UP:
+            Link.velocityY -= 1
+        elif event == DOWN_UP:
+            Link.velocityY += 1
+        elif event == RIGHT_UP:
+            Link.velocityX -= 1
+        elif event == LEFT_UP:
+            Link.velocityX += 1
+
+    @staticmethod
+    def exit(Link, event):
+        pass
+
+    @staticmethod
+    def do(Link):
+        Link.frame = (Link.frame + 1) % 8
+        Link.x += Link.velocityX
+        Link.y += Link.velocityY
+        Link.x = clamp(SIZE, Link.x, 1600 - SIZE)
+        Link.y = clamp(SIZE, Link.y, 1000 - SIZE)
+        Link.timer -=1
+
+        if Link.timer == 0:
+            Link.enable = True
+
+    @staticmethod
+    def draw(Link):
+        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
+
 
 class ShootState:
     pass
