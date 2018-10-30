@@ -225,7 +225,30 @@ class AimRunState:
 
 
 class ShootState:
-    pass
+    @staticmethod
+    def enter(Link, event):
+        Link.image = load_image('Shooting.png')
+        Link.frame = 0
+        Link.timer = 10
+
+    @staticmethod
+    def exit(Link, event):
+        pass
+
+    @staticmethod
+    def do(Link):
+        Link.frame = (Link.frame + 1) % 6
+        Link.timer -= 1
+
+        if Link.enable == True:
+            pass
+        else:
+            Link.add_event(IdleState)
+
+    @staticmethod
+    def draw(Link):
+        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
+
 
 class DieState:
     pass
