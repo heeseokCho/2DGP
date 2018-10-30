@@ -36,6 +36,8 @@ class IdleState:
 
     @staticmethod
     def enter(Link, event):
+        Link.image = load_image('Standing.png')
+
         if event == UP_DOWN:
             Link.velocityY += 1
         elif event == DOWN_DOWN:
@@ -75,6 +77,7 @@ class IdleState:
 class RunState:
     @staticmethod
     def enter(Link, event):
+        Link.image = load_image('Walking.png')
         if event == UP_DOWN:
             Link.velocityY += 1
             Link.dir = UP
@@ -113,7 +116,23 @@ class RunState:
     def draw(Link):
         Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
 
+class AimState:
+    pass
 
+class AimIdleState:
+    pass
+
+class AimRunState:
+    pass
+
+class ShootState:
+    pass
+
+class DieState:
+    pass
+
+class WinState:
+    pass
 
 
 
