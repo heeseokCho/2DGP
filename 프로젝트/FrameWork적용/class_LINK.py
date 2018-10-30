@@ -36,6 +36,7 @@ class IdleState:
 
     @staticmethod
     def enter(Link, event):
+        Link.frame = 0
         Link.image = load_image('Standing.png')
 
         if event == UP_DOWN:
@@ -61,7 +62,7 @@ class IdleState:
 
     @staticmethod
     def do(Link):
-        Link.frame = 0
+        pass
 
     @staticmethod
     def draw(Link):
@@ -78,6 +79,8 @@ class RunState:
     @staticmethod
     def enter(Link, event):
         Link.image = load_image('Walking.png')
+        Link.frame = 0
+
         if event == UP_DOWN:
             Link.velocityY += 1
             Link.dir = UP
@@ -117,7 +120,29 @@ class RunState:
         Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
 
 class AimState:
-    pass
+    @staticmethod
+    def enter(Link, event):
+        Link.image = load_image('Aiming.png')
+        Link.frame = 0
+        Link.timer = 10
+        Link.enable = False
+
+    @staticmethod
+    def exit(Link, event):
+        pass
+
+    @staticmethod
+    def do(Link):
+        Link.frame = (Link.frame + 1) % 3
+        Link.timer -=1
+
+        if Link.timer == 0:
+            Link.enable = True
+
+    @staticmethod
+    def draw(Link):
+        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
+
 
 class AimIdleState:
     pass
@@ -154,8 +179,10 @@ class LINK:
         self.chargeCnt = 0
         self.shootCnt = 0
         self.x,self.y = WINX//2, WINY//2
-        self.dir
+        self.dir = DOWN
+        self.timer = 0
         self.velocityX,self.velocityY = 0,0
+        self.enable = False
 
         #좌상우하
         self.RectBody = [self.x-16,self.y+20,self.x+16,self.y-20]
