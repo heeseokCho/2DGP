@@ -39,18 +39,19 @@ class IdleState:
             Link.velocityY += 1
         elif event == DOWN_DOWN:
             Link.velocityY -= 1
-        elif event == LEFT_DOWN:
-            Link.velocityX -= 1
-        elif event == RIGHT_DOWN:
-            Link.velocityX += 1
         elif event == UP_UP:
             Link.velocityY -= 1
         elif event == DOWN_UP:
             Link.velocityY += 1
-        elif event == RIGHT_UP:
+        elif event == LEFT_DOWN:
             Link.velocityX -= 1
+        elif event == RIGHT_DOWN:
+            Link.velocityX += 1
         elif event == LEFT_UP:
             Link.velocityX += 1
+        elif event == RIGHT_UP:
+            Link.velocityX -= 1
+
 
     @staticmethod
     def exit(Link, event):
@@ -87,10 +88,11 @@ class RunState:
             Link.velocityY -= 1
         elif event == DOWN_UP:
             Link.velocityY += 1
-        elif event == RIGHT_UP:
-            Link.velocityX -= 1
         elif event == LEFT_UP:
             Link.velocityX += 1
+        elif event == RIGHT_UP:
+            Link.velocityX -= 1
+
 
 
     @staticmethod
@@ -293,7 +295,7 @@ next_state_table = {
                ATTACK_DOWN:AimState,ATTACK_UP:IdleState},
 
     RunState: {UP_DOWN:RunState,DOWN_DOWN:RunState,LEFT_DOWN:RunState,RIGHT_DOWN:RunState,
-               UP_UP:IdleState,DOWN_UP:IdleState,LEFT_UP:IdleState,RIGHT_UP:IdleState,
+               UP_UP:RunState,DOWN_UP:RunState,LEFT_UP:RunState,RIGHT_UP:RunState,
                ATTACK_DOWN:AimState,ATTACK_UP:RunState},
 
     AimState:{UP_DOWN:AimState,DOWN_DOWN:AimState,LEFT_DOWN:AimState,RIGHT_DOWN:AimState,
