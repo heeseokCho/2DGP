@@ -91,6 +91,8 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
+    delay(0.1)
+
 
 def draw():
     clear_canvas()

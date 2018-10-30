@@ -348,7 +348,7 @@ class LINK:
         game_world.add_object(Arrow,1)
 
     def add_event(self,event):
-        self.event_que.imsert(0,event)
+        self.event_que.insert(0,event)
 
     def update(self):
         self.cur_state.do(self)
@@ -364,6 +364,11 @@ class LINK:
         self.cur_state.draw(self)
 
         self.draw_rect()
+
+    def handle_event(self,event):
+        if (event.type,event.key) in key_event_table:
+            key_event = key_event_table[(event.type, event.key)]
+            self.add_event(key_event)
 
 
 
