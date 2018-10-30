@@ -147,6 +147,7 @@ class AimIdleState:
     def enter(Link, event):
         Link.image = load_image('AimStanding.png')
         Link.frame = 0
+        Link.timer = 3
 
         if event == UP_DOWN:
             Link.velocityY += 1
@@ -173,7 +174,7 @@ class AimIdleState:
     def do(Link):
         Link.timer -=1
 
-        if Link.timer == 0:
+        if Link.timer < 0:
             Link.enable = True
 
     @staticmethod
@@ -221,7 +222,7 @@ class AimRunState:
         Link.y = clamp(SIZE, Link.y, 1000 - SIZE)
         Link.timer -=1
 
-        if Link.timer == 0:
+        if Link.timer < 0:
             Link.enable = True
 
     @staticmethod
@@ -313,7 +314,7 @@ next_state_table = {
                ATTACK_DOWN:AimIdleState,ATTACK_UP:IdleState,AIM_TIMER:AimIdleState},
 
     AimRunState:{UP_DOWN:AimRunState,DOWN_DOWN:AimRunState,LEFT_DOWN:AimRunState,RIGHT_DOWN:AimRunState,
-               UP_UP:AimIdleState,DOWN_UP:AimIdleState,LEFT_UP:AimIdleState,RIGHT_UP:AimIdleState,
+               UP_UP:AimRunState,DOWN_UP:AimRunState,LEFT_UP:AimRunState,RIGHT_UP:AimRunState,
                ATTACK_DOWN:AimRunState,ATTACK_UP:ShootState,AIM_TIMER:AimRunState},
 
     ShootState:{UP_DOWN:ShootState,DOWN_DOWN:ShootState,LEFT_DOWN:ShootState,RIGHT_DOWN:ShootState,
