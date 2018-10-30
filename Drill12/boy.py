@@ -120,6 +120,7 @@ class SleepState:
     @staticmethod
     def enter(boy, event):
         boy.frame = 0
+        boy.add_event(GHOST)
 
     @staticmethod
     def exit(boy, event):
@@ -140,7 +141,8 @@ class SleepState:
 class GhostState:
     @staticmethod
     def enter(boy,event):
-        pass
+        boy.timer = 0
+        boy.cur_time = get_time()
 
     @staticmethod
     def exit(boy,event):
@@ -152,7 +154,9 @@ class GhostState:
 
     @staticmethod
     def draw(boy):
-        pass
+        boy.image.opacify(0.5)
+
+        boy.image.clip_composite_draw(int(boy.frame)*100, 300, 100, 100, PI / 2, '', boy.x - 25, boy.y - 25, 100,100)
 
 
 
