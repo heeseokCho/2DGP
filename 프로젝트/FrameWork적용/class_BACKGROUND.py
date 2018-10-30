@@ -8,8 +8,8 @@ class BACKGROUND:
     def __init__(self):
         self.image = load_image('Background.png')
 
-    def Draw(self):
+    def draw(self):
         self.image.draw(WINX // 2, WINY // 2, WINX, WINY)
 
-    def Update(self):
+    def update(self):
         pass

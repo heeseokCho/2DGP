@@ -36,23 +36,23 @@ Arrow = []
 
 
 
-def DeleteBullets():
-    #링크 화살
-
-    DeleteArrow = []
-    for i in Arrow:
-        if i.x > Circle.x + 400:
-            DeleteArrow.append(i)
-        elif i.x < Circle.x - 400:
-            DeleteArrow.append(i)
-        if i.y > Circle.y + 400:
-            DeleteArrow.append(i)
-        elif i.y < Circle.y - 400:
-            DeleteArrow.append(i)
-
-    for i in DeleteArrow:
-        if i in Arrow:
-            Arrow.remove(i)
+#def DeleteBullets():
+#    #링크 화살
+#
+#    DeleteArrow = []
+#    for i in Arrow:
+#        if i.x > Circle.x + 400:
+#            DeleteArrow.append(i)
+#        elif i.x < Circle.x - 400:
+#            DeleteArrow.append(i)
+#        if i.y > Circle.y + 400:
+#            DeleteArrow.append(i)
+#        elif i.y < Circle.y - 400:
+#            DeleteArrow.append(i)
+#
+#    for i in DeleteArrow:
+#        if i in Arrow:
+#            Arrow.remove(i)
 
 
 def enter():
@@ -61,7 +61,6 @@ def enter():
     Background = BACKGROUND()
     Link = LINK()
     Circle = CIRCLE()
-    ARROW.image = load_image('Arrow.png')
 
     game_world.add_object(Background,0)
     game_world.add_object(Circle,1)
@@ -78,6 +77,7 @@ def resume():
 
 def handle_events():
     global Running
+    events = get_events()
 
     for event in events:
         if event.type == SDL_QUIT:
@@ -88,13 +88,6 @@ def handle_events():
             Link.handle_event(event)
 
 def update():
-    global Timer
-
-    Timer +=1
-
-    if Timer > 9999:
-        Timer = 0
-
     for game_object in game_world.all_objects():
         game_object.update()
 

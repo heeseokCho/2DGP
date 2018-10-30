@@ -1,7 +1,5 @@
 from pico2d import*
 import game_world
-from class_LINK import LINK
-from class_CIRCLE import
 
 #사진 크기
 SIZE = 64
