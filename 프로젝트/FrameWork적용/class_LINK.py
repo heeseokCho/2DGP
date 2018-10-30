@@ -266,11 +266,29 @@ class DieState:
 
     @staticmethod
     def draw(Link):
-        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
+        Link.image.clip_draw(Link.frame * SIZE, 0, SIZE, SIZE, Link.x, Link.y)
 
 
 class WinState:
-    pass
+
+    @staticmethod
+    def enter(Link, event):
+        Link.frame = 0
+        Link.image = load_image('Winning.png')
+
+
+    @staticmethod
+    def exit(Link, event):
+        pass
+
+    @staticmethod
+    def do(Link):
+        pass
+
+    @staticmethod
+    def draw(Link):
+        Link.image.clip_draw(Link.frame * SIZE, 0, SIZE, SIZE, Link.x, Link.y)
+
 
 
 
