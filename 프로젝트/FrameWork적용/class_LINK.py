@@ -113,6 +113,7 @@ class RunState:
     def draw(Link):
         Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
 
+
 class AimState:
     @staticmethod
     def enter(Link, event):
@@ -290,10 +291,18 @@ class WinState:
         Link.image.clip_draw(Link.frame * SIZE, 0, SIZE, SIZE, Link.x, Link.y)
 
 
+next_state_table = {
+    IdleState:{None},
+    RunState: {None},
+    AimState:{None},
+    AimIdleState:{None},
+    AimRunState:{None},
+    ShootState:{None},
+    ShootState:{None},
+    DieState:{None},
+    WinState:{None}
 
-
-
-
+}
 
 class LINK:
     global Arrow
