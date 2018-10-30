@@ -4,6 +4,10 @@ from ball import Ball
 
 import game_world
 
+import math
+import random
+PI = 3.141592
+
 # Boy Run Speed
 # fill expressions correctly
 PIXEL_PER_METER = (10.0/0.3)
