@@ -78,7 +78,6 @@ class IdleState:
         else:
             boy.image.clip_draw(int(boy.frame) * 100, 200, 100, 100, boy.x, boy.y)
 
-
 class RunState:
 
     @staticmethod
@@ -163,7 +162,7 @@ class GhostState:
 
         if boy.timer < 1:
             boy.image.opacify(0.5)
-            if boy.degree >PI*3/2:
+            if boy.degree > PI * 3/2:
                 boy.image.clip_composite_draw(int(boy.frame)*100,300,100,100, -boy.degree,'',
                                               boy.x-25 +3*PIXEL_PER_METER*math.cos(-boy.degree),boy.y-25,100,100)
         else:
