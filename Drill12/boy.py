@@ -16,6 +16,8 @@ RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 
+DEGREE_PER_TIME = PI
+
 # Boy Action Speed
 # fill expressions correctly
 TIME_PER_ACTION = 0.5
@@ -132,7 +134,23 @@ class SleepState:
             boy.image.clip_composite_draw(int(boy.frame) * 100, 200, 100, 100, -3.141592 / 2, '', boy.x + 25, boy.y - 25, 100, 100)
 
 
+class GhostState:
+    @staticmethod
+    def enter(boy,event):
+        pass
 
+    @staticmethod
+    def exit(boy,event):
+        pass
+
+    @staticmethod
+    def do(boy):
+        pass
+
+    @staticmethod
+    def draw(boy):
+        pass
+    
 
 
 
