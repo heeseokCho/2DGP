@@ -66,14 +66,8 @@ class IdleState:
 
     @staticmethod
     def draw(Link):
-        if Link.dir == UP:
-            Link.image.clip_draw(Link.frame, 300, 100, 100, Link.x, Link.y)
-        elif Link.dir == DOWN:
-            Link.image.clip_draw(Link.frame, 200, 100, 100, Link.x, Link.y)
-        elif Link.dir == LEFT:
-            Link.image.clip_draw(Link.frame, 100, 100, 100, Link.x, Link.y)
-        elif Link.dir == RIGHT:
-            Link.image.clip_draw(Link.frame, 0, 100, 100, Link.x, Link.y)
+        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
+
 
 class RunState:
     @staticmethod
@@ -145,7 +139,39 @@ class AimState:
 
 
 class AimIdleState:
-    pass
+    def enter(Link, event):
+        Link.frame = 0
+        Link.image = load_image('AimStanding.png')
+
+        if event == UP_DOWN:
+            Link.velocityY += 1
+        elif event == DOWN_DOWN:
+            Link.velocityY -= 1
+        elif event == LEFT_DOWN:
+            Link.velocityX -= 1
+        elif event == RIGHT_DOWN:
+            Link.velocityX += 1
+        elif event == UP_UP:
+            Link.velocityY -= 1
+        elif event == DOWN_UP:
+            Link.velocityY += 1
+        elif event == RIGHT_UP:
+            Link.velocityX -= 1
+        elif event == LEFT_UP:
+            Link.velocityX += 1
+
+    @staticmethod
+    def exit(Link, event):
+        pass
+
+    @staticmethod
+    def do(Link):
+        Link.timer -=1
+
+    @staticmethod
+    def draw(Link):
+        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
+
 
 class AimRunState:
     pass
