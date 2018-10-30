@@ -10,10 +10,6 @@ SIZE = 64
 #방향별 사진
 UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 
-#상태 (상태이름, 프레임개수,현재 프레임)
-STANDING,WALKING,SHOOTING,AIMING,AIMWALKING,DIEING,AIMSTANDING,WINNING =\
-[0,1],   [1,10], [2,6],   [3,3], [4,8],     [5,9], [6,1],       [7,1]
-
 #Link Event
 UP_DOWN,DOWN_DOWN,LEFT_DOWN,RIGHT_DOWN,\
 UP_UP,DOWN_UP,LEFT_UP,RIGHT_UP,\
@@ -291,16 +287,46 @@ class WinState:
         Link.image.clip_draw(Link.frame * SIZE, 0, SIZE, SIZE, Link.x, Link.y)
 
 
+#UP_DOWN,DOWN_DOWN,LEFT_DOWN,RIGHT_DOWN,\
+#UP_UP,DOWN_UP,LEFT_UP,RIGHT_UP,\
+#ATTACK_DOWN,ATTACK_UP,AIM_TIMER= range(11)
+
 next_state_table = {
-    IdleState:{None},
-    RunState: {None},
-    AimState:{None},
-    AimIdleState:{None},
-    AimRunState:{None},
-    ShootState:{None},
-    ShootState:{None},
-    DieState:{None},
-    WinState:{None}
+    IdleState:{UP_DOWN:None,DOWN_DOWN:None,LEFT_DOWN:None,RIGHT_DOWN:None,
+               UP_UP:None,DOWN_UP:None,LEFT_UP:None,RIGHT_UP:None,
+               ATTACK_DOWN:None,ATTACK_UP:None,AIM_TIMER:None},
+
+    RunState: {UP_DOWN:None,DOWN_DOWN:None,LEFT_DOWN:None,RIGHT_DOWN:None,
+               UP_UP:None,DOWN_UP:None,LEFT_UP:None,RIGHT_UP:None,
+               ATTACK_DOWN:None,ATTACK_UP:None,AIM_TIMER:None},
+
+    AimState:{UP_DOWN:None,DOWN_DOWN:None,LEFT_DOWN:None,RIGHT_DOWN:None,
+               UP_UP:None,DOWN_UP:None,LEFT_UP:None,RIGHT_UP:None,
+               ATTACK_DOWN:None,ATTACK_UP:None,AIM_TIMER:None},
+
+    AimIdleState:{UP_DOWN:None,DOWN_DOWN:None,LEFT_DOWN:None,RIGHT_DOWN:None,
+               UP_UP:None,DOWN_UP:None,LEFT_UP:None,RIGHT_UP:None,
+               ATTACK_DOWN:None,ATTACK_UP:None,AIM_TIMER:None},
+
+    AimRunState:{UP_DOWN:None,DOWN_DOWN:None,LEFT_DOWN:None,RIGHT_DOWN:None,
+               UP_UP:None,DOWN_UP:None,LEFT_UP:None,RIGHT_UP:None,
+               ATTACK_DOWN:None,ATTACK_UP:None,AIM_TIMER:None},
+
+    ShootState:{UP_DOWN:None,DOWN_DOWN:None,LEFT_DOWN:None,RIGHT_DOWN:None,
+               UP_UP:None,DOWN_UP:None,LEFT_UP:None,RIGHT_UP:None,
+               ATTACK_DOWN:None,ATTACK_UP:None,AIM_TIMER:None},
+
+    ShootState:{UP_DOWN:None,DOWN_DOWN:None,LEFT_DOWN:None,RIGHT_DOWN:None,
+               UP_UP:None,DOWN_UP:None,LEFT_UP:None,RIGHT_UP:None,
+               ATTACK_DOWN:None,ATTACK_UP:None,AIM_TIMER:None},
+
+    DieState:{UP_DOWN:None,DOWN_DOWN:None,LEFT_DOWN:None,RIGHT_DOWN:None,
+               UP_UP:None,DOWN_UP:None,LEFT_UP:None,RIGHT_UP:None,
+               ATTACK_DOWN:None,ATTACK_UP:None,AIM_TIMER:None},
+
+    WinState:{UP_DOWN:None,DOWN_DOWN:None,LEFT_DOWN:None,RIGHT_DOWN:None,
+               UP_UP:None,DOWN_UP:None,LEFT_UP:None,RIGHT_UP:None,
+               ATTACK_DOWN:None,ATTACK_UP:None,AIM_TIMER:None}
 
 }
 
