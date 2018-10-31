@@ -1,9 +1,23 @@
 from pico2d import*
 import random
+import math
 
 #윈도우 크기
 WINX  = 1600
 WINY  = 1000
+
+PI = 3.141592
+
+class State0State:
+    pass
+
+class Stage1State:
+    pass
+
+class State2State:
+    pass
+
+
 
 class CIRCLE:
 
@@ -24,9 +38,9 @@ class CIRCLE:
 
 
     def draw(self):
-        #if self.stage == 1:
-        #    self.image.draw(self.x - self.r * 0.01, self.y - self.r * 0.01, WINX * 2 + self.r, WINX * 2 + self.r)
-        #else:
+        if self.stage == 1:
+            self.image.draw(self.x - self.r * 0.01, self.y - self.r * 0.01, WINX * 2 + self.r, WINX * 2 + self.r)
+        else:
             pass
 
     def draw_rect(self):
