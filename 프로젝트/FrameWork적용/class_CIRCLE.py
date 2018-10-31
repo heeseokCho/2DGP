@@ -24,9 +24,9 @@ class CIRCLE:
 
 
     def draw(self):
-        if self.stage == 1:
-            self.image.draw(self.x - self.r * 0.01, self.y - self.r * 0.01, WINX * 2 + self.r, WINX * 2 + self.r)
-        else:
+        #if self.stage == 1:
+        #    self.image.draw(self.x - self.r * 0.01, self.y - self.r * 0.01, WINX * 2 + self.r, WINX * 2 + self.r)
+        #else:
             pass
 
     def draw_rect(self):

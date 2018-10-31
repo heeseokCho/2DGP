@@ -1,6 +1,8 @@
 from pico2d import*
 import game_world
 
+#윈도우크기
+WINX,WINY = 1600,1000
 #사진 크기
 SIZE = 64
 #방향별 사진
@@ -11,13 +13,13 @@ class ARROW:
     global Link,Circle
     image = None
 
-    def __init__(self,x = 0,y = 0,velocity = 1):
+    def __init__(self,x = 0,y = 0,dir = DOWN,velocity = 1):
         if ARROW.image == None:
             ARROW.image = load_image('Arrow.png')
 
         self.x,self.y = x,y
         self.velocity = velocity
-        self.dir = DOWN
+        self.dir = dir
 
 
     def draw(self):
@@ -38,7 +40,7 @@ class ARROW:
         elif self.dir == RIGHT:
             self.x += self.velocity
 
-        if self.x < Circle.x-Circle.r or self.x > Circle.x + Circle.r:
+        if self.x < SIZE or self.x > WINX-SIZE or self.y <SIZE or self.y > WINY-SIZE:
             game_world.remove_object(self)
 
     def update_rect(self):

@@ -51,16 +51,20 @@ class IdleState:
 
         if event == UP_DOWN:
             Link.velocityY += RUN_SPEED_PPS
+            Link.dir = UP
         elif event == DOWN_DOWN:
             Link.velocityY -= RUN_SPEED_PPS
+            Link.dir = DOWN
         elif event == UP_UP:
             Link.velocityY -= RUN_SPEED_PPS
         elif event == DOWN_UP:
             Link.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
             Link.velocityX -= RUN_SPEED_PPS
+            Link.dir = LEFT
         elif event == RIGHT_DOWN:
             Link.velocityX += RUN_SPEED_PPS
+            Link.dir = RIGHT
         elif event == LEFT_UP:
             Link.velocityX += RUN_SPEED_PPS
         elif event == RIGHT_UP:
@@ -273,6 +277,9 @@ class AimRunState:
 class ShootState:
     @staticmethod
     def enter(Link, event):
+        if event == ATTACK_UP:
+            Link.shoot_arrow()
+
         Link.image = load_image('Shooting.png')
         Link.frame = 0
         Link.timer = 0
