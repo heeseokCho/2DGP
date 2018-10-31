@@ -66,7 +66,6 @@ class IdleState:
         elif event == RIGHT_UP:
             Link.velocityX -= RUN_SPEED_PPS
 
-
     @staticmethod
     def exit(Link, event):
         pass
@@ -88,16 +87,20 @@ class RunState:
 
         if event == UP_DOWN:
             Link.velocityY += RUN_SPEED_PPS
+            Link.dir = UP
         elif event == DOWN_DOWN:
             Link.velocityY -= RUN_SPEED_PPS
+            Link.dir = DOWN
         elif event == UP_UP:
             Link.velocityY -= RUN_SPEED_PPS
         elif event == DOWN_UP:
             Link.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
             Link.velocityX -= RUN_SPEED_PPS
+            Link.dir = LEFT
         elif event == RIGHT_DOWN:
             Link.velocityX += RUN_SPEED_PPS
+            Link.dir = RIGHT
         elif event == LEFT_UP:
             Link.velocityX += RUN_SPEED_PPS
         elif event == RIGHT_UP:
@@ -112,8 +115,9 @@ class RunState:
     @staticmethod
     def do(Link):
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
-        Link.x += Link.velocityX
-        Link.y += Link.velocityY
+        Link.x += Link.velocityX*game_framework.frame_time
+        Link.y += Link.velocityY*game_framework.frame_time
+        print(Link.velocityX)
         Link.x = clamp(SIZE, Link.x, 1600 - SIZE)
         Link.y = clamp(SIZE, Link.y, 1000 - SIZE)
 
@@ -369,7 +373,7 @@ class LINK:
         self.x,self.y = WINX//2, WINY//2
         self.dir = DOWN
         self.timer = 0
-        self.velocityX,self.velocityY = 0,0
+        self.velocityX,self.velocityY = 0.0,0.0
         self.enable = False
         self.aiming = False
 
