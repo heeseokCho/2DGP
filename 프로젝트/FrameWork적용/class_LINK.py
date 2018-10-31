@@ -10,10 +10,23 @@ SIZE = 64
 #방향별 사진
 UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 
+#Link Run Speed
+PIXEL_PER_METER = (10.0/0.3)
+RUN_SPEED_KMPH = 20.0
+RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
+RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
+
+#Link Action Speed
+TIME_PER_ACTION = 0.5
+ACTION_PER_TIME = 1.0/TIME_PER_ACTION
+FRAMES_PER_ACTION = 8
+
 #Link Event
 UP_DOWN,DOWN_DOWN,LEFT_DOWN,RIGHT_DOWN,\
 UP_UP,DOWN_UP,LEFT_UP,RIGHT_UP,\
 ATTACK_DOWN,ATTACK_UP,AIM_TIMER= range(11)
+
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_w): UP_DOWN,
@@ -120,6 +133,8 @@ class AimState:
         Link.timer = 3
         Link.enable = False
 
+
+
     @staticmethod
     def exit(Link, event):
         pass
@@ -145,48 +160,11 @@ class AimState:
 
 class AimIdleState:
     def enter(Link, event):
+
         Link.image = load_image('AimStanding.png')
         Link.frame = 0
         Link.timer = 3
-
-        if event == UP_DOWN:
-            Link.velocityY += 1
-        elif event == DOWN_DOWN:
-            Link.velocityY -= 1
-        elif event == LEFT_DOWN:
-            Link.velocityX -= 1
-        elif event == RIGHT_DOWN:
-            Link.velocityX += 1
-        elif event == UP_UP:
-            Link.velocityY -= 1
-        elif event == DOWN_UP:
-            Link.velocityY += 1
-        elif event == RIGHT_UP:
-            Link.velocityX -= 1
-        elif event == LEFT_UP:
-            Link.velocityX += 1
-
-    @staticmethod
-    def exit(Link, event):
-        pass
-
-    @staticmethod
-    def do(Link):
-        Link.timer -=1
-
-        if Link.timer < 0:
-            Link.enable = True
-
-    @staticmethod
-    def draw(Link):
-        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
-
-
-class AimRunState:
-    @staticmethod
-    def enter(Link, event):
-        Link.image = load_image('AimWalking.png')
-        Link.frame = 0
+        Link.aiming = True
 
         if event == UP_DOWN:
             Link.velocityY += 1
@@ -204,10 +182,57 @@ class AimRunState:
             Link.velocityY -= 1
         elif event == DOWN_UP:
             Link.velocityY += 1
-        elif event == RIGHT_UP:
-            Link.velocityX -= 1
         elif event == LEFT_UP:
             Link.velocityX += 1
+        elif event == RIGHT_UP:
+            Link.velocityX -= 1
+
+
+    @staticmethod
+    def exit(Link, event):
+        pass
+
+    @staticmethod
+    def do(Link):
+
+        Link.timer -=1
+
+        if Link.timer < 0:
+            Link.enable = True
+
+    @staticmethod
+    def draw(Link):
+        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
+
+
+class AimRunState:
+    @staticmethod
+    def enter(Link, event):
+        Link.image = load_image('AimWalking.png')
+        Link.frame = 0
+        Link.aiming = True
+
+        if event == UP_DOWN:
+            Link.velocityY += 1
+            Link.dir = UP
+        elif event == DOWN_DOWN:
+            Link.velocityY -= 1
+            Link.dir = DOWN
+        elif event == LEFT_DOWN:
+            Link.velocityX -= 1
+            Link.dir = LEFT
+        elif event == RIGHT_DOWN:
+            Link.velocityX += 1
+            Link.dir = RIGHT
+        elif event == UP_UP:
+            Link.velocityY -= 1
+        elif event == DOWN_UP:
+            Link.velocityY += 1
+        elif event == LEFT_UP:
+            Link.velocityX += 1
+        elif event == RIGHT_UP:
+            Link.velocityX -= 1
+
 
     @staticmethod
     def exit(Link, event):
@@ -225,6 +250,7 @@ class AimRunState:
         if Link.timer < 0:
             Link.enable = True
 
+
     @staticmethod
     def draw(Link):
         Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
@@ -235,7 +261,7 @@ class ShootState:
     def enter(Link, event):
         Link.image = load_image('Shooting.png')
         Link.frame = 0
-        Link.timer = 10
+        Link.timer = 6
 
     @staticmethod
     def exit(Link, event):
@@ -244,12 +270,15 @@ class ShootState:
     @staticmethod
     def do(Link):
         Link.frame = (Link.frame + 1) % 6
-        Link.timer -= 1
+
 
         if Link.enable == True:
-            pass
+            Link.timer -= 1
+
+            if Link.timer < 0:
+                Link.add_event(AIM_TIMER)
         else:
-            Link.add_event(IdleState)
+            Link.add_event(AIM_TIMER)
 
     @staticmethod
     def draw(Link):
@@ -298,11 +327,11 @@ class WinState:
 
 next_state_table = {
     IdleState:{UP_DOWN:RunState,DOWN_DOWN:RunState,LEFT_DOWN:RunState,RIGHT_DOWN:RunState,
-               UP_UP:IdleState,DOWN_UP:IdleState,LEFT_UP:IdleState,RIGHT_UP:IdleState,
+               UP_UP:RunState,DOWN_UP:RunState,LEFT_UP:RunState,RIGHT_UP:RunState,
                ATTACK_DOWN:AimState,ATTACK_UP:IdleState},
 
     RunState: {UP_DOWN:RunState,DOWN_DOWN:RunState,LEFT_DOWN:RunState,RIGHT_DOWN:RunState,
-               UP_UP:RunState,DOWN_UP:RunState,LEFT_UP:RunState,RIGHT_UP:RunState,
+               UP_UP:IdleState,DOWN_UP:IdleState,LEFT_UP:IdleState,RIGHT_UP:IdleState,
                ATTACK_DOWN:AimState,ATTACK_UP:RunState},
 
     AimState:{UP_DOWN:AimState,DOWN_DOWN:AimState,LEFT_DOWN:AimState,RIGHT_DOWN:AimState,
@@ -311,15 +340,15 @@ next_state_table = {
 
     AimIdleState:{UP_DOWN:AimRunState,DOWN_DOWN:AimRunState,LEFT_DOWN:AimRunState,RIGHT_DOWN:AimRunState,
                UP_UP:AimIdleState,DOWN_UP:AimIdleState,LEFT_UP:AimIdleState,RIGHT_UP:AimIdleState,
-               ATTACK_DOWN:AimIdleState,ATTACK_UP:IdleState,AIM_TIMER:AimIdleState},
+               ATTACK_DOWN:AimIdleState,ATTACK_UP:ShootState,AIM_TIMER:AimIdleState},
 
     AimRunState:{UP_DOWN:AimRunState,DOWN_DOWN:AimRunState,LEFT_DOWN:AimRunState,RIGHT_DOWN:AimRunState,
                UP_UP:AimRunState,DOWN_UP:AimRunState,LEFT_UP:AimRunState,RIGHT_UP:AimRunState,
                ATTACK_DOWN:AimRunState,ATTACK_UP:ShootState,AIM_TIMER:AimRunState},
 
-    ShootState:{UP_DOWN:ShootState,DOWN_DOWN:ShootState,LEFT_DOWN:ShootState,RIGHT_DOWN:ShootState,
+    ShootState:{UP_DOWN:RunState,DOWN_DOWN:RunState,LEFT_DOWN:RunState,RIGHT_DOWN:RunState,
                UP_UP:ShootState,DOWN_UP:ShootState,LEFT_UP:ShootState,RIGHT_UP:ShootState,
-               ATTACK_DOWN:ShootState,ATTACK_UP:IdleState,AIM_TIMER:ShootState},
+               ATTACK_DOWN:ShootState,ATTACK_UP:IdleState,AIM_TIMER:IdleState},
 
     DieState:{UP_DOWN:DieState,DOWN_DOWN:DieState,LEFT_DOWN:DieState,RIGHT_DOWN:DieState,
                UP_UP:DieState,DOWN_UP:DieState,LEFT_UP:DieState,RIGHT_UP:DieState,
@@ -345,6 +374,7 @@ class LINK:
         self.timer = 0
         self.velocityX,self.velocityY = 0,0
         self.enable = False
+        self.aiming = False
 
     def update_rect(self):
         pass
