@@ -1,5 +1,7 @@
 from pico2d import*
 import game_world
+import game_framework
+import class_LINK
 
 #윈도우크기
 WINX,WINY = 1600,1000
@@ -9,21 +11,28 @@ SIZE = 64
 UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 
 
+#Link Run Speed
+PIXEL_PER_METER = (10.0/0.3)
+RUN_SPEED_KMPH = 10.0
+RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
+RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
+
 class ARROW:
     global Link,Circle
     image = None
 
-    def __init__(self,x = 0,y = 0,dir = DOWN,velocity = 1):
+    def __init__(self,x = 0,y = 0,dir = 0):
         if ARROW.image == None:
             ARROW.image = load_image('Arrow.png')
 
         self.x,self.y = x,y
-        self.velocity = velocity
+        self.velocity = RUN_SPEED_PPS*game_framework.frame_time
         self.dir = dir
 
 
     def draw(self):
-        ARROW.image.clip_draw(0, self.dir // 2, SIZE // 2, SIZE // 2, self.x, self.y)
+        ARROW.image.clip_draw(0, self.dir//2, SIZE // 2, SIZE // 2, self.x, self.y)
 
     def draw_rect(self):
         pass

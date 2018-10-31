@@ -121,7 +121,6 @@ class RunState:
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
         Link.x += Link.velocityX*game_framework.frame_time
         Link.y += Link.velocityY*game_framework.frame_time
-        print(Link.y)
         Link.x = clamp(SIZE, Link.x, 1600 - SIZE)
         Link.y = clamp(SIZE, Link.y, 1000 - SIZE)
 
@@ -138,26 +137,26 @@ class AimState:
         Link.timer = 0
         Link.enable = False
 
-        if event == UP_DOWN:
-            Link.velocityY += RUN_SPEED_PPS
-            Link.dir = UP
-        elif event == DOWN_DOWN:
-            Link.velocityY -= RUN_SPEED_PPS
-            Link.dir = DOWN
-        elif event == UP_UP:
-            Link.velocityY -= RUN_SPEED_PPS
-        elif event == DOWN_UP:
-            Link.velocityY += RUN_SPEED_PPS
-        elif event == LEFT_DOWN:
-            Link.velocityX -= RUN_SPEED_PPS
-            Link.dir = LEFT
-        elif event == RIGHT_DOWN:
-            Link.velocityX += RUN_SPEED_PPS
-            Link.dir = RIGHT
-        elif event == LEFT_UP:
-            Link.velocityX += RUN_SPEED_PPS
-        elif event == RIGHT_UP:
-            Link.velocityX -= RUN_SPEED_PPS
+        #if event == UP_DOWN:
+        #    Link.velocityY += RUN_SPEED_PPS
+        #    Link.dir = UP
+        #elif event == DOWN_DOWN:
+        #    Link.velocityY -= RUN_SPEED_PPS
+        #    Link.dir = DOWN
+        #elif event == UP_UP:
+        #    Link.velocityY -= RUN_SPEED_PPS
+        #elif event == DOWN_UP:
+        #    Link.velocityY += RUN_SPEED_PPS
+        #elif event == LEFT_DOWN:
+        #    Link.velocityX -= RUN_SPEED_PPS
+        #    Link.dir = LEFT
+        #elif event == RIGHT_DOWN:
+        #    Link.velocityX += RUN_SPEED_PPS
+        #    Link.dir = RIGHT
+        #elif event == LEFT_UP:
+        #    Link.velocityX += RUN_SPEED_PPS
+        #elif event == RIGHT_UP:
+        #    Link.velocityX -= RUN_SPEED_PPS
 
     @staticmethod
     def exit(Link, event):
@@ -184,6 +183,7 @@ class AimState:
 
 
 class AimIdleState:
+    @staticmethod
     def enter(Link, event):
 
         Link.image = load_image('AimStanding.png')
@@ -315,6 +315,7 @@ class ShootState:
 
 
 class DieState:
+    @staticmethod
     def enter(Link, event):
         Link.image = load_image('AimStanding.png')
         Link.frame = 0
@@ -413,7 +414,7 @@ class LINK:
         pass
 
     def shoot_arrow(self):
-        Arrow = ARROW(self.x,self.y,self.dir*3)
+        Arrow = ARROW(self.x,self.y,self.dir)
         game_world.add_object(Arrow,1)
 
     def add_event(self,event):
