@@ -9,13 +9,57 @@ WINY  = 1000
 PI = 3.141592
 
 class State0State:
-    pass
+    @staticmethod
+    def enter(Circle, event):
+        pass
+
+    @staticmethod
+    def exit(Circle, event):
+        pass
+
+    @staticmethod
+    def do(Circle):
+        pass
+
+    @staticmethod
+    def draw(Circle):
+        pass
 
 class Stage1State:
-    pass
+    @staticmethod
+    def enter(Circle,event):
+        pass
+
+    @staticmethod
+    def exit(Circle,event):
+        pass
+
+    @staticmethod
+    def do(Circle):
+        pass
+
+    @staticmethod
+    def draw(Circle):
+        pass
+
+
 
 class State2State:
-    pass
+    @staticmethod
+    def enter(Circle, event):
+        pass
+
+    @staticmethod
+    def exit(Circle, event):
+        pass
+
+    @staticmethod
+    def do(Circle):
+        pass
+
+    @staticmethod
+    def draw(Circle):
+        pass
 
 
 
