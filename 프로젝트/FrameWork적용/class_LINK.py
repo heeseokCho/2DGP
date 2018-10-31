@@ -117,6 +117,7 @@ class RunState:
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
         Link.x += Link.velocityX*game_framework.frame_time
         Link.y += Link.velocityY*game_framework.frame_time
+        print(Link.y)
         Link.x = clamp(SIZE, Link.x, 1600 - SIZE)
         Link.y = clamp(SIZE, Link.y, 1000 - SIZE)
 
@@ -169,12 +170,13 @@ class AimState:
         Link.timer += get_time() - Link.cur_time
         Link.cur_time = get_time()
 
-        if Link.timer >= 0:
+        if Link.timer >= 1:
+            Link.enable = True
             Link.add_event(AIM_TIMER)
 
     @staticmethod
     def draw(Link):
-        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
+        Link.image.clip_draw(int(Link.frame) * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
 
 
 class AimIdleState:
@@ -182,29 +184,28 @@ class AimIdleState:
 
         Link.image = load_image('AimStanding.png')
         Link.frame = 0
-        Link.timer = 3
-        Link.aiming = True
+        Link.timer = 0
 
         if event == UP_DOWN:
-            Link.velocityY += 1
+            Link.velocityY += RUN_SPEED_PPS
             Link.dir = UP
         elif event == DOWN_DOWN:
-            Link.velocityY -= 1
+            Link.velocityY -= RUN_SPEED_PPS
             Link.dir = DOWN
+        elif event == UP_UP:
+            Link.velocityY -= RUN_SPEED_PPS
+        elif event == DOWN_UP:
+            Link.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
-            Link.velocityX -= 1
+            Link.velocityX -= RUN_SPEED_PPS
             Link.dir = LEFT
         elif event == RIGHT_DOWN:
-            Link.velocityX += 1
+            Link.velocityX += RUN_SPEED_PPS
             Link.dir = RIGHT
-        elif event == UP_UP:
-            Link.velocityY -= 1
-        elif event == DOWN_UP:
-            Link.velocityY += 1
         elif event == LEFT_UP:
-            Link.velocityX += 1
+            Link.velocityX += RUN_SPEED_PPS
         elif event == RIGHT_UP:
-            Link.velocityX -= 1
+            Link.velocityX -= RUN_SPEED_PPS
 
 
     @staticmethod
@@ -213,15 +214,14 @@ class AimIdleState:
 
     @staticmethod
     def do(Link):
+        Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 1
 
-        Link.timer -=1
-
-        if Link.timer < 0:
-            Link.enable = True
+        Link.timer += get_time() - Link.cur_time
+        Link.cur_time = get_time()
 
     @staticmethod
     def draw(Link):
-        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
+        Link.image.clip_draw(int(Link.frame) * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
 
 
 class AimRunState:
@@ -229,28 +229,27 @@ class AimRunState:
     def enter(Link, event):
         Link.image = load_image('AimWalking.png')
         Link.frame = 0
-        Link.aiming = True
 
         if event == UP_DOWN:
-            Link.velocityY += 1
+            Link.velocityY += RUN_SPEED_PPS
             Link.dir = UP
         elif event == DOWN_DOWN:
-            Link.velocityY -= 1
+            Link.velocityY -= RUN_SPEED_PPS
             Link.dir = DOWN
+        elif event == UP_UP:
+            Link.velocityY -= RUN_SPEED_PPS
+        elif event == DOWN_UP:
+            Link.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
-            Link.velocityX -= 1
+            Link.velocityX -= RUN_SPEED_PPS
             Link.dir = LEFT
         elif event == RIGHT_DOWN:
-            Link.velocityX += 1
+            Link.velocityX += RUN_SPEED_PPS
             Link.dir = RIGHT
-        elif event == UP_UP:
-            Link.velocityY -= 1
-        elif event == DOWN_UP:
-            Link.velocityY += 1
         elif event == LEFT_UP:
-            Link.velocityX += 1
+            Link.velocityX += RUN_SPEED_PPS
         elif event == RIGHT_UP:
-            Link.velocityX -= 1
+            Link.velocityX -= RUN_SPEED_PPS
 
 
     @staticmethod
@@ -259,20 +258,16 @@ class AimRunState:
 
     @staticmethod
     def do(Link):
-        Link.frame = (Link.frame + 1) % 8
-        Link.x += Link.velocityX
-        Link.y += Link.velocityY
+        Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
+        Link.x += Link.velocityX * game_framework.frame_time
+        Link.y += Link.velocityY * game_framework.frame_time
         Link.x = clamp(SIZE, Link.x, 1600 - SIZE)
         Link.y = clamp(SIZE, Link.y, 1000 - SIZE)
-        Link.timer -=1
-
-        if Link.timer < 0:
-            Link.enable = True
 
 
     @staticmethod
     def draw(Link):
-        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
+        Link.image.clip_draw(int(Link.frame) * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
 
 
 class ShootState:
@@ -280,7 +275,7 @@ class ShootState:
     def enter(Link, event):
         Link.image = load_image('Shooting.png')
         Link.frame = 0
-        Link.timer = 6
+        Link.timer = 0
 
     @staticmethod
     def exit(Link, event):
@@ -288,20 +283,28 @@ class ShootState:
 
     @staticmethod
     def do(Link):
-        Link.frame = (Link.frame + 1) % 6
+        Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
 
 
         if Link.enable == True:
-            Link.timer -= 1
+            Link.timer += get_time() - Link.cur_time
+            Link.cur_time = get_time()
 
-            if Link.timer < 0:
+            if Link.timer >= 3:
                 Link.add_event(AIM_TIMER)
         else:
-            Link.add_event(AIM_TIMER)
+            Link.add_event(ATTACK_UP)
+
+        Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
+        Link.x += Link.velocityX * game_framework.frame_time
+        Link.y += Link.velocityY * game_framework.frame_time
+        Link.x = clamp(SIZE, Link.x, 1600 - SIZE)
+        Link.y = clamp(SIZE, Link.y, 1000 - SIZE)
+
 
     @staticmethod
     def draw(Link):
-        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
+        Link.image.clip_draw(int(Link.frame) * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
 
 
 class DieState:
@@ -320,7 +323,7 @@ class DieState:
 
     @staticmethod
     def draw(Link):
-        Link.image.clip_draw(Link.frame * SIZE, 0, SIZE, SIZE, Link.x, Link.y)
+        Link.image.clip_draw(int(Link.frame) * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
 
 
 class WinState:
@@ -341,21 +344,21 @@ class WinState:
 
     @staticmethod
     def draw(Link):
-        Link.image.clip_draw(Link.frame * SIZE, 0, SIZE, SIZE, Link.x, Link.y)
+        Link.image.clip_draw(int(Link.frame) * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
 
 
 next_state_table = {
     IdleState:{UP_DOWN:RunState,DOWN_DOWN:RunState,LEFT_DOWN:RunState,RIGHT_DOWN:RunState,
                UP_UP:RunState,DOWN_UP:RunState,LEFT_UP:RunState,RIGHT_UP:RunState,
-               ATTACK_DOWN:AimState,ATTACK_UP:IdleState},
+               ATTACK_DOWN:AimState,ATTACK_UP:IdleState,AIM_TIMER: AimIdleState},
 
     RunState: {UP_DOWN:RunState,DOWN_DOWN:RunState,LEFT_DOWN:RunState,RIGHT_DOWN:RunState,
-               UP_UP:IdleState,DOWN_UP:IdleState,LEFT_UP:IdleState,RIGHT_UP:IdleState,
+               UP_UP:RunState,DOWN_UP:RunState,LEFT_UP:RunState,RIGHT_UP:RunState,
                ATTACK_DOWN:AimState,ATTACK_UP:RunState},
 
-    AimState:{UP_DOWN:AimState,DOWN_DOWN:AimState,LEFT_DOWN:AimState,RIGHT_DOWN:AimState,
-               UP_UP:AimState,DOWN_UP:AimState,LEFT_UP:AimState,RIGHT_UP:AimState,
-               ATTACK_DOWN:AimState,ATTACK_UP:IdleState,AIM_TIMER:AimIdleState},
+    AimState:{UP_DOWN:AimRunState,DOWN_DOWN:AimRunState,LEFT_DOWN:AimRunState,RIGHT_DOWN:AimRunState,
+               UP_UP:AimIdleState,DOWN_UP:AimIdleState,LEFT_UP:AimIdleState,RIGHT_UP:AimIdleState,
+               ATTACK_DOWN:AimState,ATTACK_UP:RunState,AIM_TIMER:AimIdleState},
 
     AimIdleState:{UP_DOWN:AimRunState,DOWN_DOWN:AimRunState,LEFT_DOWN:AimRunState,RIGHT_DOWN:AimRunState,
                UP_UP:AimIdleState,DOWN_UP:AimIdleState,LEFT_UP:AimIdleState,RIGHT_UP:AimIdleState,
