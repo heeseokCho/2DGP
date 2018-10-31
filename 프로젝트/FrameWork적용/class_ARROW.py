@@ -13,7 +13,7 @@ UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 
 #Link Run Speed
 PIXEL_PER_METER = (10.0/0.3)
-RUN_SPEED_KMPH = 10.0
+RUN_SPEED_KMPH = 25.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
@@ -49,7 +49,7 @@ class ARROW:
         elif self.dir == RIGHT:
             self.x += self.velocity
 
-        if self.x < SIZE or self.x > WINX-SIZE or self.y <SIZE or self.y > WINY-SIZE:
+        if self.x < SIZE//2 or self.x > WINX-SIZE//2 or self.y <SIZE//2 or self.y > WINY-SIZE//2:
             game_world.remove_object(self)
 
     def update_rect(self):

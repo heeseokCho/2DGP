@@ -21,8 +21,6 @@ SIZE = 64
 #방향별 사진
 UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 
-#8방
-LEFTUP,RIGHTUP,RIGHTDOWN,LEFTDOWN = 11,22,33,44
 
 #상태 (상태이름, 프레임개수)
 STANDING,WALKING,SHOOTING,AIMING,AIMWALKING,DIEING,AIMSTANDING,WINNING =\
@@ -31,29 +29,6 @@ STANDING,WALKING,SHOOTING,AIMING,AIMWALKING,DIEING,AIMSTANDING,WINNING =\
 Background = None
 Link = None
 Circle = None
-Arrow = []
-
-
-
-
-#def DeleteBullets():
-#    #링크 화살
-#
-#    DeleteArrow = []
-#    for i in Arrow:
-#        if i.x > Circle.x + 400:
-#            DeleteArrow.append(i)
-#        elif i.x < Circle.x - 400:
-#            DeleteArrow.append(i)
-#        if i.y > Circle.y + 400:
-#            DeleteArrow.append(i)
-#        elif i.y < Circle.y - 400:
-#            DeleteArrow.append(i)
-#
-#    for i in DeleteArrow:
-#        if i in Arrow:
-#            Arrow.remove(i)
-
 
 def enter():
     global Link,Circle,Background
@@ -90,8 +65,6 @@ def handle_events():
 def update():
     for game_object in game_world.all_objects():
         game_object.update()
-
-    delay(0.05)
 
 
 def draw():
