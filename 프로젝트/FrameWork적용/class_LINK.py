@@ -1,4 +1,5 @@
 from pico2d import*
+import game_framework
 import game_world
 from class_ARROW import ARROW
 
@@ -49,21 +50,21 @@ class IdleState:
         Link.image = load_image('Standing.png')
 
         if event == UP_DOWN:
-            Link.velocityY += 1
+            Link.velocityY += RUN_SPEED_PPS
         elif event == DOWN_DOWN:
-            Link.velocityY -= 1
+            Link.velocityY -= RUN_SPEED_PPS
         elif event == UP_UP:
-            Link.velocityY -= 1
+            Link.velocityY -= RUN_SPEED_PPS
         elif event == DOWN_UP:
-            Link.velocityY += 1
+            Link.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
-            Link.velocityX -= 1
+            Link.velocityX -= RUN_SPEED_PPS
         elif event == RIGHT_DOWN:
-            Link.velocityX += 1
+            Link.velocityX += RUN_SPEED_PPS
         elif event == LEFT_UP:
-            Link.velocityX += 1
+            Link.velocityX += RUN_SPEED_PPS
         elif event == RIGHT_UP:
-            Link.velocityX -= 1
+            Link.velocityX -= RUN_SPEED_PPS
 
 
     @staticmethod
@@ -72,11 +73,11 @@ class IdleState:
 
     @staticmethod
     def do(Link):
-        pass
+        Link.frame = (Link.frame + FRAMES_PER_ACTION*ACTION_PER_TIME * game_framework.frame_time) % 8
 
     @staticmethod
     def draw(Link):
-        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
+        Link.image.clip_draw(int(Link.frame) * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
 
 
 class RunState:
@@ -86,25 +87,21 @@ class RunState:
         Link.frame = 0
 
         if event == UP_DOWN:
-            Link.velocityY += 1
-            Link.dir = UP
+            Link.velocityY += RUN_SPEED_PPS
         elif event == DOWN_DOWN:
-            Link.velocityY -= 1
-            Link.dir = DOWN
-        elif event == LEFT_DOWN:
-            Link.velocityX -= 1
-            Link.dir = LEFT
-        elif event == RIGHT_DOWN:
-            Link.velocityX += 1
-            Link.dir = RIGHT
+            Link.velocityY -= RUN_SPEED_PPS
         elif event == UP_UP:
-            Link.velocityY -= 1
+            Link.velocityY -= RUN_SPEED_PPS
         elif event == DOWN_UP:
-            Link.velocityY += 1
+            Link.velocityY += RUN_SPEED_PPS
+        elif event == LEFT_DOWN:
+            Link.velocityX -= RUN_SPEED_PPS
+        elif event == RIGHT_DOWN:
+            Link.velocityX += RUN_SPEED_PPS
         elif event == LEFT_UP:
-            Link.velocityX += 1
+            Link.velocityX += RUN_SPEED_PPS
         elif event == RIGHT_UP:
-            Link.velocityX -= 1
+            Link.velocityX -= RUN_SPEED_PPS
 
 
 
@@ -114,7 +111,7 @@ class RunState:
 
     @staticmethod
     def do(Link):
-        Link.frame = (Link.frame + 1) % 10
+        Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
         Link.x += Link.velocityX
         Link.y += Link.velocityY
         Link.x = clamp(SIZE, Link.x, 1600 - SIZE)
@@ -122,7 +119,7 @@ class RunState:
 
     @staticmethod
     def draw(Link):
-        Link.image.clip_draw(Link.frame * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
+        Link.image.clip_draw(int(Link.frame) * SIZE, Link.dir, SIZE, SIZE, Link.x, Link.y)
 
 
 class AimState:
