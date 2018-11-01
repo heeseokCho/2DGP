@@ -121,8 +121,8 @@ class RunState:
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
         Link.x += Link.velocityX*game_framework.frame_time
         Link.y += Link.velocityY*game_framework.frame_time
-        Link.x = clamp(SIZE, Link.x, 1600 - SIZE)
-        Link.y = clamp(SIZE, Link.y, 1000 - SIZE)
+        Link.x = clamp(SIZE, Link.x,WINX-SIZE)
+        Link.y = clamp(SIZE,Link.y,WINY-250)
 
     @staticmethod
     def draw(Link):
@@ -167,8 +167,8 @@ class AimState:
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
         Link.x += Link.velocityX*game_framework.frame_time
         Link.y += Link.velocityY*game_framework.frame_time
-        Link.x = clamp(SIZE, Link.x, 1600 - SIZE)
-        Link.y = clamp(SIZE, Link.y, 1000 - SIZE)
+        Link.x = clamp(SIZE, Link.x,WINX-SIZE)
+        Link.y = clamp(SIZE,Link.y,WINY-250)
 
         Link.timer += get_time() - Link.cur_time
         Link.cur_time = get_time()
@@ -265,8 +265,8 @@ class AimRunState:
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
         Link.x += Link.velocityX * game_framework.frame_time
         Link.y += Link.velocityY * game_framework.frame_time
-        Link.x = clamp(SIZE, Link.x, 1600 - SIZE)
-        Link.y = clamp(SIZE, Link.y, 1000 - SIZE)
+        Link.x = clamp(SIZE, Link.x,WINX-SIZE)
+        Link.y = clamp(SIZE,Link.y,WINY-250)
 
 
     @staticmethod
@@ -305,8 +305,8 @@ class ShootState:
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
         Link.x += Link.velocityX * game_framework.frame_time
         Link.y += Link.velocityY * game_framework.frame_time
-        Link.x = clamp(SIZE, Link.x, 1600 - SIZE)
-        Link.y = clamp(SIZE, Link.y, 1000 - SIZE)
+        Link.x = clamp(SIZE, Link.x,WINX-SIZE)
+        Link.y = clamp(SIZE,Link.y,WINY-250)
 
 
     @staticmethod
