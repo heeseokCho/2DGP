@@ -37,7 +37,7 @@ class BOSS1_BULLET1:
     def draw(self):
         self.image.draw(self.x,self.y,SIZE,SIZE)
 
-    def update(self):
+    def update(self):#
         self.timer += get_time()-self.cur_time
         self.cur_time = get_time()
 
