@@ -30,7 +30,7 @@ Boss2 = None
 def enter():
     global Link,Circle,Background,Boss2
 
-    Background = BACKGROUND()
+    Background = BACKGROUND(2)
     Link = LINK()
     Boss2 = BOSS2()
     Circle = CIRCLE()

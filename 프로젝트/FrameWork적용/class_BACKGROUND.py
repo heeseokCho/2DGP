@@ -1,12 +1,13 @@
 from pico2d import*
-from game_world import phase
 
 #윈도우 크기
 WINX  = 1600
 WINY  = 1000
 
-class BACKGROUND:
-    def __init__(self):
+class BACKGROUND():
+    global phase
+
+    def __init__(self,phase = 0):
         if phase == 1:
             self.image = load_image('Background.png')
 

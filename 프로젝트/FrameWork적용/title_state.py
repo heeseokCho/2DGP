@@ -41,6 +41,7 @@ def exit():
     del (Exit_image)
 
 def handle_events():
+    global phase
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:

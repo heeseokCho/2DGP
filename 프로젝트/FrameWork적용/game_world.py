@@ -3,8 +3,6 @@
 # layer 2: Circle
 objects = [[],[],[]]
 
-phase = 0
-
 def add_object(o, layer):
     objects[layer].append(o)
 
