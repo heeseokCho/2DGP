@@ -1,12 +1,13 @@
 from pico2d import*
 import game_world
-
-from class_BOSS1_BULLET2 import BOSS1_BULLET2
+import game_framework
 
 import random
+import math
 
 WINX,WINY = 1600,1000
 SIZE  = 64
+PI = 3.141592
 
 PIXEL_PER_METER = (10.0/0.3)
 RUN_SPEED_KMPH = 20.0
@@ -14,33 +15,37 @@ RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 
-class BOSS1_BULLET1:
+DEGREE_PER_TIME = PI/36
+
+class BOSS2_BULLET1:
     image = None
 
-    def __init__(self):
-        if BOSS1_BULLET1.image == None:
-            BOSS1_BULLET1.image = load_image('Boss1Bullet1.png')
-        self.x = random.randint(SIZE,WINX-SIZE)
-        self.y = random.randint(SIZE,WINY-250)
-        self.cur_time = 0
-        self.timer = 0
+    def __init__(self,x=0,y=0):
+        if BOSS2_BULLET1.image == None:
+            BOSS2_BULLET1.image = load_image('Boss2_Bullet.png')
 
-    def shoot_bullet(self):
+        self.startX,self.startY = 0,0
+        self.endX,self.endY=0,0
+        self.x,self.y =x,y
+        self.velocity = RUN_SPEED_PPS
+        self.bullet_rotate_degree = 0
+        self.t = 0
+
         if random.randint(0,1) == 0:
-            bullet2 = [BOSS1_BULLET2(self.x,self.y,i) for i in range(0,8,2)]
+            self.bullet_rotate_dir = -1
         else:
-            bullet2 = [BOSS1_BULLET2(self.x, self.y, i+1) for i in range(0,8, 2)]
+            self.bullet_rotate_dir = 1
 
-        for o in bullet2:
-            game_world.add_object(o,1)
+
 
     def draw(self):
-        self.image.draw(self.x,self.y,SIZE,SIZE)
+        BOSS2_BULLET1.image.rotate_draw(math.radians(self.angle_rotation), self.x, self.y, SIZE / 2, SIZE / 2)
 
-    def update(self):#
-        self.timer += get_time()-self.cur_time
-        self.cur_time = get_time()
+    def update(self):
+        self.bullet_rotate_degree+=self.bullet_rotate_dirDEGREE_PER_TIME*game_framework.frame_time
 
-        if self.timer >=8:
-            self.shoot_bullet()
-            self.timer = 0
+        self.t += RUN_SPEED_PPS/100
+        self.x = (1 - self.t) * self.startX + self.t * self.endX
+        self.y = (1 - self.t) * self.startY + self.t * self.endY
+
+
