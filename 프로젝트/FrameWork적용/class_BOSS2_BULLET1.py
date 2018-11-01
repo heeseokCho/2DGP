@@ -39,10 +39,11 @@ class BOSS2_BULLET1:
 
 
     def draw(self):
-        BOSS2_BULLET1.image.rotate_draw(math.radians(self.angle_rotation), self.x, self.y, SIZE / 2, SIZE / 2)
+        pass
+#        BOSS2_BULLET1.image.rotate_draw(math.radians(self.angle_rotation), self.x, self.y, SIZE / 2, SIZE / 2)
 
     def update(self):
-        self.bullet_rotate_degree+=self.bullet_rotate_dirDEGREE_PER_TIME*game_framework.frame_time
+        #self.bullet_rotate_degree+=self.bullet_rotate_dirDEGREE_PER_TIME*game_framework.frame_time
 
         self.t += RUN_SPEED_PPS/100
         self.x = (1 - self.t) * self.startX + self.t * self.endX

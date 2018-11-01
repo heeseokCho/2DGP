@@ -11,6 +11,8 @@ from class_BOSS1 import BOSS1
 from class_BACKGROUND import BACKGROUND
 from class_CIRCLE import CIRCLE
 
+import main_state2
+
 name = "MainState"
 
 #윈도우 크기
@@ -57,6 +59,8 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
+        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_2):
+            game_framework.change_state(main_state2)
         else:
             Link.handle_event(event)
 

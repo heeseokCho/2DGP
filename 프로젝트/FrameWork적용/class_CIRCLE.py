@@ -12,10 +12,10 @@ PI = 3.141592
 
 #Circle Run velocity
 PIXEL_PER_METER = (10.0/0.3)
-RUN_velocity_KMPH = 20.0
-RUN_velocity_MPM = (RUN_velocity_KMPH*1000.0/60.0)
-RUN_velocity_MPS = (RUN_velocity_MPM / 60.0)
-RUN_velocity_PPS = (RUN_velocity_MPS*PIXEL_PER_METER)
+RUN_SPEED_KMPH = 20.0
+RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
+RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 
 DEGREE_PER_TIME = PI/36
 
@@ -40,6 +40,9 @@ class State0State:
     def draw(Circle):
         pass
 
+
+
+
 class Stage1State:
     @staticmethod
     def enter(Circle,event):
@@ -49,8 +52,6 @@ class Stage1State:
         Circle.degree = 0
         Circle.timer = 0
         Circle.velocity = 0.05
-
-        Circle.velocity = 0
 
     @staticmethod
     def exit(Circle,event):
@@ -79,12 +80,22 @@ class Stage1State:
 
 
 
-
 class Stage2State:
     @staticmethod
     def enter(Circle, event):
         Circle.x, Circle.y = WINX // 2, WINY // 2
         Circle.r = 380
+        if random.randint(0,1) ==0:
+            Circle.dirX = -1
+        else: Circle.dirX = 1
+
+        if random.randint(0,1) ==0:
+            Circle.dirY = -1
+        else: Circle.dirY = 1
+
+        Circle.dir = -1
+        Circle.velocity = RUN_SPEED_PPS
+        print(Circle.dirX)
 
     @staticmethod
     def exit(Circle, event):
@@ -92,11 +103,45 @@ class Stage2State:
 
     @staticmethod
     def do(Circle):
-        pass
+        Circle.timer+=get_time()-Circle.cur_time
+        Circle.cur_time = get_time()
+
+        if Circle.timer >= 3:
+            Circle.velocity += RUN_SPEED_PPS
+            if random.randint(0, 1) == 0:
+                Circle.dirX = -1
+            else: Circle.dirX = 1
+            if random.randint(0, 1) == 0:
+                Circle.dirY = -1
+            else: Circle.dirY = 1
+
+            Circle.timer = 0
+
+        if Circle.r < 100:
+            Circle.dir = 1
+        elif Circle.r > 400:
+            Circle.dir = -1
+
+        if(Circle.x > WINX-Circle.r):
+            Circle.dirX = -1
+        elif(Circle.x < Circle.r):
+            Circle.dirX = 1
+        if (Circle.y > WINY-200 - Circle.r):
+            Circle.dirY = -1
+        elif (Circle.y < Circle.r):
+            Circle.dirY = 1
+
+        Circle.x += Circle.dirX * Circle.velocity
+        Circle.y += Circle.dirY * Circle.velocity
+        Circle.r += Circle.dir * Circle.velocity*2
+
+
 
     @staticmethod
     def draw(Circle):
-        pass
+        Circle.image.opacify(0.85)
+        Circle.image.draw(Circle.x - Circle.r * 0.01, Circle.y - Circle.r * 0.01, WINX * 2 + Circle.r,
+                          WINX * 2 + Circle.r)
 
 
 next_state_table = {}
@@ -112,14 +157,31 @@ class CIRCLE:
         self.cur_state.enter(self, None)
         self.cur_time = 0
         self.x,self.y,self.r =0,0,0
+        self.dir = 1
+        self.velocity = 0
 
         if phase == 1:
             self.cur_state = Stage1State
-            self.dir =1
+
             self.degree = 0
         elif phase == 2:
             self.cur_state = Stage2State
             self.dirX,self.dirY =0,0
+
+            self.x, self.y = WINX // 2, WINY // 2
+            self.r = 380
+            if random.randint(0, 1) == 0:
+                self.dirX = -1
+            else:
+                self.dirX = 1
+
+            if random.randint(0, 1) == 0:
+                self.dirY = -1
+            else:
+                self.dirY = 1
+
+                self.dir = -1
+                self.velocity = RUN_SPEED_PPS * 5
 
 
     def draw(self):

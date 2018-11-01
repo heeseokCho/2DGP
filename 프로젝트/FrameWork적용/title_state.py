@@ -49,11 +49,11 @@ def handle_events():
         else:
             if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.quit()
-            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE):
+            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_1):
                 game_framework.change_state(main_state1)
-            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_0):
+            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_2):
                 game_framework.change_state(main_state2)
-            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_9):
+            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_0):
                 game_framework.change_state(main_state0)
 
 def draw():
