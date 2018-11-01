@@ -95,7 +95,6 @@ class Stage2State:
 
         Circle.dir = -1
         Circle.velocity = RUN_SPEED_PPS
-        print(Circle.dirX)
 
     @staticmethod
     def exit(Circle, event):
@@ -107,7 +106,7 @@ class Stage2State:
         Circle.cur_time = get_time()
 
         if Circle.timer >= 15:
-            Circle.velocity += RUN_SPEED_PPS/1000
+            Circle.velocity += RUN_SPEED_PPS/5000
             if random.randint(0, 1) == 0:
                 Circle.dirX = -1
             else: Circle.dirX = 1

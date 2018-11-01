@@ -4,6 +4,7 @@ import game_world
 
 from class_BOSS2_BULLET1 import BOSS2_BULLET1
 from class_BOSS2_BULLET2 import BOSS2_BULLET2
+from class_CIRCLE import CIRCLE
 
 import math
 import random
@@ -16,7 +17,7 @@ RIGHT_BOTTOM,RIGHT,RIGHT_TOP,TOP = range(8)
 
 # Boss2 Run Speed
 PIXEL_PER_METER = (10.0/0.3)
-RUN_SPEED_KMPH = 20.0
+RUN_SPEED_KMPH = 1.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
@@ -24,18 +25,20 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 DEGREE_PER_TIME = PI
 
 # Boss2 Action Speed
-TIME_PER_ACTION = 3
+TIME_PER_ACTION = 1
 ACTION_PER_TIME = 1.0/TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
-
+DEGREE_PER_TIME = PI/12
 
 next_state_table ={}
 
 class RunState:
+
     @staticmethod
     def enter(Boss2,event):
         Boss2.frame= 0
+
 
     @staticmethod
     def exit(Boss2,event):
@@ -52,6 +55,23 @@ class RunState:
             Boss2.shoot_bullet2()
             Boss2.shoot_bullet1()
             Boss2.timer = 0
+
+        if Boss2.timer >=20:
+            Boss2.dir*=-1
+            Boss2.timer = 0
+
+        #Boss2.angle_rotation = math.atan2(Circle.y - Boss2.y, Circle.x - Boss2.x) * Boss2.dir
+
+        #Boss2.angle_revolution += Boss2.dir * 0.02
+        #Boss2.x = Circle.x + (Circle.r - SIZE) * math.cos(Boss2.angle_revolution)
+        #Boss2.y = Circle.y + (Circle.r - SIZE) * math.sin(Boss2.angle_revolution)
+
+        Boss2.revolution_degree += Boss2.dir * DEGREE_PER_TIME* game_framework.frame_time
+        Boss2.rotate_degree = math.atan2(WINY//2 - Boss2.y, WINX//2 - Boss2.x) * Boss2.dir
+
+        Boss2.x = WINX//2 + (380 - SIZE) * math.cos(Boss2.revolution_degree)
+        Boss2.y = WINY//2 + (380 - SIZE) * math.sin(Boss2.revolution_degree)
+
 
     @staticmethod
     def draw(Boss2):
@@ -70,7 +90,8 @@ class BOSS2:
         self.cur_state = RunState
         self.cur_state.enter(self, None)
         self.cur_time = 0
-        self.degree = 0
+        self.rotation_degree = 0
+        self.revolution_degree =0
         self.timer = 0
 
     #Link에게쏘는탄
