@@ -106,8 +106,8 @@ class Stage2State:
         Circle.timer+=get_time()-Circle.cur_time
         Circle.cur_time = get_time()
 
-        if Circle.timer >= 3:
-            Circle.velocity += RUN_SPEED_PPS
+        if Circle.timer >= 15:
+            Circle.velocity += RUN_SPEED_PPS/1000
             if random.randint(0, 1) == 0:
                 Circle.dirX = -1
             else: Circle.dirX = 1
@@ -181,7 +181,7 @@ class CIRCLE:
                 self.dirY = 1
 
                 self.dir = -1
-                self.velocity = RUN_SPEED_PPS * 5
+                self.velocity = RUN_SPEED_PPS/1000
 
 
     def draw(self):
