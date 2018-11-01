@@ -11,7 +11,7 @@ LEFT_TOP,LEFT,LEFT_BOTTOM,BOTTOM,\
 RIGHT_BOTTOM,RIGHT,RIGHT_TOP,TOP = range(8)
 
 PIXEL_PER_METER = (10.0/0.3)
-RUN_SPEED_KMPH = 20.0
+RUN_SPEED_KMPH = 0.05
 RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
@@ -28,7 +28,23 @@ class BOSS1_BULLET2:
 
 
     def draw(self):
-        self.image.draw(self.x,self.y)
+        if self.dir == LEFT_TOP:
+            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
+        elif self.dir == LEFT:
+            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE//2*1,SIZE//2,SIZE//2,self.x,self.y)
+        elif self.dir == LEFT_BOTTOM:
+            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
+        elif self.dir == BOTTOM:
+            BOSS1_BULLET2.image.clip_draw(SIZE//2*1,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
+        elif self.dir == RIGHT_BOTTOM:
+            BOSS1_BULLET2.image.clip_draw(SIZE//2*2,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
+        elif self.dir == RIGHT:
+            BOSS1_BULLET2.image.clip_draw(SIZE//2*2,SIZE//2*1,SIZE//2,SIZE//2,self.x,self.y)
+        elif self.dir == RIGHT_TOP:
+            BOSS1_BULLET2.image.clip_draw(SIZE//2*2,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
+        elif self.dir == TOP:
+            BOSS1_BULLET2.image.clip_draw(SIZE//2*1,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
+
 
     def update(self):
         if self.dir == LEFT_TOP:

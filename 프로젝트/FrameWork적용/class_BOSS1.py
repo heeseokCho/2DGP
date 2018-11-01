@@ -49,7 +49,7 @@ class RunState:
         Boss1.cur_time = get_time()
 
         if Boss1.timer >=3:
-            #Boss1.shoot_bullet2()
+            Boss1.shoot_bullet2()
             Boss1.shoot_bullet1()
             Boss1.timer = 0
 

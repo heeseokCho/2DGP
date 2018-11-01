@@ -26,7 +26,11 @@ class BOSS1_BULLET1:
         self.timer = 0
 
     def shoot_bullet(self):
-        bullet2 = [BOSS1_BULLET2(self.x,self.y,i) for i in range(8)]
+        if random.randint(0,1) == 0:
+            bullet2 = [BOSS1_BULLET2(self.x,self.y,i) for i in range(0,8,2)]
+        else:
+            bullet2 = [BOSS1_BULLET2(self.x, self.y, i+1) for i in range(0,8, 2)]
+
         for o in bullet2:
             game_world.add_object(o,1)
 
