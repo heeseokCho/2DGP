@@ -1,6 +1,7 @@
 # layer 0: Background Objects
 # layer 1: Foreground Objects
-objects = [[],[]]
+# layer 2: Circle
+objects = [[],[],[]]
 
 
 def add_object(o, layer):
@@ -8,8 +9,9 @@ def add_object(o, layer):
 
 
 def remove_object(o):
-    for i in range(len(objects)):
+    for i in range(len(objects)-1,0,-1):
         if o in objects[i]:
+
             objects[i].remove(o) #그룹에서 뻄
             del o                   #메모리에서삭제
 

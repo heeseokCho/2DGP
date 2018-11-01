@@ -21,11 +21,6 @@ SIZE = 64
 #방향별 사진
 UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 
-
-#상태 (상태이름, 프레임개수)
-STANDING,WALKING,SHOOTING,AIMING,AIMWALKING,DIEING,AIMSTANDING,WINNING =\
-[0,1],   [1,10], [2,6],   [3,3], [4,8],     [5,9], [6,1],       [7,1]
-
 Background = None
 Link = None
 Circle = None
@@ -40,8 +35,8 @@ def enter():
     Circle = CIRCLE()
 
     game_world.add_object(Background,0)
-    game_world.add_object(Circle,1)
     game_world.add_object(Boss1,1)
+    game_world.add_object(Circle,2)
     game_world.add_object(Link,1)
 
 def exit():

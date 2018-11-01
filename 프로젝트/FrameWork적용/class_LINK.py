@@ -379,11 +379,11 @@ class WinState:
 next_state_table = {
     IdleState:{UP_DOWN:RunState,DOWN_DOWN:RunState,LEFT_DOWN:RunState,RIGHT_DOWN:RunState,
                UP_UP:RunState,DOWN_UP:RunState,LEFT_UP:RunState,RIGHT_UP:RunState,
-               ATTACK_DOWN:AimState,ATTACK_UP:IdleState,AIM_TIMER: AimIdleState},
+               ATTACK_DOWN:AimState,ATTACK_UP:IdleState,AIM_TIMER: IdleState},
 
     RunState: {UP_DOWN:RunState,DOWN_DOWN:RunState,LEFT_DOWN:RunState,RIGHT_DOWN:RunState,
                UP_UP:RunState,DOWN_UP:RunState,LEFT_UP:RunState,RIGHT_UP:RunState,
-               ATTACK_DOWN:AimState,ATTACK_UP:RunState},
+               ATTACK_DOWN:AimState,ATTACK_UP:RunState,AIM_TIMER: RunState},
 
     AimState:{UP_DOWN:AimRunState,DOWN_DOWN:AimRunState,LEFT_DOWN:AimRunState,RIGHT_DOWN:AimRunState,
                UP_UP:RunState,DOWN_UP:RunState,LEFT_UP:RunState,RIGHT_UP:RunState,

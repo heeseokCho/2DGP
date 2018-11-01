@@ -65,8 +65,7 @@ class Stage1State:
         if Circle.timer >= 20:
             Circle.velocity += PI/36
             if random.randint(0, 1) == 0:
-                pass
-                #Circle.dir *= -1
+                Circle.dir *= -1
             Circle.timer = 0
 
         Circle.x =WINX//2+ 8*PIXEL_PER_METER*math.cos(Circle.degree)
@@ -74,7 +73,7 @@ class Stage1State:
 
     @staticmethod
     def draw(Circle):
-        Circle.image.opacify(0.5)
+        Circle.image.opacify(0.85)
         Circle.image.draw(Circle.x - Circle.r * 0.01, Circle.y - Circle.r * 0.01, WINX * 2 + Circle.r, WINX * 2 + Circle.r)
 
 

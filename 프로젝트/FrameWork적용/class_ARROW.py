@@ -27,7 +27,7 @@ class ARROW:
             ARROW.image = load_image('Arrow.png')
 
         self.x,self.y = x,y
-        self.velocity = RUN_SPEED_PPS*game_framework.frame_time
+        self.velocity = RUN_SPEED_PPS
         self.dir = dir
 
 
@@ -41,15 +41,15 @@ class ARROW:
     def update(self):
 
         if self.dir == UP:
-            self.y += self.velocity
+            self.y += self.velocity*game_framework.frame_time
         elif self.dir == DOWN:
-            self.y -= self.velocity
+            self.y -= self.velocity*game_framework.frame_time
         elif self.dir == LEFT:
-            self.x -= self.velocity
+            self.x -= self.velocity*game_framework.frame_time
         elif self.dir == RIGHT:
-            self.x += self.velocity
+            self.x += self.velocity*game_framework.frame_time
 
-        if self.x < SIZE//2 or self.x > WINX-SIZE//2 or self.y <SIZE//2 or self.y > WINY-SIZE//2:
+        if self.x <SIZE or self.x > WINX-SIZE or self.y <SIZE or self. y >WINY-SIZE:
             game_world.remove_object(self)
 
     def update_rect(self):
