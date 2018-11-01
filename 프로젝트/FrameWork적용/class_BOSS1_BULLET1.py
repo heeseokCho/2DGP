@@ -41,6 +41,6 @@ class BOSS1_BULLET1:
         self.timer += get_time()-self.cur_time
         self.cur_time = get_time()
 
-        if self.timer >=5:
+        if self.timer >=8:
             self.shoot_bullet()
             self.timer = 0
