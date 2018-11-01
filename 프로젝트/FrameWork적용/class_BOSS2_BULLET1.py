@@ -10,7 +10,7 @@ SIZE  = 64
 PI = 3.141592
 
 PIXEL_PER_METER = (10.0/0.3)
-RUN_SPEED_KMPH = 20.0
+RUN_SPEED_KMPH = 10.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
@@ -24,8 +24,8 @@ class BOSS2_BULLET1:
         if BOSS2_BULLET1.image == None:
             BOSS2_BULLET1.image = load_image('Boss2_Bullet.png')
 
-        self.startX,self.startY = 0,0
-        self.endX,self.endY=0,0
+        self.startX,self.startY = x,y
+        self.endX,self.endY=WINX//2,WINY//2
         self.x,self.y =x,y
         self.velocity = RUN_SPEED_PPS
         self.bullet_rotate_degree = 0
@@ -39,13 +39,12 @@ class BOSS2_BULLET1:
 
 
     def draw(self):
-        pass
-#        BOSS2_BULLET1.image.rotate_draw(math.radians(self.angle_rotation), self.x, self.y, SIZE / 2, SIZE / 2)
+        BOSS2_BULLET1.image.rotate_draw(math.radians(self.bullet_rotate_degree), self.x, self.y, SIZE / 2, SIZE / 2)
 
     def update(self):
-        #self.bullet_rotate_degree+=self.bullet_rotate_dirDEGREE_PER_TIME*game_framework.frame_time
+        self.bullet_rotate_degree += self.bullet_rotate_dir*DEGREE_PER_TIME*game_framework.frame_time
 
-        self.t += RUN_SPEED_PPS/100
+        self.t += RUN_SPEED_PPS*game_framework.frame_time/100
         self.x = (1 - self.t) * self.startX + self.t * self.endX
         self.y = (1 - self.t) * self.startY + self.t * self.endY
 

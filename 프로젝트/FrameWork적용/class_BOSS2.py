@@ -51,10 +51,12 @@ class RunState:
         Boss2.timer += get_time() - Boss2.cur_time
         Boss2.cur_time = get_time()
 
-        if Boss2.timer >=5:
-            Boss2.shoot_bullet2()
+        if 0 < Boss2.timer % 1 and Boss2.timer % 1 < 0.01:
             Boss2.shoot_bullet1()
-            Boss2.timer = 0
+
+        if 0<Boss2.timer %5 and Boss2.timer %5< 0.01:
+            Boss2.shoot_bullet1()
+            Boss2.shoot_bullet2()
 
         if Boss2.timer >=20:
             Boss2.dir*=-1
@@ -96,7 +98,7 @@ class BOSS2:
 
     #Link에게쏘는탄
     def shoot_bullet1(self):
-        bullet1 = BOSS2_BULLET1()
+        bullet1 = BOSS2_BULLET1(self.x,self.y)
         game_world.add_object(bullet1,1)
 
     #8방
