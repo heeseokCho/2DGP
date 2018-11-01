@@ -21,7 +21,7 @@ class BOSS1_BULLET1:
         if BOSS1_BULLET1.image == None:
             BOSS1_BULLET1.image = load_image('Boss1Bullet1.png')
         self.x = random.randint(SIZE,WINX-SIZE)
-        self.y = random.randint(SIZE,WINY-SIZE)
+        self.y = random.randint(SIZE,WINY-250)
         self.cur_time = 0
         self.timer = 0
 
