@@ -48,6 +48,7 @@ class Stage1State:
         Circle.dir = 1
         Circle.degree = 0
         Circle.timer = 0
+        Circle.velocity = 0.05
 
         Circle.velocity = 0
 
@@ -79,10 +80,11 @@ class Stage1State:
 
 
 
-class State2State:
+class Stage2State:
     @staticmethod
     def enter(Circle, event):
-        pass
+        Circle.x, Circle.y = WINX // 2, WINY // 2
+        Circle.r = 380
 
     @staticmethod
     def exit(Circle, event):
@@ -97,22 +99,27 @@ class State2State:
         pass
 
 
-next_tate_table = {}
+next_state_table = {}
 
 class CIRCLE:
+    image = None
 
-    def __init__(self):
-        self.image = load_image('Circle.png')
-        self.event_que = []
+    def __init__(self,phase):
+        if CIRCLE.image == None:
+            CIRCLE.image = load_image('Circle.png')
         self.cur_state = Stage1State
-        self.cur_state.enter(self,None)
+        self.event_que = []
+        self.cur_state.enter(self, None)
         self.cur_time = 0
-        self.x,self.y = WINX//2+500,WINY//2
-        self.r = 300
-        self.dir =1
-        self.degree = 0
-        self.velocity = 0.005
-        self.timer = 0
+        self.x,self.y,self.r =0,0,0
+
+        if phase == 1:
+            self.cur_state = Stage1State
+            self.dir =1
+            self.degree = 0
+        elif phase == 2:
+            self.cur_state = Stage2State
+            self.dirX,self.dirY =0,0
 
 
     def draw(self):

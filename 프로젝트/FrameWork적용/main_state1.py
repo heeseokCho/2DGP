@@ -32,7 +32,7 @@ def enter():
     Background = BACKGROUND(1)
     Link = LINK()
     Boss1 = BOSS1()
-    Circle = CIRCLE()
+    Circle = CIRCLE(1)
 
     game_world.add_object(Background,0)
     game_world.add_object(Boss1,1)
