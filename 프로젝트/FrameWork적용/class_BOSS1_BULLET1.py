@@ -1,6 +1,8 @@
 from pico2d import*
 import game_world
 
+from class_BOSS1_BULLET2 import BOSS1_BULLET2
+
 import random
 
 WINX,WINY = 1600,1000
@@ -24,7 +26,9 @@ class BOSS1_BULLET1:
         self.timer = 0
 
     def shoot_bullet(self):
-        pass
+        bullet2 = [BOSS1_BULLET2(self.x,self.y,i) for i in range(8)]
+        for o in bullet2:
+            game_world.add_object(o,1)
 
     def draw(self):
         self.image.draw(self.x,self.y)

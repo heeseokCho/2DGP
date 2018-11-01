@@ -2,10 +2,16 @@ import game_framework
 from pico2d import*
 import game_world
 
+from class_BOSS1_BULLET1 import BOSS1_BULLET1
+from class_BUSS1_BULLET2 import BOSS1_BULLET2
+
 import math
 import random
 WINX,WINY = 1600, 1000
 PI = 3.141592
+
+LEFT_TOP,LEFT,LEFT_BOTTOM,BOTTOM,\
+RIGHT_BOTTOM,RIGHT,RIGHT_TOP,TOP = range(8)
 
 # Boss1 Run Speed
 PIXEL_PER_METER = (10.0/0.3)
@@ -29,14 +35,21 @@ class RunState:
     @staticmethod
     def enter(Boss1,event):
         Boss1.frame= 0
-    
+
     @staticmethod
     def exit(Boss1,event):
         pass
 
     @staticmethod
     def do(Boss1):
-        pass
+        Boss1.frame = (Boss1.frame +FRAMES_PER_ACTION*ACTION_PER_TIME*game_framework.frame_time)%8
+
+        Boss1.timer += get_time() - Boss1.cur_time
+        Boss1.cur_time = get_time()
+
+        if Boss1.timer >=3:
+            Boss1.shoot_bullet2()
+            Boss1.timer = 0
 
     @staticmethod
     def draw(Boss1):
@@ -60,11 +73,14 @@ class BOSS1:
 
     #지뢰
     def shoot_bullet1(self):
-        pass
+        bullet1 = BOSS1_BULLET1()
+        game_world.add_object(bullet1,1)
 
     #8방
     def shoot_bullet2(self):
-        pass
+        bullet2 = [BOSS1_BULLET2(self.x,self.y,i) for i in range(8)]
+        for o in bullet2:
+            game_world.add_object(o,1)
 
     def add_event(self, event):
         self.event_que.insert(0, event)
