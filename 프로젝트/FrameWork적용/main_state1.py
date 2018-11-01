@@ -7,7 +7,7 @@ import math
 import random
 
 from class_LINK import LINK
-from class_ARROW import ARROW
+from class_BOSS1 import BOSS1
 from class_BACKGROUND import BACKGROUND
 from class_CIRCLE import CIRCLE
 
@@ -29,16 +29,19 @@ STANDING,WALKING,SHOOTING,AIMING,AIMWALKING,DIEING,AIMSTANDING,WINNING =\
 Background = None
 Link = None
 Circle = None
+Boss1 = None
 
 def enter():
     global Link,Circle,Background
 
     Background = BACKGROUND()
     Link = LINK()
+    Boss1 = BOSS1()
     Circle = CIRCLE()
 
     game_world.add_object(Background,0)
     game_world.add_object(Circle,1)
+    game_world.add_object(Boss1,1)
     game_world.add_object(Link,1)
 
 def exit():

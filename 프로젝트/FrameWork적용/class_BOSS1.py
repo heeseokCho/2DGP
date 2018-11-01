@@ -3,12 +3,13 @@ from pico2d import*
 import game_world
 
 from class_BOSS1_BULLET1 import BOSS1_BULLET1
-from class_BUSS1_BULLET2 import BOSS1_BULLET2
+from class_BOSS1_BULLET2 import BOSS1_BULLET2
 
 import math
 import random
 WINX,WINY = 1600, 1000
 PI = 3.141592
+SIZE = 64
 
 LEFT_TOP,LEFT,LEFT_BOTTOM,BOTTOM,\
 RIGHT_BOTTOM,RIGHT,RIGHT_TOP,TOP = range(8)
@@ -23,7 +24,7 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 DEGREE_PER_TIME = PI
 
 # Boss1 Action Speed
-TIME_PER_ACTION = 0.5
+TIME_PER_ACTION = 3
 ACTION_PER_TIME = 1.0/TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
@@ -42,18 +43,19 @@ class RunState:
 
     @staticmethod
     def do(Boss1):
-        Boss1.frame = (Boss1.frame +FRAMES_PER_ACTION*ACTION_PER_TIME*game_framework.frame_time)%8
+        Boss1.frame = (Boss1.frame +FRAMES_PER_ACTION*ACTION_PER_TIME*game_framework.frame_time)%5
 
         Boss1.timer += get_time() - Boss1.cur_time
         Boss1.cur_time = get_time()
 
         if Boss1.timer >=3:
-            Boss1.shoot_bullet2()
+            #Boss1.shoot_bullet2()
+            Boss1.shoot_bullet1()
             Boss1.timer = 0
 
     @staticmethod
     def draw(Boss1):
-        pass
+        Boss1.image.clip_draw(int(Boss1.frame)*SIZE*3,0,SIZE*3,SIZE*3,Boss1.x,Boss1.y)
 
 
 class BOSS1:

@@ -31,7 +31,7 @@ class BOSS1_BULLET1:
             game_world.add_object(o,1)
 
     def draw(self):
-        self.image.draw(self.x,self.y)
+        self.image.draw(self.x,self.y,SIZE,SIZE)
 
     def update(self):
         self.timer += get_time()-self.cur_time

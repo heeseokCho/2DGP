@@ -54,6 +54,6 @@ class BOSS1_BULLET2:
 
         if self.x <SIZE or self.x > WINX-SIZE or \
                 self.y <SIZE or self. y >WINY-SIZE:
-            game_world.ramove_object(self)
+            game_world.remove_object(self)
 
 
