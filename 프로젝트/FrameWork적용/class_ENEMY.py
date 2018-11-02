@@ -19,7 +19,6 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 
 class ENEMY:
     image = None
-
     def __init__(self,dir = 0):
         if ENEMY.image == None:
             ENEMY.image = load_image('Enemy.png')

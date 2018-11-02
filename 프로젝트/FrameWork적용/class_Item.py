@@ -11,8 +11,11 @@ HEART,ARROW_SPEED,RUN_SPEED = range(3)
 
 
 class ITEM:
-    image = load_image('Item.png')
+    image = None
+
     def __init__(self):
+        if ITEM.image == None:
+            ITEM.image = load_image('Item.png')
 
         self.kind = random.randint(0,3)
         self.x = random.randint(WINX//2-500,WINX//2+500)
