@@ -23,7 +23,7 @@ DEGREE_PER_TIME = 32*PI
 
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0/TIME_PER_ACTION
-FRAMES_PER_ACTION = 8
+FRAMES_PER_ACTION = 1
 
 class BOSS2_BULLET3:
     image = None
@@ -31,7 +31,7 @@ class BOSS2_BULLET3:
 
     def __init__(self,x = WINX//2,y=WINY//2,degree = 0):
         if BOSS2_BULLET3.image == None:
-            BOSS2_BULLET3.image = load_image('Dieing.png')
+            BOSS2_BULLET3.image = load_image('Fire.png')
 
         self.x,self.y = x,y
         self.dir = 1
@@ -43,11 +43,11 @@ class BOSS2_BULLET3:
     def draw(self):
         #BOSS2_BULLET3.image.rotate_draw(math.radians(self.degree), self.x, self.y, SIZE, SIZE)
 
-        BOSS2_BULLET3.image.clip_composite_draw(int(BOSS2_BULLET3.frame) * SIZE, 0, SIZE, SIZE, math.radians(self.degree),
-                                       '', self.x, self.y, SIZE, SIZE)
+        BOSS2_BULLET3.image.clip_composite_draw(int(BOSS2_BULLET3.frame) * SIZE//2, 0, SIZE//2, SIZE//2, math.radians(self.degree),
+                                       'v', self.x, self.y, SIZE, SIZE)
 
     def update(self):
-        BOSS2_BULLET3.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
+        BOSS2_BULLET3.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 7
 
         self.timer += get_time() - self.cur_time
         self.cur_time = get_time()
