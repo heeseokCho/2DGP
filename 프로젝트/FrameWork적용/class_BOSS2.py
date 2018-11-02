@@ -4,7 +4,7 @@ import game_world
 
 from class_BOSS2_BULLET1 import BOSS2_BULLET1
 from class_BOSS2_BULLET2 import BOSS2_BULLET2
-from class_CIRCLE import CIRCLE
+import main_state2
 
 import math
 import random
@@ -62,22 +62,16 @@ class RunState:
             Boss2.dir*=-1
             Boss2.timer = 0
 
-        #Boss2.angle_rotation = math.atan2(Circle.y - Boss2.y, Circle.x - Boss2.x) * Boss2.dir
-
-        #Boss2.angle_revolution += Boss2.dir * 0.02
-        #Boss2.x = Circle.x + (Circle.r - SIZE) * math.cos(Boss2.angle_revolution)
-        #Boss2.y = Circle.y + (Circle.r - SIZE) * math.sin(Boss2.angle_revolution)
-
         Boss2.revolution_degree += Boss2.dir * DEGREE_PER_TIME* game_framework.frame_time
-        Boss2.rotate_degree = math.atan2(WINY//2 - Boss2.y, WINX//2 - Boss2.x) * Boss2.dir
-
-        Boss2.x = WINX//2 + (380 - SIZE) * math.cos(Boss2.revolution_degree)
-        Boss2.y = WINY//2 + (380 - SIZE) * math.sin(Boss2.revolution_degree)
+        Boss2.rotate_degree = math.atan2(main_state2.Link.y - Boss2.y, main_state2.Link.x - Boss2.x) * Boss2.dir
+        Boss2.x = main_state2.Circle.x + (main_state2.Circle.r - SIZE) * math.cos(Boss2.revolution_degree)
+        Boss2.y = main_state2.Circle.y + (main_state2.Circle.r - SIZE) * math.sin(Boss2.revolution_degree)
 
 
     @staticmethod
     def draw(Boss2):
-        Boss2.image.clip_draw(int(Boss2.frame)*SIZE*3,0,SIZE*3,SIZE*3,Boss2.x,Boss2.y)
+        Boss2.image.clip_composite_draw(int(Boss2.frame) * SIZE * 3, 0, SIZE * 3, SIZE * 3, Boss2.rotate_degree-30,
+                                       '', Boss2.x, Boss2.y, SIZE * 3, SIZE * 3)
 
 
 class BOSS2:
