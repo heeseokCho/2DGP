@@ -75,7 +75,7 @@ class Stage0State:
 
         Circle.x += Circle.dirX * Circle.velocity
         Circle.y += Circle.dirY * Circle.velocity
-        Circle.r += Circle.dir * Circle.velocity*2
+        Circle.r += Circle.dir * Circle.velocity*3
 
 
 

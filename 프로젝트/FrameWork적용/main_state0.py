@@ -9,6 +9,7 @@ import random
 from class_LINK import LINK
 from class_BACKGROUND import BACKGROUND
 from class_CIRCLE import CIRCLE
+from class_STAGE0 import STAGE0
 
 name = "MainState"
 
@@ -23,18 +24,20 @@ UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 Background = None
 Link = None
 Circle = None
-Boss1 = None
+Stage0 = None
 
 def enter():
-    global Link,Circle,Background
+    global Link,Circle,Background, Stage0
 
     Background = BACKGROUND(1)
     Link = LINK()
+    Stage0 = STAGE0()
     Circle = CIRCLE(1)
 
     game_world.add_object(Background,0)
     game_world.add_object(Circle,2)
     game_world.add_object(Link,1)
+    game_world.add_object(Stage0,1)
 
 def exit():
     game_world.clear()

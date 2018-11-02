@@ -18,17 +18,18 @@ next_state_table ={}
 
 class RunState:
     @staticmethod
-    def enter(Boss1,event):
+    def enter(STAGE0,event):
         pass
 
     @staticmethod
-    def exit(Boss1,event):
+    def exit(STAGE0,event):
         pass
 
     @staticmethod
-    def do(Boss1):
-        STAGE0.timer += get_time() - Boss1.cur_time
+    def do(STAGE0):
+        STAGE0.timer += get_time() - STAGE0.cur_time
         STAGE0.cur_time = get_time()
+
 
 
         if STAGE0.timer >=5:
@@ -38,7 +39,7 @@ class RunState:
 
 
     @staticmethod
-    def draw(Boss1):
+    def draw(STAGE0):
         pass
 
 
@@ -54,7 +55,8 @@ class STAGE0:
 
     #아이템
     def create_item(self):
-        pass
+        Item = ITEM()
+        game_world.add_object(Item,1)
 
     #적
     def create_enemy(self):
