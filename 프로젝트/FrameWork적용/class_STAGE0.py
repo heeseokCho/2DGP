@@ -30,9 +30,11 @@ class RunState:
         STAGE0.timer += get_time() - STAGE0.cur_time
         STAGE0.cur_time = get_time()
 
-        if STAGE0.timer >=2:
+        if 0< STAGE0.timer % 1<0.01:
+            STAGE0.create_enemy(random.randint(0,1))
+
+        if STAGE0.timer >=3:
             STAGE0.create_item()
-            STAGE0.create_enemy()
             STAGE0.timer = 0
 
 
@@ -57,8 +59,16 @@ class STAGE0:
         game_world.add_object(Item,1)
 
     #적
-    def create_enemy(self):
-        Enemy = ENEMY()
+    def create_enemy(self,pattern =0):
+        Enemy = None
+        if pattern == 0:
+            for i in range(8):
+                Enemy = ENEMY(i)
+        elif pattern == 1:
+            for i in range(8):
+                direction = random.randint(0,7)
+                Enemy = ENEMY(direction)
+
         game_world.add_object(Enemy,1)
 
     def add_event(self, event):
