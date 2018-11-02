@@ -152,12 +152,6 @@ class Stage2State:
 
         if Circle.timer >= 15:
             Circle.velocity += RUN_SPEED_PPS/5000
-            if random.randint(0, 1) == 0:
-                Circle.dirX = -1
-            else: Circle.dirX = 1
-            if random.randint(0, 1) == 0:
-                Circle.dirY = -1
-            else: Circle.dirY = 1
 
             Circle.timer = 0
 
@@ -200,6 +194,7 @@ class CIRCLE:
         self.event_que = []
         self.cur_state.enter(self, None)
         self.cur_time = 0
+        self.timer = 0
         self.x,self.y,self.r =0,0,0
         self.dir = 1
         self.velocity = 0
