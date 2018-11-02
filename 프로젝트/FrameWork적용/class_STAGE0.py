@@ -30,7 +30,7 @@ class RunState:
         STAGE0.timer += get_time() - STAGE0.cur_time
         STAGE0.cur_time = get_time()
 
-        if 0< STAGE0.timer % 1<0.01:
+        if 0< STAGE0.timer % 1<0.1:
             STAGE0.create_enemy(random.randint(0,1))
 
         if STAGE0.timer >=3:

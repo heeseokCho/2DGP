@@ -18,7 +18,7 @@ class ITEM:
 
         self.kind = random.randint(0,3)
         self.x = random.randint(WINX//2-500,WINX//2+500)
-        self.y = random.randint(100,WINY//2+300)
+        self.y = random.randint(100,WINY//2+250)
 
 
     def draw(self):
