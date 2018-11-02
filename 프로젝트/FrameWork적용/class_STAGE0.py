@@ -65,8 +65,8 @@ class STAGE0:
             for i in range(8):
                 Enemy = ENEMY(i)
         elif pattern == 1:
+            direction = random.randint(0, 7)
             for i in range(8):
-                direction = random.randint(0,7)
                 Enemy = ENEMY(direction)
 
         game_world.add_object(Enemy,1)

@@ -24,6 +24,7 @@ class ENEMY:
             ENEMY.image = load_image('Enemy.png')
 
         self.dir = dir
+        self.size = random.randint(1,2)
 
         if self.dir == LEFT_TOP:
             self.dirX, self.dirY = -1, 1
@@ -54,22 +55,23 @@ class ENEMY:
 
 
     def draw(self):
+
         if self.dir == LEFT_TOP:
-            ENEMY.image.clip_draw(SIZE*0,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
+            ENEMY.image.clip_draw(SIZE*0,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y,SIZE//self.size,SIZE//self.size)
         elif self.dir == LEFT:
-            ENEMY.image.clip_draw(SIZE*0,SIZE//2*1,SIZE//2,SIZE//2,self.x,self.y)
+            ENEMY.image.clip_draw(SIZE*0,SIZE//2*1,SIZE//2,SIZE//2,self.x,self.y,SIZE//self.size,SIZE//self.size)
         elif self.dir == LEFT_BOTTOM:
-            ENEMY.image.clip_draw(SIZE*0,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
+            ENEMY.image.clip_draw(SIZE*0,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y,SIZE//self.size,SIZE//self.size)
         elif self.dir == BOTTOM:
-            ENEMY.image.clip_draw(SIZE//2*1,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
+            ENEMY.image.clip_draw(SIZE//2*1,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y,SIZE//self.size,SIZE//self.size)
         elif self.dir == RIGHT_BOTTOM:
-            ENEMY.image.clip_draw(SIZE//2*2,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
+            ENEMY.image.clip_draw(SIZE//2*2,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y,SIZE//self.size,SIZE//self.size)
         elif self.dir == RIGHT:
-            ENEMY.image.clip_draw(SIZE//2*2,SIZE//2*1,SIZE//2,SIZE//2,self.x,self.y)
+            ENEMY.image.clip_draw(SIZE//2*2,SIZE//2*1,SIZE//2,SIZE//2,self.x,self.y,SIZE//self.size,SIZE//self.size)
         elif self.dir == RIGHT_TOP:
-            ENEMY.image.clip_draw(SIZE//2*2,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
+            ENEMY.image.clip_draw(SIZE//2*2,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y,SIZE//self.size,SIZE//self.size)
         elif self.dir == TOP:
-            ENEMY.image.clip_draw(SIZE//2*1,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
+            ENEMY.image.clip_draw(SIZE//2*1,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y,SIZE//self.size,SIZE//self.size)
 
     def update(self):
        self.x += self.dirX*RUN_SPEED_PPS*game_framework.frame_time
