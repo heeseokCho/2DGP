@@ -30,9 +30,7 @@ class RunState:
         STAGE0.timer += get_time() - STAGE0.cur_time
         STAGE0.cur_time = get_time()
 
-
-
-        if STAGE0.timer >=5:
+        if STAGE0.timer >=2:
             STAGE0.create_item()
             STAGE0.create_enemy()
             STAGE0.timer = 0

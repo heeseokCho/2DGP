@@ -35,7 +35,7 @@ def enter():
     Circle = CIRCLE(1)
 
     game_world.add_object(Background,0)
-    game_world.add_object(Circle,2)
+    #game_world.add_object(Circle,2)
     game_world.add_object(Link,1)
     game_world.add_object(Stage0,1)
 

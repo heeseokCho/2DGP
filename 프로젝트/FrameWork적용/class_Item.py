@@ -18,17 +18,17 @@ class ITEM:
 
         self.kind = random.randint(0,3)
         self.x = random.randint(WINX//2-500,WINX//2+500)
-        self.y = random.randint(100,WINY//2-300)
+        self.y = random.randint(100,WINY//2+300)
 
 
     def draw(self):
 
         if self.kind == HEART:
-            ITEM.image.clip_draw(0,HEART*SIZE//2,SIZE,SIZE,self.x,self.y)
+            ITEM.image.clip_draw(0,HEART * SIZE//2,SIZE//2,SIZE//2,self.x,self.y)
         elif self.kind == DAMAGE:
-            ITEM.image.clip_draw(0, DAMAGE * SIZE//2, SIZE, SIZE, self.x, self.y)
+            ITEM.image.clip_draw(0, DAMAGE * SIZE//2, SIZE//2, SIZE//2, self.x, self.y)
         elif self.kind == SPEED:
-            ITEM.image.clip_draw(0, SPEED * SIZE//2, SIZE, SIZE, self.x, self.y)
+            ITEM.image.clip_draw(0, SPEED * SIZE//2, SIZE//2, SIZE//2, self.x, self.y)
 
 
 
