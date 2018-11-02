@@ -8,6 +8,7 @@ def add_object(o, layer):
 
 
 def remove_object(o):
+
     for i in range(len(objects)-1,0,-1):
         if o in objects[i]:
 

@@ -1,6 +1,9 @@
 from pico2d import*
 
 import title_state
+import main_state0
+import main_state1
+
 import game_framework
 import game_world
 import math
@@ -29,6 +32,7 @@ Boss2 = None
 
 def enter():
     global Link,Circle,Background,Boss2
+    game_world.objects = [[], [], []]
 
     Background = BACKGROUND(2)
     Link = LINK()
@@ -58,6 +62,10 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_0:
+            game_framework.change_state(main_state0)
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
+            game_framework.change_state(main_state1)
         else:
             Link.handle_event(event)
 

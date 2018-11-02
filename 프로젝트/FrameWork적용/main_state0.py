@@ -32,6 +32,8 @@ Stage0 = None
 def enter():
     global Link,Circle,Background, Stage0
 
+    game_world.objects = [[],[],[]]
+
     Background = BACKGROUND(1)
     Link = LINK()
     Stage0 = STAGE0()
