@@ -58,7 +58,8 @@ class STAGE0:
 
     #적
     def create_enemy(self):
-        pass
+        Enemy = ENEMY()
+        game_world.add_object(Enemy,1)
 
     def add_event(self, event):
         self.event_que.insert(0, event)

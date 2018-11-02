@@ -29,9 +29,9 @@ class ENEMY:
         else:
             self.x = random.randint(main_state0.Circle.x + main_state0.Circle.r,WINX)
         if random.randint(0,1) == 0:
-            self.y = random.ranint(0,main_state0.Circle.y-main_state0.Circle.r)
+            self.y = random.randint(0,main_state0.Circle.y-main_state0.Circle.r)
         else:
-            self.y = random.ranint(main_state0.Circle.y + main_state0.Circle.r,WINY)
+            self.y = random.randint(main_state0.Circle.y + main_state0.Circle.r,WINY)
 
         self.dir = random.randint(0,7)
 
