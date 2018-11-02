@@ -19,7 +19,7 @@ RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 
-DEGREE_PER_TIME = PI/3
+DEGREE_PER_TIME = 32*PI
 
 class BOSS2_BULLET3:
     image = None
@@ -29,8 +29,9 @@ class BOSS2_BULLET3:
             BOSS2_BULLET3.image = load_image('Enemy.png')
         self.x,self.y = x,y
         self.dir = 1
-        self.degree = 0
-        self.velocity = RUN_SPEED_PPS
+        self.degree = degree
+        self.timer = 0
+        self.cur_time = 0
 
 
     def draw(self):
@@ -38,9 +39,16 @@ class BOSS2_BULLET3:
 
 
     def update(self):
+        self.timer += get_time() - self.cur_time
+        self.cur_time = get_time()
+
+        if self.timer >= 5:
+            self.dir *=-1
+            self.timer = 0
+
         self.degree += self.dir*DEGREE_PER_TIME*game_framework.frame_time
 
-        self.x = main_state2.Boss2.x + SIZE*math.cos(math.radians(self.degree))
-        self.y = main_state2.Boss2.y + SIZE*math.sin(math.radians(self.degree))
+        self.x = main_state2.Boss2.x + SIZE*2*math.cos(math.radians(self.degree))
+        self.y = main_state2.Boss2.y + SIZE*2*math.sin(math.radians(self.degree))
 
 
