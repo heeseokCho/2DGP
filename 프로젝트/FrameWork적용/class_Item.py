@@ -7,7 +7,7 @@ import random
 WINX,WINY = 1600,1000
 SIZE  = 64
 
-HEART,DAMAGE,SPEED = range(3)
+HEART,ARROW_SPEED,RUN_SPEED = range(3)
 
 
 class ITEM:
@@ -25,10 +25,10 @@ class ITEM:
 
         if self.kind == HEART:
             ITEM.image.clip_draw(0,HEART * SIZE//2,SIZE//2,SIZE//2,self.x,self.y)
-        elif self.kind == DAMAGE:
-            ITEM.image.clip_draw(0, DAMAGE * SIZE//2, SIZE//2, SIZE//2, self.x, self.y)
-        elif self.kind == SPEED:
-            ITEM.image.clip_draw(0, SPEED * SIZE//2, SIZE//2, SIZE//2, self.x, self.y)
+        elif self.kind == ARROW_SPEED:
+            ITEM.image.clip_draw(0, ARROW_SPEED * SIZE//2, SIZE//2, SIZE//2, self.x, self.y)
+        elif self.kind == RUN_SPEED:
+            ITEM.image.clip_draw(0, RUN_SPEED * SIZE//2, SIZE//2, SIZE//2, self.x, self.y)
 
 
 

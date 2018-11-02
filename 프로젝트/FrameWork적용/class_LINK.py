@@ -2,6 +2,7 @@ from pico2d import*
 import game_framework
 import game_world
 from class_ARROW import ARROW
+from class_ITEM import ITEM
 
 #윈도우 크기
 WINX  = 1600
@@ -97,7 +98,7 @@ class RunState:
             Link.velocityY -= RUN_SPEED_PPS
             LINK.dir = DOWN
         elif event == UP_UP:
-            LINK.velocityY -= RUN_SPEED_PPS
+            Link.velocityY -= RUN_SPEED_PPS
         elif event == DOWN_UP:
             Link.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
@@ -417,7 +418,7 @@ class LINK:
     y = None
     dir = None
     life = None
-    attack_speed = None
+    arrow_speed = None
     run_speed =None
 
     def __init__(self):
@@ -431,12 +432,12 @@ class LINK:
         self.velocityX,self.velocityY = 0.0,0.0
         self.enable = False
 
-        if LINK.x ==None:
+        if LINK.x == None:
             LINK.x = WINX//2
             LINK.y = WINY//2
             LINK.dir = DOWN
             LINK.life = 3
-            LINK.attack_speed = 0
+            LINK.arrow_speed = 0
             LINK.run_speed = 0
 
 
@@ -447,7 +448,13 @@ class LINK:
         pass
 
     def draw_ability(self):
-        pass
+        if ITEM.image != None:
+            for i in range(LINK.life):
+                ITEM.image.clip_draw(0, 2 * SIZE // 2, SIZE // 2, SIZE // 2, i * SIZE, WINY - SIZE)
+            for i in range(LINK.arrow_speed):
+                ITEM.image.clip_draw(0, 1 * SIZE // 2, SIZE // 2, SIZE // 2, i * SIZE, WINY-SIZE*2)
+            for i in range(LINK.run_speed):
+                ITEM.image.clip_draw(0, 0 * SIZE // 2, SIZE // 2, SIZE // 2, i * SIZE, WINY - SIZE * 3)
 
     def shoot_arrow(self):
         Arrow = ARROW(LINK.x,LINK.y,LINK.dir)
@@ -471,6 +478,7 @@ class LINK:
         self.cur_state.draw(self)
 
         self.draw_rect()
+        self.draw_ability()
 
     def handle_event(self,event):
         if (event.type,event.key) in key_event_table:
