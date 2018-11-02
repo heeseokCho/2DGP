@@ -51,7 +51,7 @@ class RunState:
         Boss2.timer += get_time() - Boss2.cur_time
         Boss2.cur_time = get_time()
 
-        if 0 < Boss2.timer % 1 and Boss2.timer % 1 < 0.01:
+        if 0 < Boss2.timer % 0.5 and Boss2.timer % 0.5 < 0.01:
             Boss2.shoot_bullet1()
 
         if 0<Boss2.timer %5 and Boss2.timer %5< 0.01:
