@@ -26,7 +26,7 @@ class BOSS2_BULLET1:
             BOSS2_BULLET1.image = load_image('Boss2_Bullet.png')
 
         self.startX,self.startY = x,y
-        self.endX,self.endY=main_state2.Link.x,main_state2.Link.y
+        self.endX,self.endY=main_state2.LINK.x,main_state2.LINK.y
         self.x,self.y =x,y
         self.velocity = RUN_SPEED_PPS
         self.bullet_rotate_degree = 0

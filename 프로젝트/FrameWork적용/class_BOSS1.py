@@ -7,6 +7,7 @@ from class_BOSS1_BULLET2 import BOSS1_BULLET2
 
 import math
 import random
+
 WINX,WINY = 1600, 1000
 PI = 3.141592
 SIZE = 64

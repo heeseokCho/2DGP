@@ -44,14 +44,14 @@ class ENEMY:
             self.dirX, self.dirY = 0, 1
 
         if random.randint(0,1) == 0:
-            self.x = random.randint(int(main_state0.Link.x-300),int(main_state0.Link.x-100))
+            self.x = random.randint(int(main_state0.LINK.x-300),int(main_state0.LINK.x-100))
         else:
-            self.x = random.randint(int(main_state0.Link.x + 100),int(main_state0.Link.x+300))
+            self.x = random.randint(int(main_state0.LINK.x + 100),int(main_state0.LINK.x+300))
 
         if random.randint(0,1) == 0:
-            self.y = random.randint(int(main_state0.Link.y-300),int(main_state0.Link.y-100))
+            self.y = random.randint(int(main_state0.LINK.y-300),int(main_state0.LINK.y-100))
         else:
-            self.y = random.randint(int(main_state0.Link.y + 100),int(main_state0.Link.y+300))
+            self.y = random.randint(int(main_state0.LINK.y + 100),int(main_state0.LINK.y+300))
 
 
     def draw(self):

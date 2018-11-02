@@ -1,7 +1,6 @@
 from pico2d import*
 import game_world
 import game_framework
-import class_LINK
 
 #윈도우크기
 WINX,WINY = 1600,1000

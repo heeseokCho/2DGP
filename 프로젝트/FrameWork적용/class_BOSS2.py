@@ -66,7 +66,7 @@ class RunState:
             Boss2.timer = 0
 
         Boss2.revolution_degree += Boss2.dir * DEGREE_PER_TIME* game_framework.frame_time
-        Boss2.rotate_degree = math.atan2(main_state2.Link.y - Boss2.y, main_state2.Link.x - Boss2.x) * Boss2.dir
+        Boss2.rotate_degree = math.atan2(main_state2.LINK.y - Boss2.y, main_state2.LINK.x - Boss2.x) * Boss2.dir
         Boss2.x = main_state2.Circle.x + (main_state2.Circle.r - SIZE) * math.cos(Boss2.revolution_degree)
         Boss2.y = main_state2.Circle.y + (main_state2.Circle.r - SIZE) * math.sin(Boss2.revolution_degree)
 
