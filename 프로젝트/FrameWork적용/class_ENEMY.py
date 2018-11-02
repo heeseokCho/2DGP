@@ -44,14 +44,14 @@ class ENEMY:
             self.dirX, self.dirY = 0, 1
 
         if random.randint(0,1) == 0:
-            self.x = random.randint(0,int(main_state0.Circle.x-main_state0.Circle.r))
+            self.x = random.randint(int(main_state0.Link.x-300),int(main_state0.Link.x-100))
         else:
-            self.x = random.randint(int(main_state0.Circle.x + main_state0.Circle.r),WINX)
+            self.x = random.randint(int(main_state0.Link.x + 100),int(main_state0.Link.x+300))
 
         if random.randint(0,1) == 0:
-            self.y = random.randint(0,int(main_state0.Circle.y-main_state0.Circle.r))
+            self.y = random.randint(int(main_state0.Link.y-300),int(main_state0.Link.y-100))
         else:
-            self.y = random.randint(int(main_state0.Circle.y + main_state0.Circle.r),WINY)
+            self.y = random.randint(int(main_state0.Link.y + 100),int(main_state0.Link.y+300))
 
 
     def draw(self):
@@ -76,7 +76,7 @@ class ENEMY:
        self.x += self.dirX*RUN_SPEED_PPS*game_framework.frame_time
        self.y += self.dirY*RUN_SPEED_PPS*game_framework.frame_time
 
-       if self.x > WINX-SIZE or self.x < SIZE or self.y > WINY-SIZE or self.y < SIZE:
+       if self.x > WINX or self.x < 0 or self.y > WINY or self.y < 0:
            game_world.remove_object(self)
 
 
