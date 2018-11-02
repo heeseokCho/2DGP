@@ -21,6 +21,9 @@ class ENEMY:
     image = None
 
     def __init__(self):
+        if ENEMY.image == None:
+            ENEMY.image = load_image('Enemy.png')
+
         if random.randint(0,1) == 0:
             self.x = random.randint(0,main_state0.Circle.x-main_state0.Circle.r)
         else:
@@ -51,7 +54,22 @@ class ENEMY:
 
 
     def draw(self):
-        pass
+        if self.dir == LEFT_TOP:
+            ENEMY.image.clip_draw(SIZE*0,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
+        elif self.dir == LEFT:
+            ENEMY.image.clip_draw(SIZE*0,SIZE//2*1,SIZE//2,SIZE//2,self.x,self.y)
+        elif self.dir == LEFT_BOTTOM:
+            ENEMY.image.clip_draw(SIZE*0,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
+        elif self.dir == BOTTOM:
+            ENEMY.image.clip_draw(SIZE//2*1,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
+        elif self.dir == RIGHT_BOTTOM:
+            ENEMY.image.clip_draw(SIZE//2*2,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
+        elif self.dir == RIGHT:
+            ENEMY.image.clip_draw(SIZE//2*2,SIZE//2*1,SIZE//2,SIZE//2,self.x,self.y)
+        elif self.dir == RIGHT_TOP:
+            ENEMY.image.clip_draw(SIZE//2*2,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
+        elif self.dir == TOP:
+            ENEMY.image.clip_draw(SIZE//2*1,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
 
     def update(self):
        self.x += self.dirX*RUN_SPEED_PPS*game_framework.frame_time
