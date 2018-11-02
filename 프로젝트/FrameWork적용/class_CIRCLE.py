@@ -23,10 +23,21 @@ DEGREE_PER_TIME = PI/36
 TIMER = range(0)
 
 
-class State0State:
+class Stage0State:
     @staticmethod
     def enter(Circle, event):
-        pass
+        Circle.x, Circle.y = WINX // 2, WINY // 2
+        Circle.r = 380
+        if random.randint(0,1) ==0:
+            Circle.dirX = -1
+        else: Circle.dirX = 1
+
+        if random.randint(0,1) ==0:
+            Circle.dirY = -1
+        else: Circle.dirY = 1
+
+        Circle.dir = -1
+        Circle.velocity = RUN_SPEED_PPS
 
     @staticmethod
     def exit(Circle, event):
@@ -34,11 +45,45 @@ class State0State:
 
     @staticmethod
     def do(Circle):
-        pass
+        Circle.timer+=get_time()-Circle.cur_time
+        Circle.cur_time = get_time()
+
+        if Circle.timer >= 15:
+            Circle.velocity += RUN_SPEED_PPS/5000
+            if random.randint(0, 1) == 0:
+                Circle.dirX = -1
+            else: Circle.dirX = 1
+            if random.randint(0, 1) == 0:
+                Circle.dirY = -1
+            else: Circle.dirY = 1
+
+            Circle.timer = 0
+
+        if Circle.r < 100:
+            Circle.dir = 1
+        elif Circle.r > 400:
+            Circle.dir = -1
+
+        if(Circle.x > WINX-Circle.r):
+            Circle.dirX = -1
+        elif(Circle.x < Circle.r):
+            Circle.dirX = 1
+        if (Circle.y > WINY-200 - Circle.r):
+            Circle.dirY = -1
+        elif (Circle.y < Circle.r):
+            Circle.dirY = 1
+
+        Circle.x += Circle.dirX * Circle.velocity
+        Circle.y += Circle.dirY * Circle.velocity
+        Circle.r += Circle.dir * Circle.velocity*2
+
+
 
     @staticmethod
     def draw(Circle):
-        pass
+        Circle.image.opacify(0.85)
+        Circle.image.draw(Circle.x - Circle.r * 0.01, Circle.y - Circle.r * 0.01, WINX * 2 + Circle.r,
+                          WINX * 2 + Circle.r)
 
 
 
@@ -151,7 +196,7 @@ class CIRCLE:
     def __init__(self,phase):
         if CIRCLE.image == None:
             CIRCLE.image = load_image('Circle.png')
-        self.cur_state = Stage1State
+        self.cur_state = Stage0State
         self.event_que = []
         self.cur_state.enter(self, None)
         self.cur_time = 0
@@ -159,10 +204,14 @@ class CIRCLE:
         self.dir = 1
         self.velocity = 0
 
-        if phase == 1:
+        if phase == 0:
+           pass
+
+        elif phase == 1:
             self.cur_state = Stage1State
 
             self.degree = 0
+
         elif phase == 2:
             self.cur_state = Stage2State
             self.dirX,self.dirY =0,0
