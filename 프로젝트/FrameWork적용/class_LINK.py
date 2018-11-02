@@ -413,6 +413,12 @@ next_state_table = {
 
 class LINK:
     global Arrow
+    x = None
+    y = None
+    dir = None
+    life = None
+    attack_speed = None
+    run_speed =None
 
     def __init__(self):
         self.image = load_image('Standing.png')
@@ -421,11 +427,18 @@ class LINK:
         self.cur_state.enter(self,None)
         self.cur_time = 0
         self.frame = 0
-        self.x,self.y = WINX//2, WINY//2
-        self.dir = DOWN
         self.timer = 0
         self.velocityX,self.velocityY = 0.0,0.0
         self.enable = False
+
+        if LINK.x ==None:
+            LINK.x = WINX//2
+            LINK.y = WINY//2
+            LINK.dir = DOWN
+            LINK.life = 3
+            LINK.attack_speed = 0
+            LINK.run_speed = 0
+
 
     def update_rect(self):
         pass
