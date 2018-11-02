@@ -448,13 +448,12 @@ class LINK:
         pass
 
     def draw_ability(self):
-        if ITEM.image != None:
-            for i in range(LINK.life):
-                ITEM.image.clip_draw(0, 2 * SIZE // 2, SIZE // 2, SIZE // 2, i * SIZE, WINY - SIZE)
-            for i in range(LINK.arrow_speed):
-                ITEM.image.clip_draw(0, 1 * SIZE // 2, SIZE // 2, SIZE // 2, i * SIZE, WINY-SIZE*2)
-            for i in range(LINK.run_speed):
-                ITEM.image.clip_draw(0, 0 * SIZE // 2, SIZE // 2, SIZE // 2, i * SIZE, WINY - SIZE * 3)
+        for i in range(LINK.life):
+            ITEM.image.clip_draw(0, 2 * SIZE // 2, SIZE // 2, SIZE // 2, i * SIZE, WINY - SIZE)
+        for i in range(LINK.arrow_speed):
+            ITEM.image.clip_draw(0, 1 * SIZE // 2, SIZE // 2, SIZE // 2, i * SIZE, WINY-SIZE*2)
+        for i in range(LINK.run_speed):
+            ITEM.image.clip_draw(0, 0 * SIZE // 2, SIZE // 2, SIZE // 2, i * SIZE, WINY - SIZE * 3)
 
     def shoot_arrow(self):
         Arrow = ARROW(LINK.x,LINK.y,LINK.dir)
