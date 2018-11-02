@@ -31,7 +31,7 @@ class BOSS2_BULLET3:
 
     def __init__(self,x = WINX//2,y=WINY//2,degree = 0):
         if BOSS2_BULLET3.image == None:
-            BOSS2_BULLET3.image = load_image('Fire.png')
+            BOSS2_BULLET3.image = load_image('Boss2Bullet3.png')
 
         self.x,self.y = x,y
         self.r = 50
@@ -46,7 +46,7 @@ class BOSS2_BULLET3:
     def draw(self):
         #BOSS2_BULLET3.image.rotate_draw(math.radians(self.degree), self.x, self.y, SIZE, SIZE)
 
-        BOSS2_BULLET3.image.clip_composite_draw(int(BOSS2_BULLET3.frame) * SIZE//2, 0, SIZE//2, SIZE//2, math.radians(self.degree),
+        BOSS2_BULLET3.image.clip_composite_draw(int(BOSS2_BULLET3.frame) * SIZE//2, 0, SIZE//2, SIZE//2, math.radians(self.dir*self.degree),
                                        'v', self.x, self.y, SIZE, SIZE)
 
     def update(self):
