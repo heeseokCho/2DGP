@@ -11,7 +11,7 @@ SIZE  = 64
 PI = 3.141592
 
 PIXEL_PER_METER = (10.0/0.3)
-RUN_SPEED_KMPH = 10.0
+RUN_SPEED_KMPH = 8.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
@@ -48,5 +48,8 @@ class BOSS2_BULLET1:
         self.t += RUN_SPEED_PPS*game_framework.frame_time/100
         self.x = (1 - self.t) * self.startX + self.t * self.endX
         self.y = (1 - self.t) * self.startY + self.t * self.endY
+
+        if self.x < SIZE or self.x > WINX-SIZE or self.y < SIZE or self.y > WINY-250:
+            game_world.remove_object(self)
 
 

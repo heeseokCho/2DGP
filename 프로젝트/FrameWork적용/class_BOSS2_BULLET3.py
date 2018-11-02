@@ -14,12 +14,12 @@ LEFT_TOP,LEFT,LEFT_BOTTOM,BOTTOM,\
 RIGHT_BOTTOM,RIGHT,RIGHT_TOP,TOP = range(8)
 
 PIXEL_PER_METER = (10.0/0.3)
-RUN_SPEED_KMPH = 10
+RUN_SPEED_KMPH = 5
 RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 
-DEGREE_PER_TIME = 32*PI
+DEGREE_PER_TIME = 24*PI
 
 TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0/TIME_PER_ACTION
@@ -44,8 +44,6 @@ class BOSS2_BULLET3:
 
 
     def draw(self):
-        #BOSS2_BULLET3.image.rotate_draw(math.radians(self.degree), self.x, self.y, SIZE, SIZE)
-
         BOSS2_BULLET3.image.clip_composite_draw(int(BOSS2_BULLET3.frame) * SIZE//2, 0, SIZE//2, SIZE//2, math.radians(self.dir*self.degree),
                                        'v', self.x, self.y, SIZE, SIZE)
 

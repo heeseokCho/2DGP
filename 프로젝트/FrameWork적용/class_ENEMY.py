@@ -12,7 +12,7 @@ LEFT_TOP,LEFT,LEFT_BOTTOM,BOTTOM,\
 RIGHT_BOTTOM,RIGHT,RIGHT_TOP,TOP = range(8)
 
 PIXEL_PER_METER = (10.0/0.3)
-RUN_SPEED_KMPH = 10
+RUN_SPEED_KMPH = 12
 RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
@@ -77,7 +77,7 @@ class ENEMY:
        self.x += self.dirX*RUN_SPEED_PPS*game_framework.frame_time
        self.y += self.dirY*RUN_SPEED_PPS*game_framework.frame_time
 
-       if self.x > WINX or self.x < 0 or self.y > WINY or self.y < 0:
+       if self.x > WINX or self.x < 0 or self.y > WINY-250 or self.y < 0:
            game_world.remove_object(self)
 
 

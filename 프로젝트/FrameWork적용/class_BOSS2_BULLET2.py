@@ -2,6 +2,8 @@ from pico2d import*
 import game_framework
 import game_world
 
+import main_state2
+
 import random
 
 WINX,WINY = 1600,1000
@@ -11,7 +13,7 @@ LEFT_TOP,LEFT,LEFT_BOTTOM,BOTTOM,\
 RIGHT_BOTTOM,RIGHT,RIGHT_TOP,TOP = range(8)
 
 PIXEL_PER_METER = (10.0/0.3)
-RUN_SPEED_KMPH = 0.05
+RUN_SPEED_KMPH = 10
 RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
@@ -48,28 +50,28 @@ class BOSS2_BULLET2:
 
     def update(self):
         if self.dir == LEFT_TOP:
-            self.x -= self.velocity
-            self.y += self.velocity
+            self.x -= self.velocity*game_framework.frame_time
+            self.y += self.velocity*game_framework.frame_time
         elif self.dir == LEFT:
-            self.x -= self.velocity
+            self.x -= self.velocity*game_framework.frame_time
         elif self.dir == LEFT_BOTTOM:
-            self.x -= self.velocity
-            self.y -= self.velocity
+            self.x -= self.velocity*game_framework.frame_time
+            self.y -= self.velocity*game_framework.frame_time
         elif self.dir == BOTTOM:
-            self.y -= self.velocity
+            self.y -= self.velocity*game_framework.frame_time
         elif self.dir == RIGHT_BOTTOM:
-            self.x += self.velocity
-            self.y -= self.velocity
+            self.x += self.velocity*game_framework.frame_time
+            self.y -= self.velocity*game_framework.frame_time
         elif self.dir == RIGHT:
-            self.x += self.velocity
+            self.x += self.velocity*game_framework.frame_time
         elif self.dir == RIGHT_TOP:
-            self.x += self.velocity
-            self.y += self.velocity
+            self.x += self.velocity*game_framework.frame_time
+            self.y += self.velocity*game_framework.frame_time
         elif self.dir == TOP:
-            self.y += self.velocity
+            self.y += self.velocity*game_framework.frame_time
 
-        if self.x <SIZE or self.x > WINX-SIZE or \
-                self.y <SIZE or self. y >WINY-SIZE:
+        if self.x <main_state2.Circle.x-main_state2.Circle.r or self.x > main_state2.Circle.x+main_state2.Circle.r or \
+                self.y <main_state2.Circle.y-main_state2.Circle.r or self.y > main_state2.Circle.x+main_state2.Circle.r:
             game_world.remove_object(self)
 
 
