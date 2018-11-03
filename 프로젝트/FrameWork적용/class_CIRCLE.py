@@ -68,7 +68,7 @@ class Stage0State:
             Circle.dirX = -1
         elif(Circle.x < Circle.r):
             Circle.dirX = 1
-        if (Circle.y > WINY-200 - Circle.r):
+        if (Circle.y > WINY- Circle.r):
             Circle.dirY = -1
         elif (Circle.y < Circle.r):
             Circle.dirY = 1
@@ -164,7 +164,7 @@ class Stage2State:
             Circle.dirX = -1
         elif(Circle.x < Circle.r):
             Circle.dirX = 1
-        if (Circle.y > WINY-200 - Circle.r):
+        if (Circle.y > WINY - Circle.r):
             Circle.dirY = -1
         elif (Circle.y < Circle.r):
             Circle.dirY = 1
