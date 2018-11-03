@@ -3,6 +3,10 @@ import game_framework
 import random
 import math
 
+import main_state0
+import main_state1
+import main_state2
+
 #윈도우 크기
 WINX  = 1600
 WINY  = 1000
@@ -26,7 +30,7 @@ TIMER = range(0)
 class Stage0State:
     @staticmethod
     def enter(Circle, event):
-        Circle.x, Circle.y = WINX // 2, WINY // 2
+        CIRCLE.x, CIRCLE.y = main_state0.LINK.x, main_state0.LINK.y
         Circle.r = 380
         if random.randint(0,1) ==0:
             Circle.dirX = -1
@@ -64,17 +68,17 @@ class Stage0State:
         elif Circle.r > 400:
             Circle.dir = -1
 
-        if(Circle.x > WINX-Circle.r):
+        if(CIRCLE.x > WINX-Circle.r):
             Circle.dirX = -1
-        elif(Circle.x < Circle.r):
+        elif(CIRCLE.x < Circle.r):
             Circle.dirX = 1
-        if (Circle.y > WINY- Circle.r):
+        if (CIRCLE.y > WINY- Circle.r):
             Circle.dirY = -1
-        elif (Circle.y < Circle.r):
+        elif (CIRCLE.y < Circle.r):
             Circle.dirY = 1
 
-        Circle.x += Circle.dirX * Circle.velocity
-        Circle.y += Circle.dirY * Circle.velocity
+        CIRCLE.x += Circle.dirX * Circle.velocity
+        CIRCLE.y += Circle.dirY * Circle.velocity
         Circle.r += Circle.dir * Circle.velocity*3
 
 
@@ -82,7 +86,7 @@ class Stage0State:
     @staticmethod
     def draw(Circle):
         Circle.image.opacify(0.85)
-        Circle.image.draw(Circle.x - Circle.r * 0.01, Circle.y - Circle.r * 0.01, WINX * 2 + Circle.r,
+        Circle.image.draw(CIRCLE.x - Circle.r * 0.01, CIRCLE.y - Circle.r * 0.01, WINX * 2 + Circle.r,
                           WINX * 2 + Circle.r)
 
 
@@ -91,7 +95,8 @@ class Stage0State:
 class Stage1State:
     @staticmethod
     def enter(Circle,event):
-        Circle.x, Circle.y = WINX // 2 + 500, WINY // 2
+        #CIRCLE.x, CIRCLE.y = WINX // 2 + 500, WINY // 2
+        CIRCLE.x, CIRCLE.y = main_state1.LINK.x,main_state1.LINK.y
         Circle.r = 300
         Circle.dir = 1
         Circle.degree = 0
@@ -104,7 +109,7 @@ class Stage1State:
 
     @staticmethod
     def do(Circle):
-        Circle.degree +=  + Circle.dir*(DEGREE_PER_TIME+Circle.velocity)*game_framework.frame_time
+        Circle.degree +=Circle.dir*(DEGREE_PER_TIME+Circle.velocity)*game_framework.frame_time
 
         Circle.timer+=get_time()-Circle.cur_time
         Circle.cur_time = get_time()
@@ -115,20 +120,20 @@ class Stage1State:
                 Circle.dir *= -1
             Circle.timer = 0
 
-        Circle.x =WINX//2+ 8*PIXEL_PER_METER*math.cos(Circle.degree)
-        Circle.y =WINY//2+ 8*PIXEL_PER_METER*math.sin(Circle.degree)
+        CIRCLE.x =WINX//2+ 8*PIXEL_PER_METER*math.cos(Circle.degree)
+        CIRCLE.y =WINY//2+ 8*PIXEL_PER_METER*math.sin(Circle.degree)
 
     @staticmethod
     def draw(Circle):
         Circle.image.opacify(0.85)
-        Circle.image.draw(Circle.x - Circle.r * 0.01, Circle.y - Circle.r * 0.01, WINX * 2 + Circle.r, WINX * 2 + Circle.r)
+        Circle.image.draw(CIRCLE.x - Circle.r * 0.01, CIRCLE.y - Circle.r * 0.01, WINX * 2 + Circle.r, WINX * 2 + Circle.r)
 
 
 
 class Stage2State:
     @staticmethod
     def enter(Circle, event):
-        Circle.x, Circle.y = WINX // 2, WINY // 2
+        CIRCLE.x, CIRCLE.y = main_state2.LINK.x,main_state2.LINK.y
         Circle.r = 380
         if random.randint(0,1) ==0:
             Circle.dirX = -1
@@ -160,17 +165,17 @@ class Stage2State:
         elif Circle.r > 400:
             Circle.dir = -1
 
-        if(Circle.x > WINX-Circle.r):
+        if(CIRCLE.x > WINX-Circle.r):
             Circle.dirX = -1
-        elif(Circle.x < Circle.r):
+        elif(CIRCLE.x < Circle.r):
             Circle.dirX = 1
-        if (Circle.y > WINY - Circle.r):
+        if (CIRCLE.y > WINY - Circle.r):
             Circle.dirY = -1
-        elif (Circle.y < Circle.r):
+        elif (CIRCLE.y < Circle.r):
             Circle.dirY = 1
 
-        Circle.x += Circle.dirX * Circle.velocity
-        Circle.y += Circle.dirY * Circle.velocity
+        CIRCLE.x += Circle.dirX * Circle.velocity
+        CIRCLE.y += Circle.dirY * Circle.velocity
         Circle.r += Circle.dir * Circle.velocity*2
 
 
@@ -178,7 +183,7 @@ class Stage2State:
     @staticmethod
     def draw(Circle):
         Circle.image.opacify(0.85)
-        Circle.image.draw(Circle.x - Circle.r * 0.01, Circle.y - Circle.r * 0.01, WINX * 2 + Circle.r,
+        Circle.image.draw(CIRCLE.x - Circle.r * 0.01, CIRCLE.y - Circle.r * 0.01, WINX * 2 + Circle.r,
                           WINX * 2 + Circle.r)
 
 
@@ -186,6 +191,7 @@ next_state_table = {}
 
 class CIRCLE:
     image = None
+    x,y =0,0
 
     def __init__(self,phase):
         if CIRCLE.image == None:
@@ -195,12 +201,29 @@ class CIRCLE:
         self.cur_state.enter(self, None)
         self.cur_time = 0
         self.timer = 0
-        self.x,self.y,self.r =0,0,0
+        self.r =0
         self.dir = 1
         self.velocity = 0
+        CIRCLE.x,CIRCLE.y = 0,0
 
         if phase == 0:
-           pass
+            self.cur_state = Stage2State
+            self.dirX,self.dirY =0,0
+
+            CIRCLE.x, CIRCLE.y = main_state2.LINK.x,main_state2.LINK.y
+            self.r = 380
+            if random.randint(0, 1) == 0:
+                self.dirX = -1
+            else:
+                self.dirX = 1
+
+            if random.randint(0, 1) == 0:
+                self.dirY = -1
+            else:
+                self.dirY = 1
+
+                self.dir = -1
+                self.velocity = RUN_SPEED_PPS/1000
 
         elif phase == 1:
             self.cur_state = Stage1State
@@ -211,7 +234,7 @@ class CIRCLE:
             self.cur_state = Stage2State
             self.dirX,self.dirY =0,0
 
-            self.x, self.y = WINX // 2, WINY // 2
+            CIRCLE.x, CIRCLE.y = main_state2.LINK.x,main_state2.LINK.y
             self.r = 380
             if random.randint(0, 1) == 0:
                 self.dirX = -1

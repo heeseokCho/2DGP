@@ -37,7 +37,7 @@ def enter():
     Background = BACKGROUND(1)
     Link = LINK()
     Stage0 = STAGE0()
-    Circle = CIRCLE(1)
+    Circle = CIRCLE(0)
 
     game_world.add_object(Background,0)
     game_world.add_object(Circle,2)
