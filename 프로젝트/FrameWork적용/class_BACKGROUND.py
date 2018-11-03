@@ -5,8 +5,6 @@ WINX  = 1600
 WINY  = 1000
 
 class BACKGROUND():
-    global phase
-
     def __init__(self,phase = 0):
         if phase == 1:
             self.image = load_image('Background.png')

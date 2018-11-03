@@ -18,7 +18,6 @@ RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 
 class ARROW:
-    global Link,Circle
     image = None
 
     def __init__(self,x = 0,y = 0,dir = 0):
