@@ -1,6 +1,7 @@
 import pico2d
 import game_framework
 import game_world
+import title_state
 from class_ARROW import ARROW
 from class_ITEM import ITEM
 
@@ -341,6 +342,7 @@ class DieState:
     def enter(Link, event):
         Link.image = pico2d.load_image('AimStanding.png')
         Link.frame = 0
+        Link.timer = 0
 
     @staticmethod
     def exit(Link, event):
@@ -348,8 +350,13 @@ class DieState:
 
     @staticmethod
     def do(Link):
-        Link.frame = (Link.frame + 1) % 9
+        Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 9
 
+        Link.timer += pico2d.get_time() - Link.cur_time
+        Link.cur_time = pico2d.get_time()
+
+        if Link.timer >= 5:
+            game_framework.change_stat(title_state)
 
     @staticmethod
     def draw(Link):
