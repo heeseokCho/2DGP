@@ -28,11 +28,16 @@ Background = None
 Link = None
 Circle = None
 Stage0 = None
+Bgm = None
 
 def enter():
-    global Link,Circle,Background, Stage0
+    global Link,Circle,Background, Stage0,Bgm
 
     game_world.objects = [[],[],[]]
+
+    Bgm = load_music('Field.mp3')
+    Bgm.set_volume(40)
+    Bgm.repeat_play()
 
     Background = BACKGROUND(1)
     Link = LINK()
