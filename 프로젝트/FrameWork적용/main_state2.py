@@ -29,15 +29,20 @@ Background = None
 Link = None
 Circle = None
 Boss2 = None
+Bgm = None
 
 def enter():
-    global Link,Circle,Background,Boss2
+    global Link,Circle,Background,Boss2,Bgm
     game_world.objects = [[], [], []]
 
     Background = BACKGROUND(2)
     Link = LINK()
     Boss2 = BOSS2()
     Circle = CIRCLE(2)
+
+    Bgm = load_music('BossBattle2.mp3')
+    Bgm.set_volume(40)
+    Bgm.repeat_play()
 
     game_world.add_object(Background,0)
     game_world.add_object(Boss2,1)
