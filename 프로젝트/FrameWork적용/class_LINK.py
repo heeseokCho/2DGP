@@ -1,4 +1,4 @@
-import pico2d
+from pico2d import*
 import game_framework
 import game_world
 import title_state
@@ -161,7 +161,10 @@ class AimState:
 
     @staticmethod
     def exit(Link, event):
-        pass
+        if Link.enable == False:
+            Link.bgm = load_wav('ShotFail.wav')
+            Link.bgm.set_volume(30)
+            Link.bgm.play()
 
     @staticmethod
     def do(Link):
@@ -322,8 +325,10 @@ class ShootState:
 
             if Link.timer >= 3:
                 Link.add_event(AIM_TIMER)
+
         else:
             Link.add_event(ATTACK_UP)
+
 
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
         LINK.x += LINK.velocityX * game_framework.frame_time
@@ -434,6 +439,7 @@ class LINK:
     life = None
     arrow_speed = None
     run_speed =None
+    bgm = None
 
     def __init__(self):
         self.image = pico2d.load_image('Standing.png')
@@ -475,6 +481,10 @@ class LINK:
         Arrow = ARROW(LINK.x,LINK.y,LINK.dir)
         self.enable = False
         game_world.add_object(Arrow,1)
+
+        self.bgm = load_wav('Shot.wav')
+        self.bgm.set_volume(30)
+        self.bgm.play()
 
     def add_event(self,event):
         self.event_que.insert(0,event)
