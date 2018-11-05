@@ -25,6 +25,7 @@ def enter():
     global Manual_image
     global Exit_image
     global Bgm
+
     Main_image = load_image('Main.png')
     Title_image = load_image('Title.png')
     Start_image = load_image('Start.png')

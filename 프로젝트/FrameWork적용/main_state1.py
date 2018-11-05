@@ -14,8 +14,6 @@ from class_BOSS1 import BOSS1
 from class_BACKGROUND import BACKGROUND
 from class_CIRCLE import CIRCLE
 
-
-
 name = "MainState"
 
 #윈도우 크기
@@ -30,15 +28,20 @@ Background = None
 Link = None
 Circle = None
 Boss1 = None
+Bgm = None
 
 def enter():
-    global Link,Circle,Background
+    global Link,Circle,Background,Bgm
     game_world.objects = [[], [], []]
 
     Background = BACKGROUND(1)
     Link = LINK()
     Boss1 = BOSS1()
     Circle = CIRCLE(1)
+
+    Bgm = load_music('BossBattle1.mp3')
+    Bgm.set_volume(40)
+    Bgm.repeat_play()
 
     game_world.add_object(Background,0)
     game_world.add_object(Boss1,1)
