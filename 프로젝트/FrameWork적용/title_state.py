@@ -11,6 +11,8 @@ Title_image = None
 Start_image = None
 Manual_image = None
 Exit_image = None
+Bgm = None
+
 
 #윈도우 크기
 WINX  = 1600
@@ -22,11 +24,16 @@ def enter():
     global Start_image
     global Manual_image
     global Exit_image
+    global Bgm
     Main_image = load_image('Main.png')
     Title_image = load_image('Title.png')
     Start_image = load_image('Start.png')
     Manual_image = load_image('Manual.png')
     Exit_image = load_image('Exit.png')
+
+    Bgm = load_music('MainMenu.mp3')
+    Bgm.set_volume(30)
+    Bgm.repeat_play()
 
 def exit():
     global Main_image
