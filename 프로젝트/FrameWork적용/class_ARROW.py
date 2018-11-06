@@ -38,11 +38,11 @@ class ARROW:
         if self.dir ==UP:
             return self.x-4,self.y+8,self.x+4,self.y+16
         elif self.dir == DOWN:
-            return self.x - 10, self.y - 10, self.x + 10, self.y + 10
+            return self.x - 4, self.y - 16, self.x + 4, self.y - 8
         elif self.dir == LEFT:
-            return self.x - 10, self.y - 10, self.x + 10, self.y + 10
+            return self.x - 16, self.y - 4, self.x - 8, self.y + 4
         elif self.dir == RIGHT:
-            return self.x - 10, self.y - 10, self.x + 10, self.y + 10
+            return self.x + 8, self.y - 4, self.x + 16, self.y + 4
 
 
 
