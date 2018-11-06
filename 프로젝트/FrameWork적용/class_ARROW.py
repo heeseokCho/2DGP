@@ -32,8 +32,18 @@ class ARROW:
     def draw(self):
         ARROW.image.clip_draw(0, self.dir//2, SIZE // 2, SIZE // 2, self.x, self.y)
 
+        draw_rectangle(*self.get_bb())
+
     def get_bb(self):
-        return self.x-10,self.y-10,self.x+10,self.y+10
+        if self.dir ==UP:
+            return self.x-4,self.y+8,self.x+4,self.y+16
+        elif self.dir == DOWN:
+            return self.x - 10, self.y - 10, self.x + 10, self.y + 10
+        elif self.dir == LEFT:
+            return self.x - 10, self.y - 10, self.x + 10, self.y + 10
+        elif self.dir == RIGHT:
+            return self.x - 10, self.y - 10, self.x + 10, self.y + 10
+
 
 
     def update(self):

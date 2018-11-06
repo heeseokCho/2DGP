@@ -499,6 +499,8 @@ class LINK:
         self.cur_state.draw(self)
         self.draw_ability()
 
+        draw_rectangle(*self.get_bb())
+
     def handle_event(self,event):
         if (event.type,event.key) in key_event_table:
             key_event = key_event_table[(event.type, event.key)]

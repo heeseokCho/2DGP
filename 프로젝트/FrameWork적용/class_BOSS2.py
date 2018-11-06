@@ -128,8 +128,10 @@ class BOSS2:
     def draw(self):
         self.cur_state.draw(self)
 
+        draw_rectangle(*self.get_bb())
+
     def handle_event(self, event):
         pass
-    
+
     def get_bb(self):
-        return self.x-10, self.y-10, self.x+10, self.y+10
+        return self.x - SIZE * 2 / 3, self.y - SIZE * 2 / 3, self.x + SIZE * 2 / 3, self.y + SIZE * 2 / 3
