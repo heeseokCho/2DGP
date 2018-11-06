@@ -73,12 +73,20 @@ class ENEMY:
         elif self.dir == TOP:
             ENEMY.image.clip_draw(SIZE//2*1,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y,SIZE//self.size,SIZE//self.size)
 
+        draw_rectangle(*self.get_bb())
+
     def update(self):
        self.x += self.dirX*RUN_SPEED_PPS*game_framework.frame_time
        self.y += self.dirY*RUN_SPEED_PPS*game_framework.frame_time
 
        if self.x > WINX or self.x < 0 or self.y > WINY-250 or self.y < 0:
            game_world.remove_object(self)
+
+    def get_bb(self):
+        if self.size == 1:
+            return self.x-12,self.y-12,self.x+12,self.y+12
+        else:
+            return self.x - 8, self.y - 8, self.x + 8, self.y + 8
 
 
 
