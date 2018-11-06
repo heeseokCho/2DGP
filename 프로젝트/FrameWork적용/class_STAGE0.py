@@ -52,6 +52,7 @@ class STAGE0:
         self.cur_state.enter(self, None)
         self.cur_time = 0
         self.timer = 0
+        self.enemy = []
 
     #아이템
     def create_item(self):
@@ -68,6 +69,8 @@ class STAGE0:
             direction = random.randint(0, 7)
             for i in range(8):
                 Enemy = ENEMY(direction)
+
+        self.enemy.append(Enemy)
 
         game_world.add_object(Enemy,1)
 

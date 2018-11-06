@@ -26,7 +26,6 @@ UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 
 Background = None
 Link = None
-Arrow = None
 Circle = None
 Stage0 = None
 Bgm = None
@@ -82,9 +81,9 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
-    #for arrow in Link.arrow:
-    #    if collide(arrow,enemy):
-    #        print("COLLISION")
+    for enemy in Stage0.enemy:
+        if collide(Link,enemy):
+            print("COLLISION")
 
 
 
