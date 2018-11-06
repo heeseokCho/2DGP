@@ -8,11 +8,10 @@ def add_object(o, layer):
 
 
 def remove_object(o):
-
     for i in range(len(objects)):
         if o in objects[i]:
-            objects[i].remove(o) #그룹에서 뻄
-            del o                   #메모리에서삭제
+            objects[i].remove(o)
+            del o
             break
 
 

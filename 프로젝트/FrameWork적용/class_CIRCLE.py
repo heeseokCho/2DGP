@@ -10,7 +10,7 @@ import main_state2
 #윈도우 크기
 WINX  = 1600
 WINY  = 1000
-
+SIZE = 64
 PI = 3.141592
 
 
@@ -228,6 +228,8 @@ class CIRCLE:
         elif phase == 1:
             self.cur_state = Stage1State
 
+            CIRCLE.x, CIRCLE.y = main_state1.LINK.x, main_state1.LINK.y
+            self.r = 300
             self.degree = 0
 
         elif phase == 2:
@@ -252,6 +254,7 @@ class CIRCLE:
 
     def draw(self):
         self.cur_state.draw(self)
+        draw_rectangle(*self.get_bb())
 
 
     def draw_rect(self):
@@ -270,3 +273,10 @@ class CIRCLE:
 
     def handle_event(self,event):
         pass
+
+    def get_bb(self):
+        if self.cur_state == Stage1State:
+            return CIRCLE.x-self.r-SIZE,CIRCLE.y-self.r-SIZE,CIRCLE.x+self.r+SIZE,CIRCLE.y+self.r+SIZE
+        elif self.cur_state == Stage2State:
+            return CIRCLE.x - 320-self.r/8, CIRCLE.y - 320-self.r/8,\
+                   CIRCLE.x + 320+self.r/8, CIRCLE.y + 320+self.r/8

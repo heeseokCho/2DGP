@@ -76,6 +76,6 @@ class BOSS2_BULLET2:
             game_world.remove_object(self)
 
     def get_bb(self):
-        return self.x-8,self.y-8,self.x+8,self.y+8
+        return self.x-16,self.y-16,self.x+16,self.y+16
 
 
