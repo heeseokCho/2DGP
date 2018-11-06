@@ -130,3 +130,6 @@ class BOSS2:
 
     def handle_event(self, event):
         pass
+    
+    def get_bb(self):
+        return self.x-10, self.y-10, self.x+10, self.y+10

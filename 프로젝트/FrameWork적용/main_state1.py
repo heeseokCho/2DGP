@@ -79,7 +79,8 @@ def update():
 
     for arrow in Link.arrow:
         if collide(Boss1,arrow):
-            print("COLLISION")
+            Link.arrow.remove(arrow)
+            game_world.remove_object(arrow)
 
 
 def draw():
