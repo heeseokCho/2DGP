@@ -53,10 +53,12 @@ class STAGE0:
         self.cur_time = 0
         self.timer = 0
         self.enemy = []
+        self.item = []
 
     #아이템
     def create_item(self):
         Item = ITEM()
+        self.item.append(Item)
         game_world.add_object(Item,1)
 
     #적
