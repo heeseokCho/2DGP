@@ -86,6 +86,14 @@ def update():
             Stage0.enemy.remove(enemy)
             game_world.remove_object(enemy)
 
+    for enemy in Stage0.enemy:
+        for arrow in Link.arrow:
+            if collide(arrow,enemy):
+                Stage0.enemy.remove(enemy)
+                game_world.remove_object(enemy)
+                Link.arrow.remove(arrow)
+                game_world.remove_object(arrow)
+
 def draw():
     clear_canvas()
     for game_object in game_world.all_objects():
