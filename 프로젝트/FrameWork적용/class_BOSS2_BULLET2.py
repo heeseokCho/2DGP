@@ -72,7 +72,7 @@ class BOSS2_BULLET2:
         self.degree += DEGREE_PER_TIME
 
         if self.x <0 or self.x > WINX or \
-                self.y <0 or self.y > WINY-250:
+                self.y <0 or self.y > WINY:
             game_world.remove_object(self)
 
     def get_bb(self):
