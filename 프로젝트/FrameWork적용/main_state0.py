@@ -81,6 +81,9 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
+    if collideout_circle():
+        print("Circle Out")
+
     for enemy in Stage0.enemy:
         if collide(Link,enemy):
             Stage0.enemy.remove(enemy)
@@ -116,5 +119,13 @@ def collide(a,b):
     if bottom_a > top_b: return False
 
     return True
+
+def collideout_circle():
+    left_b, bottom_b, right_b, top_b = Circle.get_bb()
+
+    #right_b- CIRCLE.x = bb.r
+    if (LINK.x-CIRCLE.x)**2+(LINK.y-CIRCLE.y)**2 >\
+            (right_b-CIRCLE.x)**2:
+        return True
 
 

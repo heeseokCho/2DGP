@@ -77,6 +77,8 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
+    if collideout_circle():
+        print("Circle Out")
     #적과 화살 충돌
     for arrow in Link.arrow:
         if collide(Boss1,arrow):
@@ -112,3 +114,11 @@ def collide(a,b):
 
     return True
 
+
+def collideout_circle():
+    left_b, bottom_b, right_b, top_b = Circle.get_bb()
+
+    #right_b- CIRCLE.x = bb.r
+    if (LINK.x-CIRCLE.x)**2+(LINK.y-CIRCLE.y)**2 >\
+            (right_b-CIRCLE.x)**2:
+        return True

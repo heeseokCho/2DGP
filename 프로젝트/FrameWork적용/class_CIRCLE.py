@@ -114,7 +114,7 @@ class Stage1State:
         Circle.timer+=get_time()-Circle.cur_time
         Circle.cur_time = get_time()
 
-        if Circle.timer >= 20:
+        if Circle.timer >= 15:
             Circle.velocity += PI/36
             if random.randint(0, 1) == 0:
                 Circle.dir *= -1
@@ -155,7 +155,7 @@ class Stage2State:
         Circle.timer+=get_time()-Circle.cur_time
         Circle.cur_time = get_time()
 
-        if Circle.timer >= 15:
+        if Circle.timer >= 12:
             Circle.velocity += RUN_SPEED_PPS/5000
 
             Circle.timer = 0
