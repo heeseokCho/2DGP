@@ -83,7 +83,8 @@ def update():
 
     for enemy in Stage0.enemy:
         if collide(Link,enemy):
-            print("COLLISION")
+            Stage0.enemy.remove(enemy)
+            game_world.remove_object(enemy)
 
 
 
