@@ -47,6 +47,7 @@ class BOSS2_BULLET3:
         BOSS2_BULLET3.image.clip_composite_draw(int(BOSS2_BULLET3.frame) * SIZE//2, 0, SIZE//2, SIZE//2, math.radians(self.dir*self.degree),
                                        'v', self.x, self.y, SIZE, SIZE)
 
+        draw_rectangle(*self.get_bb())
     def update(self):
         BOSS2_BULLET3.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 7
 
@@ -63,5 +64,8 @@ class BOSS2_BULLET3:
         self.x = main_state2.Boss2.x + self.r*math.cos(math.radians(self.degree))
         self.y = main_state2.Boss2.y + self.r*math.sin(math.radians(self.degree))
         self.r = self.r + self.dir*self.velocity*game_framework.frame_time
+
+    def get_bb(self):
+        return self.x-16,self.y-16,self.x+16,self.y+16
 
 

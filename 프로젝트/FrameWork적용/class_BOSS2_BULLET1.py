@@ -41,6 +41,7 @@ class BOSS2_BULLET1:
 
     def draw(self):
         BOSS2_BULLET1.image.rotate_draw(math.radians(self.bullet_rotate_degree), self.x, self.y, SIZE / 2, SIZE / 2)
+        draw_rectangle(*self.get_bb())
 
     def update(self):
         self.bullet_rotate_degree += self.bullet_rotate_dir*DEGREE_PER_TIME*game_framework.frame_time
@@ -51,5 +52,8 @@ class BOSS2_BULLET1:
 
         if self.x < SIZE or self.x > WINX-SIZE or self.y < SIZE or self.y > WINY-250:
             game_world.remove_object(self)
+
+    def get_bb(self):
+        return self.x-4,self.y-4,self.x+4,self.y+4
 
 

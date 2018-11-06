@@ -42,7 +42,8 @@ class BOSS2_BULLET2:
     def draw(self):
         BOSS2_BULLET2.image.clip_composite_draw(int(self.frame) * SIZE // 2, 0, SIZE // 2, SIZE // 2,
                                                 math.radians(self.degree),'v', self.x, self.y, SIZE, SIZE)
-       #BOSS2_BULLET2.image.rotate_draw(math.radians(self.degree), self.x, self.y, SIZE, SIZE)
+
+        draw_rectangle(*self.get_bb())
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
@@ -73,5 +74,8 @@ class BOSS2_BULLET2:
         if self.x <0 or self.x > WINX or \
                 self.y <0 or self.y > WINY-250:
             game_world.remove_object(self)
+
+    def get_bb(self):
+        return self.x-8,self.y-8,self.x+8,self.y+8
 
 
