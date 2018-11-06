@@ -77,11 +77,23 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
+    #적과 화살 충돌
     for arrow in Link.arrow:
         if collide(Boss1,arrow):
             Link.arrow.remove(arrow)
             game_world.remove_object(arrow)
 
+    #링크와 지뢰 충돌
+    for bullet1 in Boss1.bullet1:
+        if collide(Link,bullet1):
+            Boss1.bullet1.remove(bullet1)
+            game_world.remove_object(bullet1)
+
+    #링크와 적탄 충돌
+    for bullet2 in Boss1.bullet2:
+        if collide(Link,bullet2):
+            Boss1.bullet2.remove(bullet2)
+            game_world.remove_object(bullet2)
 
 def draw():
     clear_canvas()
@@ -95,7 +107,7 @@ def collide(a,b):
 
     if left_a>right_b:return False
     if right_a<left_b:return False
-    if top_a < bottom_a: return False
+    if top_a < bottom_b: return False
     if bottom_a > top_b : return False
 
     return True

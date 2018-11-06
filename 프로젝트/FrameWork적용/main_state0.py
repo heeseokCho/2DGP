@@ -86,8 +86,6 @@ def update():
             Stage0.enemy.remove(enemy)
             game_world.remove_object(enemy)
 
-
-
 def draw():
     clear_canvas()
     for game_object in game_world.all_objects():

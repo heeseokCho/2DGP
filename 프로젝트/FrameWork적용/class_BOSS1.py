@@ -74,11 +74,16 @@ class BOSS1:
         self.degree = 0
         self.timer = 0
 
+        self.bullet1 = []
+        self.bullet2 = []
+
         self.bgm = load_wav('BossShot.wav')
 
     #지뢰
     def shoot_bullet1(self):
         bullet1 = BOSS1_BULLET1()
+        self.bullet1.append(bullet1)
+
         game_world.add_object(bullet1,1)
         self.bgm.set_volume(30)
         self.bgm.play()
@@ -86,6 +91,8 @@ class BOSS1:
     #8방
     def shoot_bullet2(self):
         bullet2 = [BOSS1_BULLET2(self.x,self.y,i) for i in range(8)]
+        for i in bullet2:
+            self.bullet2.append(i)
 
         for o in bullet2:
             game_world.add_object(o,1)

@@ -45,6 +45,8 @@ class BOSS1_BULLET2:
         elif self.dir == TOP:
             BOSS1_BULLET2.image.clip_draw(SIZE//2*1,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
 
+        draw_rectangle(*self.get_bb())
+
 
     def update(self):
         if self.dir == LEFT_TOP:
@@ -72,4 +74,6 @@ class BOSS1_BULLET2:
                 self.y <SIZE or self. y >WINY-250:
             game_world.remove_object(self)
 
+    def get_bb(self):
+        return self.x-4, self.y-4, self.x+4, self.y+4
 

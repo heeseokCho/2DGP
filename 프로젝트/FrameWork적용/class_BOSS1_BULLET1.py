@@ -36,11 +36,15 @@ class BOSS1_BULLET1:
 
     def draw(self):
         self.image.draw(self.x,self.y,SIZE,SIZE)
+        draw_rectangle(*self.get_bb())
 
-    def update(self):#
+    def update(self):
         self.timer += get_time()-self.cur_time
         self.cur_time = get_time()
 
         if self.timer >=8:
             self.shoot_bullet()
             self.timer = 0
+
+    def get_bb(self):
+        return self.x-4, self.y-4, self.x+4, self.y+4
