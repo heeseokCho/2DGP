@@ -450,6 +450,7 @@ class LINK:
         self.frame = 0
         self.timer = 0
         self.enable = False
+        self.arrow = []
 
         if LINK.x == None:
             LINK.x = WINX//2
@@ -461,12 +462,8 @@ class LINK:
             LINK.velocityX = 0.0
             LINK.velocityY = 0.0
 
-
-    def update_rect(self):
-        pass
-
-    def draw_rect(self):
-        pass
+    def get_bb(self):
+        return LINK.x-10,LINK.y-10,LINK.x+10,LINK.y+10
 
     def draw_ability(self):
         if ITEM.image != None:
@@ -479,6 +476,7 @@ class LINK:
 
     def shoot_arrow(self):
         Arrow = ARROW(LINK.x,LINK.y,LINK.dir)
+        self.arrow.append(Arrow)
         self.enable = False
         game_world.add_object(Arrow,1)
 
@@ -497,12 +495,8 @@ class LINK:
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self,event)
 
-        self.update_rect()
-
     def draw(self):
         self.cur_state.draw(self)
-
-        self.draw_rect()
         self.draw_ability()
 
     def handle_event(self,event):

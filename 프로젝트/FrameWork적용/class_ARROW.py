@@ -32,8 +32,8 @@ class ARROW:
     def draw(self):
         ARROW.image.clip_draw(0, self.dir//2, SIZE // 2, SIZE // 2, self.x, self.y)
 
-    def draw_rect(self):
-        pass
+    def get_bb(self):
+        return self.x-10,self.y-10,self.x+10,self.y+10
 
 
     def update(self):
@@ -50,5 +50,3 @@ class ARROW:
         if self.x <SIZE or self.x > WINX-SIZE or self.y <SIZE or self. y >WINY-SIZE:
             game_world.remove_object(self)
 
-    def update_rect(self):
-        pass
