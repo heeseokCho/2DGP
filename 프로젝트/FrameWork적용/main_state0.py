@@ -89,6 +89,7 @@ def update():
             Stage0.enemy.remove(enemy)
             game_world.remove_object(enemy)
 
+
     for arrow in Link.arrow:
         for enemy in Stage0.enemy:
             if collide(arrow,enemy):
@@ -108,7 +109,8 @@ def update():
                 LINK.arrow_speed += 1
                 LINK.arrow_speed = clamp(0, LINK.arrow_speed, 3)
             elif item.kind == 2:
-                pass
+                LINK.life +=1
+                LINK.life = clamp(0,LINK.life,3)
 
             Stage0.item.remove(item)
             game_world.remove_object(item)
