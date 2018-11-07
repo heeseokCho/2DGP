@@ -2,6 +2,7 @@ from pico2d import*
 import game_world
 
 from class_BOSS1_BULLET2 import BOSS1_BULLET2
+import class_BOSS1
 
 import random
 
@@ -16,6 +17,7 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 
 class BOSS1_BULLET1:
     image = None
+    bullet2 = []
 
     def __init__(self):
         if BOSS1_BULLET1.image == None:
@@ -32,6 +34,7 @@ class BOSS1_BULLET1:
             bullet2 = [BOSS1_BULLET2(self.x, self.y, i+1) for i in range(0,8, 2)]
 
         for o in bullet2:
+            class_BOSS1.BOSS1.bullet2.append(o)
             game_world.add_object(o,1)
 
     def draw(self):

@@ -86,15 +86,15 @@ def update():
             game_world.remove_object(arrow)
 
     #링크와 지뢰 충돌
-    for bullet1 in Boss1.bullet1:
+    for bullet1 in BOSS1.bullet1:
         if collide(Link,bullet1):
-            Boss1.bullet1.remove(bullet1)
+            BOSS1.bullet1.remove(bullet1)
             game_world.remove_object(bullet1)
 
     #링크와 적탄 충돌
-    for bullet2 in Boss1.bullet2:
+    for bullet2 in BOSS1.bullet2:
         if collide(Link,bullet2):
-            Boss1.bullet2.remove(bullet2)
+            BOSS1.bullet2.remove(bullet2)
             game_world.remove_object(bullet2)
 
 def draw():

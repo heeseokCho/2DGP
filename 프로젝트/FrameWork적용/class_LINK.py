@@ -163,7 +163,7 @@ class AimState:
     def exit(Link, event):
         if Link.enable == False:
             Link.bgm = load_wav('ShotFail.wav')
-            Link.bgm.set_volume(30)
+            Link.bgm.set_volume(50)
             Link.bgm.play()
 
     @staticmethod
@@ -482,7 +482,7 @@ class LINK:
         game_world.add_object(Arrow,1)
 
         self.bgm = load_wav('Shot.wav')
-        self.bgm.set_volume(30)
+        self.bgm.set_volume(50)
         self.bgm.play()
 
     def add_event(self,event):

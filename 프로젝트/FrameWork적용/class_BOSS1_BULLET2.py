@@ -3,6 +3,7 @@ import game_framework
 import game_world
 
 import random
+import class_BOSS1
 
 WINX,WINY = 1600,1000
 SIZE  = 64
@@ -72,7 +73,9 @@ class BOSS1_BULLET2:
 
         if self.x <SIZE or self.x > WINX-SIZE or \
                 self.y <SIZE or self. y >WINY-250:
-            game_world.remove_object(self)
+            if self in class_BOSS1.BOSS1.bullet2:
+                class_BOSS1.BOSS1.bullet2.remove(self)
+                game_world.remove_object(self)
 
     def get_bb(self):
         return self.x-4, self.y-4, self.x+4, self.y+4

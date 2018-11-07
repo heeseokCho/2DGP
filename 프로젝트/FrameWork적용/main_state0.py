@@ -84,14 +84,15 @@ def update():
     if collideout_circle():
         print("Circle Out")
 
+    #링크와 적의 충돌
     for enemy in Stage0.enemy:
         if collide(Link,enemy):
             Stage0.enemy.remove(enemy)
             game_world.remove_object(enemy)
 
-
+    #화살과 적의 충돌
     for arrow in Link.arrow:
-        for enemy in Stage0.enemy:
+        for enemy in STAGE0.enemy:
             if collide(arrow,enemy):
                 Stage0.enemy.remove(enemy)
                 LINK.arrow.remove(arrow)
@@ -99,7 +100,8 @@ def update():
                 game_world.remove_object(arrow)
                 break
 
-    for item in Stage0.item:
+    #링크와 아이템의 충돌
+    for item in STAGE0.item:
         if collide(Link,item):
             # RunSpeed, ArrowSpeed, Heart
             if item.kind == 0:
