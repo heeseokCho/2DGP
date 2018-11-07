@@ -59,7 +59,7 @@ class ARROW:
         elif self.dir == RIGHT:
             self.x += self.velocity*game_framework.frame_time
 
-        if self.x < SIZE or self.x > WINX-SIZE or self.y <SIZE or self. y > WINY-250:
+        if self.x < SIZE or self.x > WINX-SIZE or self.y <SIZE or self. y > WINY-100:
             class_LINK.LINK.arrow.remove(self)
             game_world.remove_object(self)
 

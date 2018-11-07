@@ -86,14 +86,14 @@ def update():
             LINK.arrow.remove(arrow)
             game_world.remove_object(arrow)
 
-    for bullet1 in Boss2.bullet1:
+    for bullet1 in BOSS2.bullet1:
         if collide(Link,bullet1):
-            Boss2.bullet1.remove(bullet1)
+            BOSS2.bullet1.remove(bullet1)
             game_world.remove_object(bullet1)
 
-    for bullet2 in Boss2.bullet2:
+    for bullet2 in BOSS2.bullet2:
         if collide(Link,bullet2):
-            Boss2.bullet2.remove(bullet2)
+            BOSS2.bullet2.remove(bullet2)
             game_world.remove_object(bullet2)
 
     for bullet3 in Boss2.bullet3:

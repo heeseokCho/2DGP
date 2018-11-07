@@ -78,7 +78,8 @@ class RunState:
 
 
 class BOSS2:
-
+    bullet1 = []
+    bullet2 = []
     def __init__(self):
         self.x, self.y = WINX//2, WINY//2
         self.image = load_image('Boss2.png')
@@ -92,8 +93,6 @@ class BOSS2:
         self.rotation_degree = 0
         self.revolution_degree =0
         self.timer = 0
-        self.bullet1 = []
-        self.bullet2 = []
         self.bullet3 = []
         self.shoot_bullet3()
 
@@ -102,7 +101,7 @@ class BOSS2:
     #Link에게쏘는탄
     def shoot_bullet1(self):
         bullet1 = BOSS2_BULLET1(self.x,self.y)
-        self.bullet1.append(bullet1)
+        BOSS2.bullet1.append(bullet1)
         game_world.add_object(bullet1,1)
 
     #8방
@@ -110,7 +109,7 @@ class BOSS2:
         bullet2 = [BOSS2_BULLET2(self.x,self.y,i) for i in range(8)]
 
         for o in bullet2:
-            self.bullet2.append(o)
+            BOSS2.bullet2.append(o)
             game_world.add_object(o,1)
 
     def shoot_bullet3(self):

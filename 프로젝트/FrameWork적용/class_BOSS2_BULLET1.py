@@ -3,6 +3,7 @@ import game_world
 import game_framework
 import main_state2
 
+import class_BOSS2
 import random
 import math
 
@@ -51,6 +52,7 @@ class BOSS2_BULLET1:
         self.y = (1 - self.t) * self.startY + self.t * self.endY
 
         if self.x < SIZE or self.x > WINX-SIZE or self.y < SIZE or self.y > WINY-250:
+            class_BOSS2.BOSS2.bullet1.remove(self)
             game_world.remove_object(self)
 
     def get_bb(self):

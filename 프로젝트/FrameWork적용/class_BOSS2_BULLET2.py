@@ -2,7 +2,7 @@ from pico2d import*
 import game_framework
 import game_world
 
-import main_state2
+import class_BOSS2
 
 import random
 
@@ -73,6 +73,7 @@ class BOSS2_BULLET2:
 
         if self.x <0 or self.x > WINX or \
                 self.y <0 or self.y > WINY:
+            class_BOSS2.BOSS2.bullet2.remove(self)
             game_world.remove_object(self)
 
     def get_bb(self):
