@@ -102,7 +102,8 @@ def update():
         if collide(Link,item):
             # RunSpeed, ArrowSpeed, Heart
             if item.kind == 0:
-                Link.run_speed += 1
+                LINK.run_speed += 1
+                LINK.run_speed = clamp(0,LINK.run_speed,3)
             elif item.kind == 1:
                 pass
             elif item.kind == 2:

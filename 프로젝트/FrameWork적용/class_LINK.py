@@ -120,8 +120,8 @@ class RunState:
     @staticmethod
     def do(Link):
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
-        LINK.x += LINK.velocityX*(Link.run_speed/4+1)*game_framework.frame_time
-        LINK.y += LINK.velocityY*(Link.run_speed/4+1)*game_framework.frame_time
+        LINK.x += (LINK.velocityX*(LINK.run_speed/4+1))*game_framework.frame_time
+        LINK.y += (LINK.velocityY*(LINK.run_speed/4+1))*game_framework.frame_time
         LINK.x = pico2d.clamp(SIZE, LINK.x, WINX - SIZE)
         LINK.y = pico2d.clamp(SIZE, LINK.y, WINY - 250)
 
@@ -169,8 +169,8 @@ class AimState:
     @staticmethod
     def do(Link):
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
-        LINK.x += LINK.velocityX*game_framework.frame_time
-        LINK.y += LINK.velocityY*game_framework.frame_time
+        LINK.x += (LINK.velocityX*(LINK.run_speed/4+1)) * game_framework.frame_time
+        LINK.y += (LINK.velocityY*(LINK.run_speed/4+1)) * game_framework.frame_time
         LINK.x = pico2d.clamp(SIZE, LINK.x, WINX - SIZE)
         LINK.y = pico2d.clamp(SIZE, LINK.y, WINY - 250)
 
@@ -267,8 +267,8 @@ class AimRunState:
     @staticmethod
     def do(Link):
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
-        LINK.x += LINK.velocityX * game_framework.frame_time
-        LINK.y += LINK.velocityY * game_framework.frame_time
+        LINK.x += (LINK.velocityX*(LINK.run_speed/4+1)) * game_framework.frame_time
+        LINK.y += (LINK.velocityY*(LINK.run_speed/4+1)) * game_framework.frame_time
         LINK.x = pico2d.clamp(SIZE, LINK.x, WINX - SIZE)
         LINK.y = pico2d.clamp(SIZE, LINK.y, WINY - 250)
 
@@ -331,8 +331,8 @@ class ShootState:
 
 
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
-        LINK.x += LINK.velocityX * game_framework.frame_time
-        LINK.y += LINK.velocityY * game_framework.frame_time
+        LINK.x += (LINK.velocityX*(LINK.run_speed/4+1)) * game_framework.frame_time
+        LINK.y += (LINK.velocityY*(LINK.run_speed/4+1)) * game_framework.frame_time
         LINK.x = pico2d.clamp(SIZE, LINK.x, WINX - SIZE)
         LINK.y = pico2d.clamp(SIZE, LINK.y, WINY - 250)
 
