@@ -82,7 +82,7 @@ def update():
     #적과 화살 충돌
     for arrow in Link.arrow:
         if collide(Boss1,arrow):
-            Link.arrow.remove(arrow)
+            LINK.arrow.remove(arrow)
             game_world.remove_object(arrow)
 
     #링크와 지뢰 충돌

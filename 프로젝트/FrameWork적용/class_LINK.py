@@ -440,6 +440,7 @@ class LINK:
     arrow_speed = None
     run_speed =None
     bgm = None
+    arrow = []
 
     def __init__(self):
         self.image = pico2d.load_image('Standing.png')
@@ -450,7 +451,6 @@ class LINK:
         self.frame = 0
         self.timer = 0
         self.enable = False
-        self.arrow = []
 
         if LINK.x == None:
             LINK.x = WINX//2
@@ -476,7 +476,8 @@ class LINK:
 
     def shoot_arrow(self):
         Arrow = ARROW(LINK.x,LINK.y,LINK.dir)
-        self.arrow.append(Arrow)
+
+        LINK.arrow.append(Arrow)
         self.enable = False
         game_world.add_object(Arrow,1)
 

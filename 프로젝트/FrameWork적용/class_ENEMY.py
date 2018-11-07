@@ -4,6 +4,7 @@ import game_world
 
 import random
 import main_state0
+import class_STAGE0
 
 WINX,WINY = 1600,1000
 SIZE = 64
@@ -80,7 +81,8 @@ class ENEMY:
        self.y += self.dirY*RUN_SPEED_PPS*game_framework.frame_time
 
        if self.x > WINX or self.x < 0 or self.y > WINY-250 or self.y < 0:
-           game_world.remove_object(self)
+        class_STAGE0.STAGE0.enemy.remove(self)
+        game_world.remove_object(self)
 
     def get_bb(self):
         if self.size == 1:

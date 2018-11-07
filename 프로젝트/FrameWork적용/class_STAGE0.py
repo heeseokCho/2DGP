@@ -44,7 +44,8 @@ class RunState:
 
 
 class STAGE0:
-
+    enemy = []
+    item = []
     def __init__(self):
         self.image = load_image('Boss1.png')
         self.event_que = []
@@ -52,13 +53,11 @@ class STAGE0:
         self.cur_state.enter(self, None)
         self.cur_time = 0
         self.timer = 0
-        self.enemy = []
-        self.item = []
 
     #아이템
     def create_item(self):
         Item = ITEM()
-        self.item.append(Item)
+        STAGE0.item.append(Item)
         game_world.add_object(Item,1)
 
     #적
@@ -72,7 +71,7 @@ class STAGE0:
             for i in range(8):
                 Enemy = ENEMY(direction)
 
-        self.enemy.append(Enemy)
+        STAGE0.enemy.append(Enemy)
 
         game_world.add_object(Enemy,1)
 
