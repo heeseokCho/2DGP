@@ -105,7 +105,8 @@ def update():
                 LINK.run_speed += 1
                 LINK.run_speed = clamp(0,LINK.run_speed,3)
             elif item.kind == 1:
-                pass
+                LINK.arrow_speed += 1
+                LINK.arrow_speed = clamp(0, LINK.arrow_speed, 3)
             elif item.kind == 2:
                 pass
 

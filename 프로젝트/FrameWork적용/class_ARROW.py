@@ -2,6 +2,8 @@ from pico2d import*
 import game_world
 import game_framework
 
+import class_LINK
+
 #윈도우크기
 WINX,WINY = 1600,1000
 #사진 크기
@@ -10,7 +12,7 @@ SIZE = 64
 UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 
 
-#Link Run Speed
+#Arrow Run Speed
 PIXEL_PER_METER = (10.0/0.3)
 RUN_SPEED_KMPH = 25.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
@@ -25,7 +27,7 @@ class ARROW:
             ARROW.image = load_image('Arrow.png')
 
         self.x,self.y = x,y
-        self.velocity = RUN_SPEED_PPS
+        self.velocity = RUN_SPEED_PPS*(class_LINK.LINK.arrow_speed/4+1)
         self.dir = dir
 
 
