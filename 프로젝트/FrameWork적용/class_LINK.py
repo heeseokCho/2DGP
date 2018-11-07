@@ -15,7 +15,7 @@ UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 
 #Link Run Speed
 PIXEL_PER_METER = (10.0/0.3)
-RUN_SPEED_KMPH = 20.0
+RUN_SPEED_KMPH = 16.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
@@ -52,25 +52,25 @@ class IdleState:
         Link.image = pico2d.load_image('Standing.png')
 
         if event == UP_DOWN:
-            LINK.velocityY += RUN_SPEED_PPS + RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY += RUN_SPEED_PPS
             LINK.dir = UP
         elif event == DOWN_DOWN:
-            LINK.velocityY -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY -= RUN_SPEED_PPS
             LINK.dir = DOWN
         elif event == UP_UP:
-            LINK.velocityY -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY -= RUN_SPEED_PPS
         elif event == DOWN_UP:
-            LINK.velocityY += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
-            LINK.velocityX -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX -= RUN_SPEED_PPS
             LINK.dir = LEFT
         elif event == RIGHT_DOWN:
-            LINK.velocityX += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX += RUN_SPEED_PPS
             LINK.dir = RIGHT
         elif event == LEFT_UP:
-            LINK.velocityX += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX += RUN_SPEED_PPS
         elif event == RIGHT_UP:
-            LINK.velocityX -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX -= RUN_SPEED_PPS
 
 
     @staticmethod
@@ -93,25 +93,25 @@ class RunState:
         Link.frame = 0
 
         if event == UP_DOWN:
-            LINK.velocityY += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY += RUN_SPEED_PPS
             LINK.dir = UP
         elif event == DOWN_DOWN:
-            LINK.velocityY -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY -= RUN_SPEED_PPS
             LINK.dir = DOWN
         elif event == UP_UP:
-            LINK.velocityY -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY -= RUN_SPEED_PPS
         elif event == DOWN_UP:
-            LINK.velocityY += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
-            LINK.velocityX -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX -= RUN_SPEED_PPS
             LINK.dir = LEFT
         elif event == RIGHT_DOWN:
-            LINK.velocityX += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX += RUN_SPEED_PPS
             LINK.dir = RIGHT
         elif event == LEFT_UP:
-            LINK.velocityX += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX += RUN_SPEED_PPS
         elif event == RIGHT_UP:
-            LINK.velocityX -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX -= RUN_SPEED_PPS
 
     @staticmethod
     def exit(Link, event):
@@ -120,8 +120,8 @@ class RunState:
     @staticmethod
     def do(Link):
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
-        LINK.x += LINK.velocityX*game_framework.frame_time
-        LINK.y += LINK.velocityY*game_framework.frame_time
+        LINK.x += LINK.velocityX*(Link.run_speed/4+1)*game_framework.frame_time
+        LINK.y += LINK.velocityY*(Link.run_speed/4+1)*game_framework.frame_time
         LINK.x = pico2d.clamp(SIZE, LINK.x, WINX - SIZE)
         LINK.y = pico2d.clamp(SIZE, LINK.y, WINY - 250)
 
@@ -139,25 +139,25 @@ class AimState:
         Link.enable = False
 
         if event == UP_DOWN:
-            LINK.velocityY += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY += RUN_SPEED_PPS
             LINK.dir = UP
         elif event == DOWN_DOWN:
-            LINK.velocityY -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY -= RUN_SPEED_PPS
             LINK.dir = DOWN
         elif event == UP_UP:
-            LINK.velocityY -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY -= RUN_SPEED_PPS
         elif event == DOWN_UP:
-            LINK.velocityY += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
-            LINK.velocityX -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX -= RUN_SPEED_PPS
             LINK.dir = LEFT
         elif event == RIGHT_DOWN:
-            LINK.velocityX += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX += RUN_SPEED_PPS
             LINK.dir = RIGHT
         elif event == LEFT_UP:
-            LINK.velocityX += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX += RUN_SPEED_PPS
         elif event == RIGHT_UP:
-            LINK.velocityX -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX -= RUN_SPEED_PPS
 
     @staticmethod
     def exit(Link, event):
@@ -195,25 +195,25 @@ class AimIdleState:
         Link.timer = 0
 
         if event == UP_DOWN:
-            LINK.velocityY += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY += RUN_SPEED_PPS
             LINK.dir = UP
         elif event == DOWN_DOWN:
-            LINK.velocityY -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY -= RUN_SPEED_PPS
             LINK.dir = DOWN
         elif event == UP_UP:
-            LINK.velocityY -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY -= RUN_SPEED_PPS
         elif event == DOWN_UP:
-            LINK.velocityY += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
-            LINK.velocityX -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX -= RUN_SPEED_PPS
             LINK.dir = LEFT
         elif event == RIGHT_DOWN:
-            LINK.velocityX += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX += RUN_SPEED_PPS
             LINK.dir = RIGHT
         elif event == LEFT_UP:
-            LINK.velocityX += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX += RUN_SPEED_PPS
         elif event == RIGHT_UP:
-            LINK.velocityX -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX -= RUN_SPEED_PPS
 
 
     @staticmethod
@@ -239,25 +239,25 @@ class AimRunState:
         Link.frame = 0
 
         if event == UP_DOWN:
-            LINK.velocityY += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY += RUN_SPEED_PPS
             LINK.dir = UP
         elif event == DOWN_DOWN:
-            LINK.velocityY -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY -= RUN_SPEED_PPS
             LINK.dir = DOWN
         elif event == UP_UP:
-            LINK.velocityY -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY -= RUN_SPEED_PPS
         elif event == DOWN_UP:
-            LINK.velocityY += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
-            LINK.velocityX -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX -= RUN_SPEED_PPS
             LINK.dir = LEFT
         elif event == RIGHT_DOWN:
-            LINK.velocityX += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX += RUN_SPEED_PPS
             LINK.dir = RIGHT
         elif event == LEFT_UP:
-            LINK.velocityX += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX += RUN_SPEED_PPS
         elif event == RIGHT_UP:
-            LINK.velocityX -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX -= RUN_SPEED_PPS
 
 
     @staticmethod
@@ -290,25 +290,25 @@ class ShootState:
         Link.timer = 0
 
         if event == UP_DOWN:
-            LINK.velocityY += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY += RUN_SPEED_PPS
             LINK.dir = UP
         elif event == DOWN_DOWN:
-            LINK.velocityY -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY -= RUN_SPEED_PPS
             LINK.dir = DOWN
         elif event == UP_UP:
-            LINK.velocityY -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY -= RUN_SPEED_PPS
         elif event == DOWN_UP:
-            LINK.velocityY += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
-            LINK.velocityX -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX -= RUN_SPEED_PPS
             LINK.dir = LEFT
         elif event == RIGHT_DOWN:
-            LINK.velocityX += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX += RUN_SPEED_PPS
             LINK.dir = RIGHT
         elif event == LEFT_UP:
-            LINK.velocityX += RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX += RUN_SPEED_PPS
         elif event == RIGHT_UP:
-            LINK.velocityX -= RUN_SPEED_PPS+ RUN_SPEED_PPS/4*Link.run_speed
+            LINK.velocityX -= RUN_SPEED_PPS
 
     @staticmethod
     def exit(Link, event):

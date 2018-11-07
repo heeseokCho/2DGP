@@ -7,7 +7,7 @@ import random
 WINX,WINY = 1600,1000
 SIZE  = 64
 
-HEART,ARROW_SPEED,RUN_SPEED = range(3)
+RUN_SPEED,ARROW_SPEED,HEART= range(3)
 
 
 class ITEM:
@@ -17,7 +17,7 @@ class ITEM:
         if ITEM.image == None:
             ITEM.image = load_image('Item.png')
 
-        self.kind = random.randint(0,3)
+        self.kind = random.randint(0,2)
         self.x = random.randint(WINX//2-500,WINX//2+500)
         self.y = random.randint(100,WINY//2+250)
 

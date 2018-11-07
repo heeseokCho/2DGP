@@ -100,13 +100,13 @@ def update():
 
     for item in Stage0.item:
         if collide(Link,item):
-            # Heart, ArrowSpeed, RunSpeed
+            # RunSpeed, ArrowSpeed, Heart
             if item.kind == 0:
-                pass
+                Link.run_speed += 1
             elif item.kind == 1:
                 pass
             elif item.kind == 2:
-                Link.run_speed += 1
+                pass
 
             Stage0.item.remove(item)
             game_world.remove_object(item)
