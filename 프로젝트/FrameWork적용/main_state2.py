@@ -81,24 +81,31 @@ def update():
     if collideout_circle():
         print("Circle Out")
 
+    #적과 화살
     for arrow in Link.arrow:
         if collide(Boss2,arrow):
             LINK.arrow.remove(arrow)
             game_world.remove_object(arrow)
 
+    # 링크 bullet1
     for bullet1 in BOSS2.bullet1:
         if collide(Link,bullet1):
             BOSS2.bullet1.remove(bullet1)
             game_world.remove_object(bullet1)
+            LINK.life -= 1
 
+    #링크 bullet2
     for bullet2 in BOSS2.bullet2:
         if collide(Link,bullet2):
             BOSS2.bullet2.remove(bullet2)
             game_world.remove_object(bullet2)
+            LINK.life -= 1
 
+    #링크 bullet3
     for bullet3 in Boss2.bullet3:
         if collide(Link,bullet3):
-            pass
+            LINK.life -= 1
+
 
 def draw():
     clear_canvas()

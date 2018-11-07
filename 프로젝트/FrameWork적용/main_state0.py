@@ -89,6 +89,7 @@ def update():
         if collide(Link,enemy):
             Stage0.enemy.remove(enemy)
             game_world.remove_object(enemy)
+            LINK.life -=1
 
     #화살과 적의 충돌
     for arrow in Link.arrow:
