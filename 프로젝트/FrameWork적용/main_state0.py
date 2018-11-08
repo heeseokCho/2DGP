@@ -24,17 +24,18 @@ SIZE = 64
 #방향별 사진
 UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 
-Background = None
-Link = None
-Circle = None
-Stage0 = None
-Bgm = None
+
 
 def enter():
     global Link,Circle,Background, Stage0,Bgm
 
     game_world.objects = [[],[],[]]
 
+    Background = None
+    Link = None
+    Circle = None
+    Stage0 = None
+    Bgm = None
 
 
     Background = BACKGROUND(1)
@@ -122,6 +123,17 @@ def update():
     LINK.life = clamp(0,LINK.life,3)
 
     if Link.end == True:
+        LINK.x = None
+        LINK.y = None
+        LINK.dir = None
+        LINK.velocityX, velocityY = None, None
+        LINK.life = None
+        LINK.arrow_speed = None
+        LINK.run_speed = None
+        LINK.bgm = None
+        LINK.arrow = []
+        STAGE0.enemy = []
+        STAGE0.item = []
         game_framework.change_state(title_state)
 
 

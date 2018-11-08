@@ -32,16 +32,16 @@ ATTACK_DOWN,ATTACK_UP,AIM_TIMER,LIFE_ZERO = range(12)
 
 
 key_event_table = {
-    (pico2d.SDL_KEYDOWN, pico2d.SDLK_w): UP_DOWN,
-    (pico2d.SDL_KEYDOWN, pico2d.SDLK_s): DOWN_DOWN,
-    (pico2d.SDL_KEYDOWN, pico2d.SDLK_a): LEFT_DOWN,
-    (pico2d.SDL_KEYDOWN, pico2d.SDLK_d): RIGHT_DOWN,
-    (pico2d.SDL_KEYUP, pico2d.SDLK_w): UP_UP,
-    (pico2d.SDL_KEYUP, pico2d.SDLK_s): DOWN_UP,
-    (pico2d.SDL_KEYUP, pico2d.SDLK_a): LEFT_UP,
-    (pico2d.SDL_KEYUP, pico2d.SDLK_d): RIGHT_UP,
-    (pico2d.SDL_KEYDOWN, pico2d.SDLK_j):ATTACK_DOWN,
-    (pico2d.SDL_KEYUP, pico2d.SDLK_j): ATTACK_UP,
+    (SDL_KEYDOWN, SDLK_w): UP_DOWN,
+    (SDL_KEYDOWN, SDLK_s): DOWN_DOWN,
+    (SDL_KEYDOWN, SDLK_a): LEFT_DOWN,
+    (SDL_KEYDOWN, SDLK_d): RIGHT_DOWN,
+    (SDL_KEYUP, SDLK_w): UP_UP,
+    (SDL_KEYUP, SDLK_s): DOWN_UP,
+    (SDL_KEYUP, SDLK_a): LEFT_UP,
+    (SDL_KEYUP, SDLK_d): RIGHT_UP,
+    (SDL_KEYDOWN, SDLK_j):ATTACK_DOWN,
+    (SDL_KEYUP, SDLK_j): ATTACK_UP,
 }
 
 class IdleState:
@@ -49,7 +49,7 @@ class IdleState:
     @staticmethod
     def enter(Link, event):
         Link.frame = 0
-        Link.image = pico2d.load_image('Standing.png')
+        Link.image = load_image('Standing.png')
 
         if event == UP_DOWN:
             LINK.velocityY += RUN_SPEED_PPS
@@ -72,7 +72,6 @@ class IdleState:
         elif event == RIGHT_UP:
             LINK.velocityX -= RUN_SPEED_PPS
 
-
     @staticmethod
     def exit(Link, event):
         pass
@@ -80,6 +79,7 @@ class IdleState:
     @staticmethod
     def do(Link):
         Link.frame = (Link.frame + FRAMES_PER_ACTION*ACTION_PER_TIME * game_framework.frame_time) % 1
+
 
     @staticmethod
     def draw(Link):
@@ -89,7 +89,7 @@ class IdleState:
 class RunState:
     @staticmethod
     def enter(Link, event):
-        Link.image = pico2d.load_image('Walking.png')
+        Link.image = load_image('Walking.png')
         Link.frame = 0
 
         if event == UP_DOWN:
@@ -122,12 +122,11 @@ class RunState:
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 10
         LINK.x += (LINK.velocityX*(LINK.run_speed/4+1))*game_framework.frame_time
         LINK.y += (LINK.velocityY*(LINK.run_speed/4+1))*game_framework.frame_time
-        LINK.x = pico2d.clamp(SIZE, LINK.x, WINX - SIZE)
-        LINK.y = pico2d.clamp(SIZE, LINK.y, WINY - 250)
+        LINK.x = clamp(SIZE, LINK.x, WINX - SIZE)
+        LINK.y = clamp(SIZE, LINK.y, WINY - 250)
 
         if LINK.life == 0:
             Link.add_event(LIFE_ZERO)
-
 
     @staticmethod
     def draw(Link):
@@ -137,7 +136,7 @@ class RunState:
 class AimState:
     @staticmethod
     def enter(Link, event):
-        Link.image = pico2d.load_image('Aiming.png')
+        Link.image = load_image('Aiming.png')
         Link.frame = 0
         Link.timer = 0
         Link.enable = False
@@ -175,11 +174,11 @@ class AimState:
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
         LINK.x += (LINK.velocityX*(LINK.run_speed/4+1)) * game_framework.frame_time
         LINK.y += (LINK.velocityY*(LINK.run_speed/4+1)) * game_framework.frame_time
-        LINK.x = pico2d.clamp(SIZE, LINK.x, WINX - SIZE)
-        LINK.y = pico2d.clamp(SIZE, LINK.y, WINY - 250)
+        LINK.x = clamp(SIZE, LINK.x, WINX - SIZE)
+        LINK.y = clamp(SIZE, LINK.y, WINY - 250)
 
-        Link.timer += pico2d.get_time() - Link.cur_time
-        Link.cur_time = pico2d.get_time()
+        Link.timer += get_time() - Link.cur_time
+        Link.cur_time = get_time()
 
         if Link.timer >= 0.5:
             Link.enable = True
@@ -194,9 +193,8 @@ class AimIdleState:
     @staticmethod
     def enter(Link, event):
 
-        Link.image = pico2d.load_image('AimStanding.png')
+        Link.image = load_image('AimStanding.png')
         Link.frame = 0
-        Link.timer = 0
 
         if event == UP_DOWN:
             LINK.velocityY += RUN_SPEED_PPS
@@ -228,8 +226,6 @@ class AimIdleState:
     def do(Link):
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 1
 
-        Link.timer += pico2d.get_time() - Link.cur_time
-        Link.cur_time = pico2d.get_time()
 
     @staticmethod
     def draw(Link):
@@ -239,7 +235,7 @@ class AimIdleState:
 class AimRunState:
     @staticmethod
     def enter(Link, event):
-        Link.image = pico2d.load_image('AimWalking.png')
+        Link.image = load_image('AimWalking.png')
         Link.frame = 0
 
         if event == UP_DOWN:
@@ -273,8 +269,8 @@ class AimRunState:
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 3
         LINK.x += (LINK.velocityX*(LINK.run_speed/4+1)) * game_framework.frame_time
         LINK.y += (LINK.velocityY*(LINK.run_speed/4+1)) * game_framework.frame_time
-        LINK.x = pico2d.clamp(SIZE, LINK.x, WINX - SIZE)
-        LINK.y = pico2d.clamp(SIZE, LINK.y, WINY - 250)
+        LINK.x = clamp(SIZE, LINK.x, WINX - SIZE)
+        LINK.y = clamp(SIZE, LINK.y, WINY - 250)
 
     @staticmethod
     def draw(Link):
@@ -288,7 +284,7 @@ class ShootState:
             if Link.enable == True:
                 Link.shoot_arrow()
 
-        Link.image = pico2d.load_image('Shooting.png')
+        Link.image = load_image('Shooting.png')
         Link.frame = 0
         Link.timer = 0
 
@@ -323,8 +319,8 @@ class ShootState:
 
 
         if Link.enable == True:
-            Link.timer += pico2d.get_time() - Link.cur_time
-            Link.cur_time = pico2d.get_time()
+            Link.timer += get_time() - Link.cur_time
+            Link.cur_time = get_time()
 
             if Link.timer >= 3:
                 Link.add_event(AIM_TIMER)
@@ -336,8 +332,8 @@ class ShootState:
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6
         LINK.x += (LINK.velocityX*(LINK.run_speed/4+1)) * game_framework.frame_time
         LINK.y += (LINK.velocityY*(LINK.run_speed/4+1)) * game_framework.frame_time
-        LINK.x = pico2d.clamp(SIZE, LINK.x, WINX - SIZE)
-        LINK.y = pico2d.clamp(SIZE, LINK.y, WINY - 250)
+        LINK.x = clamp(SIZE, LINK.x, WINX - SIZE)
+        LINK.y = clamp(SIZE, LINK.y, WINY - 250)
 
 
     @staticmethod
@@ -348,27 +344,34 @@ class ShootState:
 class DieState:
     @staticmethod
     def enter(Link, event):
-        Link.image = pico2d.load_image('Dieing.png')
-        Link.frame = 0
-        Link.timer = 0
+        if event == LIFE_ZERO:
+            Link.image = load_image('Dieing.png')
+            Link.frame = 0
+            bgm = load_music('GameOver.mp3')
+            bgm.set_volume(50)
+            bgm.repeat_play()
+
+            Link.timer = 0
+            Link.cur_time = get_time()
+
+
 
     @staticmethod
     def exit(Link, event):
         pass
-        #game_framework.change_state(title_state)
 
     @staticmethod
     def do(Link):
+
         if int(Link.frame) < 8:
             Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME/2 * game_framework.frame_time) % 9
 
-        Link.timer += pico2d.get_time() - Link.cur_time
-        Link.cur_time = pico2d.get_time()
 
-        print(Link.timer)
+        Link.timer += get_time() - Link.cur_time
+        Link.cur_time = get_time()
 
 
-        if Link.timer >= 5:
+        if Link.timer >= 8:
             Link.end = True
 
 
@@ -381,9 +384,10 @@ class WinState:
 
     @staticmethod
     def enter(Link, event):
-        Link.image = pico2d.load_image('Winning.png')
+        Link.image = load_image('Winning.png')
         Link.frame = 0
-
+        Link.timer = 0
+        Link.cur_time = get_time()
 
     @staticmethod
     def exit(Link, event):
@@ -393,8 +397,8 @@ class WinState:
     def do(Link):
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 9
 
-        Link.timer += pico2d.get_time() - Link.cur_time
-        Link.cur_time = pico2d.get_time()
+        Link.timer += get_time() - Link.cur_time
+        Link.cur_time = get_time()
 
         if Link.timer >= 5:
             pass
@@ -455,11 +459,11 @@ class LINK:
 
 
     def __init__(self):
-        self.image = pico2d.load_image('Standing.png')
+        self.image = load_image('Standing.png')
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self,None)
-        self.cur_time = 0
+        self.cur_time = get_time()
         self.frame = 0
         self.timer = 0
         self.enable = False
