@@ -69,6 +69,8 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
+        elif event.type == SDL_KEYDOWN and event.key == SDLK_5:
+            game_framework.change_state(title_state)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
             game_framework.change_state(main_state1)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
@@ -113,7 +115,6 @@ def update():
                 LINK.arrow_speed = clamp(0, LINK.arrow_speed, 3)
             elif item.kind == 2:
                 LINK.life +=1
-                LINK.life = clamp(0,LINK.life,3)
 
             Stage0.item.remove(item)
             game_world.remove_object(item)

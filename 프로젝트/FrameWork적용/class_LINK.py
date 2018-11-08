@@ -28,7 +28,7 @@ FRAMES_PER_ACTION = 8
 #Link Event
 UP_DOWN,DOWN_DOWN,LEFT_DOWN,RIGHT_DOWN,\
 UP_UP,DOWN_UP,LEFT_UP,RIGHT_UP,\
-ATTACK_DOWN,ATTACK_UP,AIM_TIMER, LIFE_ZERO= range(12)
+ATTACK_DOWN,ATTACK_UP,AIM_TIMER,LIFE_ZERO = range(12)
 
 
 key_event_table = {
@@ -41,7 +41,7 @@ key_event_table = {
     (pico2d.SDL_KEYUP, pico2d.SDLK_a): LEFT_UP,
     (pico2d.SDL_KEYUP, pico2d.SDLK_d): RIGHT_UP,
     (pico2d.SDL_KEYDOWN, pico2d.SDLK_j):ATTACK_DOWN,
-    (pico2d.SDL_KEYUP, pico2d.SDLK_j): ATTACK_UP
+    (pico2d.SDL_KEYUP, pico2d.SDLK_j): ATTACK_UP,
 }
 
 class IdleState:
@@ -124,6 +124,10 @@ class RunState:
         LINK.y += (LINK.velocityY*(LINK.run_speed/4+1))*game_framework.frame_time
         LINK.x = pico2d.clamp(SIZE, LINK.x, WINX - SIZE)
         LINK.y = pico2d.clamp(SIZE, LINK.y, WINY - 250)
+
+        if LINK.life == 0:
+            Link.add_event(LIFE_ZERO)
+
 
     @staticmethod
     def draw(Link):
@@ -272,7 +276,6 @@ class AimRunState:
         LINK.x = pico2d.clamp(SIZE, LINK.x, WINX - SIZE)
         LINK.y = pico2d.clamp(SIZE, LINK.y, WINY - 250)
 
-
     @staticmethod
     def draw(Link):
         Link.image.clip_draw(int(Link.frame) * SIZE, LINK.dir, SIZE, SIZE, Link.x, Link.y)
@@ -345,27 +348,31 @@ class ShootState:
 class DieState:
     @staticmethod
     def enter(Link, event):
-        Link.image = pico2d.load_image('AimStanding.png')
+        Link.image = pico2d.load_image('Dieing.png')
         Link.frame = 0
         Link.timer = 0
 
     @staticmethod
     def exit(Link, event):
         pass
+        #game_framework.change_state(title_state)
 
     @staticmethod
     def do(Link):
-        Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 9
+        if int(Link.frame) < 8:
+            Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME/2 * game_framework.frame_time) % 9
 
         Link.timer += pico2d.get_time() - Link.cur_time
         Link.cur_time = pico2d.get_time()
 
-        if Link.timer >= 5:
-            game_framework.change_state(title_state)
+        if Link.timer >= 2:
+            pass
+            #game_framework.change_state(title_state)
+
 
     @staticmethod
     def draw(Link):
-        Link.image.clip_draw(int(Link.frame) * SIZE, LINK.dir, SIZE, SIZE, Link.x, Link.y)
+        Link.image.clip_draw(int(Link.frame) * SIZE, 0, SIZE, SIZE, Link.x, Link.y)
 
 
 class WinState:
@@ -388,7 +395,8 @@ class WinState:
         Link.cur_time = pico2d.get_time()
 
         if Link.timer >= 5:
-            game_framework.change_state(title_state)
+            pass
+            #game_framework.change_state(title_state)
 
     @staticmethod
     def draw(Link):
@@ -495,6 +503,8 @@ class LINK:
             self.cur_state.exit(self,event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self,event)
+
+
 
     def draw(self):
         self.cur_state.draw(self)
