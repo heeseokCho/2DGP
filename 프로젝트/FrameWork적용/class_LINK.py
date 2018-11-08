@@ -365,9 +365,11 @@ class DieState:
         Link.timer += pico2d.get_time() - Link.cur_time
         Link.cur_time = pico2d.get_time()
 
-        if Link.timer >= 2:
-            pass
-            #game_framework.change_state(title_state)
+        print(Link.timer)
+
+
+        if Link.timer >= 5:
+            Link.end = True
 
 
     @staticmethod
@@ -450,6 +452,8 @@ class LINK:
     bgm = None
     arrow = []
 
+
+
     def __init__(self):
         self.image = pico2d.load_image('Standing.png')
         self.event_que = []
@@ -459,6 +463,7 @@ class LINK:
         self.frame = 0
         self.timer = 0
         self.enable = False
+        self.end = False
 
         if LINK.x == None:
             LINK.x = WINX//2

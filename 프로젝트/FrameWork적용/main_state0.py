@@ -119,6 +119,12 @@ def update():
             Stage0.item.remove(item)
             game_world.remove_object(item)
 
+    LINK.life = clamp(0,LINK.life,3)
+
+    if Link.end == True:
+        game_framework.change_state(title_state)
+
+
 def draw():
     clear_canvas()
     for game_object in game_world.all_objects():
