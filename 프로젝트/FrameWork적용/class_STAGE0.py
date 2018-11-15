@@ -4,6 +4,7 @@ import game_world
 
 from class_ENEMY import ENEMY
 from class_ITEM import ITEM
+from class_LINK import LINK
 
 import math
 import random
@@ -18,24 +19,35 @@ next_state_table ={}
 
 class RunState:
     @staticmethod
-    def enter(STAGE0,event):
+    def enter(Stage0,event):
         pass
 
     @staticmethod
-    def exit(STAGE0,event):
+    def exit(Stage0,event):
         pass
 
     @staticmethod
-    def do(STAGE0):
-        STAGE0.timer += get_time() - STAGE0.cur_time
-        STAGE0.cur_time = get_time()
+    def do(Stage0):
+        Stage0.timer += get_time() - Stage0.cur_time
+        Stage0.clear_timer += get_time() - Stage0.cur_time
 
-        if 0< STAGE0.timer % 1<0.1:
-            STAGE0.create_enemy(random.randint(0,1))
+        Stage0.cur_time = get_time()
 
-        if STAGE0.timer >=5:
-            STAGE0.create_item()
-            STAGE0.timer = 0
+
+        if 0< Stage0.timer % 1<0.1:
+            Stage0.create_enemy(random.randint(0,1))
+
+        if Stage0.timer >=5:
+            Stage0.create_item()
+            Stage0.timer = 0
+
+
+        if Stage0.clear_timer >= 10:
+            if STAGE0.next_stage == 0 and LINK.x > WINX//2+200:
+                STAGE0.next_stage = 1
+
+
+
 
 
     @staticmethod
@@ -46,6 +58,8 @@ class RunState:
 class STAGE0:
     enemy = []
     item = []
+    next_stage = 0
+
     def __init__(self):
         self.image = load_image('Boss1.png')
         self.event_que = []
@@ -53,6 +67,8 @@ class STAGE0:
         self.cur_state.enter(self, None)
         self.cur_time = 0
         self.timer = 0
+
+        self.clear_timer = 0
 
     #아이템
     def create_item(self):
