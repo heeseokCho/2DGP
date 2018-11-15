@@ -358,7 +358,7 @@ class DieState:
 
     @staticmethod
     def exit(Link, event):
-        pass
+        Link.reset()
 
     @staticmethod
     def do(Link):
@@ -454,13 +454,13 @@ next_state_table = {
 
 class LINK:
     global Arrow
-    x = None
-    y = None
-    dir = None
-    velocityX,velocityY = None,None
-    life = None
-    arrow_speed = None
-    run_speed =None
+    x = WINX // 2
+    y = WINY // 2
+    dir = DOWN
+    velocityX,velocityY = 0.0,0.0
+    life = 3
+    arrow_speed = 0
+    run_speed = 0
     bgm = None
     arrow = []
 
@@ -477,17 +477,11 @@ class LINK:
         self.enable = False
         self.end = False
 
-        self.reset()
-
     def reset(self):
-        LINK.x = WINX // 2
-        LINK.y = WINY // 2
         LINK.dir = DOWN
         LINK.life = 3
         LINK.arrow_speed = 0
         LINK.run_speed = 0
-        LINK.velocityX = 0.0
-        LINK.velocityY = 0.0
 
     def get_bb(self):
         return LINK.x-10,LINK.y-10,LINK.x+10,LINK.y+10

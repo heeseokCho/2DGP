@@ -43,7 +43,7 @@ class RunState:
 
 
         if Stage0.clear_timer >= 30:
-            if STAGE0.next_stage == 0 and LINK.x > WINX//2+200:
+            if STAGE0.next_stage == 0 and LINK.x > WINX//2+400:
                 STAGE0.next_stage = 1
 
 
