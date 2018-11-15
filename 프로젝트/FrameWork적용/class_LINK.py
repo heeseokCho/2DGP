@@ -463,6 +463,7 @@ class LINK:
     run_speed = 0
     bgm = None
     arrow = []
+    cur_stage = 0
 
 
 
@@ -482,6 +483,8 @@ class LINK:
         LINK.life = 3
         LINK.arrow_speed = 0
         LINK.run_speed = 0
+
+        LINK.cur_stage = 0
 
     def get_bb(self):
         return LINK.x-10,LINK.y-10,LINK.x+10,LINK.y+10

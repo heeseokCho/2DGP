@@ -82,9 +82,10 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
-    collide_objects()
+    if Link.end == False:
+        collide_objects()
 
-    if STAGE0.next_stage == 1:
+    if LINK.cur_stage == 1:
         game_framework.change_state(main_state1)
 
 
@@ -156,6 +157,7 @@ def collide_objects():
     if Link.end == True:
         Link.reset()
         game_framework.change_state(title_state)
+
 
 
 

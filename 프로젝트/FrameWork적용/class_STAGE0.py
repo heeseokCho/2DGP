@@ -43,8 +43,8 @@ class RunState:
 
 
         if Stage0.clear_timer >= 30:
-            if STAGE0.next_stage == 0 and LINK.x > WINX//2+400:
-                STAGE0.next_stage = 1
+            if LINK.cur_stage == 0 and LINK.x > WINX//2+400:
+                LINK.cur_stage = 1
 
 
 
@@ -58,7 +58,6 @@ class RunState:
 class STAGE0:
     enemy = []
     item = []
-    next_stage = 0
 
     def __init__(self):
         self.image = load_image('Boss1.png')

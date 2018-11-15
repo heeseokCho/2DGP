@@ -78,7 +78,8 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
-    collide_objects()
+    if Link.end == False:
+        collide_objects()
 
 def draw():
     clear_canvas()
