@@ -91,6 +91,9 @@ def update():
         game_framework.change_state(main_state2)
 
 
+    if Link.end == True:
+        Link.reset()
+        game_framework.change_state(title_state)
 
 def draw():
     clear_canvas()
@@ -127,6 +130,7 @@ def collide_objects():
             Stage0.enemy.remove(enemy)
             game_world.remove_object(enemy)
             LINK.life -=1
+            print("collide with enemy")
 
     #화살과 적의 충돌
     for arrow in Link.arrow:
@@ -155,10 +159,6 @@ def collide_objects():
             game_world.remove_object(item)
 
     LINK.life = clamp(0,LINK.life,3)
-
-    if Link.end == True:
-        Link.reset()
-        game_framework.change_state(title_state)
 
 
 

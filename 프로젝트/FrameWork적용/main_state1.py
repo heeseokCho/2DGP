@@ -84,6 +84,10 @@ def update():
     if LINK.cur_stage == 2:
         game_framework.change_state(main_state0)
 
+    if Link.end == True:
+        Link.reset()
+        game_framework.change_state(title_state)
+
 
 def draw():
     clear_canvas()
@@ -139,7 +143,3 @@ def collide_objects():
             LINK.life -= 1
 
     LINK.life = clamp(0,LINK.life,3)
-
-    if Link.end == True:
-        Link.reset()
-        game_framework.change_state(title_state)

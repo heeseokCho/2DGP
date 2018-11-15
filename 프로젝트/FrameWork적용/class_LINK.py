@@ -363,7 +363,7 @@ class DieState:
 
     @staticmethod
     def exit(Link, event):
-        Link.reset()
+        pass
 
     @staticmethod
     def do(Link):
@@ -376,6 +376,7 @@ class DieState:
         Link.cur_time = get_time()
 
 
+        print(Link.timer)
         if Link.timer >= 8:
             Link.end = True
 
@@ -398,8 +399,7 @@ class WinState:
 
     @staticmethod
     def exit(Link, event):
-        Link.reset()
-        main_state2.game_cleared = False
+        pass
 
     @staticmethod
     def do(Link):
