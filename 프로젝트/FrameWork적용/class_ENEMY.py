@@ -3,8 +3,8 @@ import game_framework
 import game_world
 
 import random
-import main_state0
 import class_STAGE0
+from class_LINK import LINK
 
 WINX,WINY = 1600,1000
 SIZE = 64
@@ -45,15 +45,14 @@ class ENEMY:
             self.dirX, self.dirY = 0, 1
 
         if random.randint(0,1) == 0:
-            self.x = random.randint(int(main_state0.LINK.x-300),int(main_state0.LINK.x-100))
+            self.x = random.randint(int(LINK.x-300),int(LINK.x-100))
         else:
-            self.x = random.randint(int(main_state0.LINK.x + 100),int(main_state0.LINK.x+300))
+            self.x = random.randint(int(LINK.x + 100),int(LINK.x+300))
 
         if random.randint(0,1) == 0:
-            self.y = random.randint(int(main_state0.LINK.y-300),int(main_state0.LINK.y-100))
+            self.y = random.randint(int(LINK.y-300),int(LINK.y-100))
         else:
-            self.y = random.randint(int(main_state0.LINK.y + 100),int(main_state0.LINK.y+300))
-
+            self.y = random.randint(int(LINK.y + 100),int(LINK.y+300))
 
     def draw(self):
 

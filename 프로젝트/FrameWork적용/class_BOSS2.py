@@ -96,6 +96,7 @@ class BOSS2:
         self.cur_state = RunState
         self.cur_state.enter(self, None)
         self.cur_time = 0
+        self.rotate_degree = 0
         self.rotation_degree = 0
         self.revolution_degree =0
         self.timer = 0

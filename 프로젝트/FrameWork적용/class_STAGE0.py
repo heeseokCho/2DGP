@@ -42,7 +42,7 @@ class RunState:
             Stage0.timer = 0
 
 
-        if Stage0.clear_timer >= 30:
+        if Stage0.clear_timer >= 2:
             if LINK.cur_stage == 0 and LINK.x > WINX//2+400:
                 LINK.cur_stage +=1
 

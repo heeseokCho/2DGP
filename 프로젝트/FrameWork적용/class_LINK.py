@@ -141,7 +141,10 @@ class AimState:
     def enter(Link, event):
         Link.image = load_image('Aiming.png')
         Link.frame = 0
+
         Link.timer = 0
+        #Link.cur_time = get_time()
+
         Link.enable = False
 
         if event == UP_DOWN:
@@ -183,7 +186,7 @@ class AimState:
         Link.timer += get_time() - Link.cur_time
         Link.cur_time = get_time()
 
-        if Link.timer >= 0.5:
+        if Link.timer >= 0.3:
             Link.enable = True
             Link.add_event(AIM_TIMER)
 
@@ -228,7 +231,6 @@ class AimIdleState:
     @staticmethod
     def do(Link):
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 1
-
 
     @staticmethod
     def draw(Link):
@@ -290,6 +292,7 @@ class ShootState:
         Link.image = load_image('Shooting.png')
         Link.frame = 0
         Link.timer = 0
+        Link.cur_time = get_time()
 
         if event == UP_DOWN:
             LINK.velocityY += RUN_SPEED_PPS
@@ -325,7 +328,7 @@ class ShootState:
             Link.timer += get_time() - Link.cur_time
             Link.cur_time = get_time()
 
-            if Link.timer >= 3:
+            if Link.timer >= 1:
                 Link.add_event(AIM_TIMER)
 
         else:
@@ -376,7 +379,7 @@ class DieState:
         Link.cur_time = get_time()
 
 
-        print(Link.timer)
+        #print(Link.timer)
         if Link.timer >= 8:
             Link.end = True
 
