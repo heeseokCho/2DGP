@@ -477,8 +477,7 @@ class LINK:
         self.enable = False
         self.end = False
 
-        if LINK.x == None:
-            self.reset()
+        self.reset()
 
     def reset(self):
         LINK.x = WINX // 2
