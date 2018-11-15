@@ -80,6 +80,9 @@ def update():
     if Link.end == False:
         collide_objects()
 
+    if LINK.cur_stage == 2:
+        game_framework.change_state(0)
+
 
 def draw():
     clear_canvas()

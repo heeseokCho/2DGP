@@ -29,6 +29,7 @@ class ARROW:
         self.x,self.y = x,y
         self.velocity = RUN_SPEED_PPS*(class_LINK.LINK.arrow_speed/4+1)
         self.dir = dir
+        self.damage = 0.1
 
 
     def draw(self):

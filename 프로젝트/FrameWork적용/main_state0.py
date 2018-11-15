@@ -87,6 +87,8 @@ def update():
 
     if LINK.cur_stage == 1:
         game_framework.change_state(main_state1)
+    elif LINK.cur_stage == 3:
+        game_framework.change_state(main_state2)
 
 
 

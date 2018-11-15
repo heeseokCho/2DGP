@@ -75,6 +75,7 @@ class BOSS1:
         self.cur_time = 0
         self.degree = 0
         self.timer = 0
+        self.life = 0.8
 
 
 

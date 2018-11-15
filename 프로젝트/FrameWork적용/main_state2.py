@@ -31,6 +31,8 @@ Circle = None
 Boss2 = None
 Bgm = None
 
+game_cleared = False
+
 def enter():
     global Link,Circle,Background,Boss2,Bgm
     game_world.objects = [[], [], []]
@@ -75,11 +77,16 @@ def handle_events():
             Link.handle_event(event)
 
 def update():
+    global game_cleared
+
     for game_object in game_world.all_objects():
         game_object.update()
 
     if Link.end == False:
         collide_objects()
+
+    if LINK.cur_stage == 4:
+        game_cleared = True
 
 def draw():
     clear_canvas()
