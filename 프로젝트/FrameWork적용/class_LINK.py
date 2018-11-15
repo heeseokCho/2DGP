@@ -478,14 +478,17 @@ class LINK:
         self.end = False
 
         if LINK.x == None:
-            LINK.x = WINX//2
-            LINK.y = WINY//2
-            LINK.dir = DOWN
-            LINK.life = 3
-            LINK.arrow_speed = 0
-            LINK.run_speed = 0
-            LINK.velocityX = 0.0
-            LINK.velocityY = 0.0
+            self.reset()
+
+    def reset(self):
+        LINK.x = WINX // 2
+        LINK.y = WINY // 2
+        LINK.dir = DOWN
+        LINK.life = 3
+        LINK.arrow_speed = 0
+        LINK.run_speed = 0
+        LINK.velocityX = 0.0
+        LINK.velocityY = 0.0
 
     def get_bb(self):
         return LINK.x-10,LINK.y-10,LINK.x+10,LINK.y+10

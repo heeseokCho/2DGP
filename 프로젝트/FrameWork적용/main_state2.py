@@ -106,6 +106,12 @@ def update():
         if collide(Link,bullet3):
             LINK.life -= 1
 
+    LINK.life = clamp(0,LINK.life,3)
+
+    if Link.end == True:
+        Link.reset()
+        game_framework.change_state(title_state)
+
 
 def draw():
     clear_canvas()
