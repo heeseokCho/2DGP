@@ -50,6 +50,8 @@ def enter():
     game_world.add_object(Link,1)
 
 def exit():
+    BOSS1.bullet1 = []
+    BOSS1.bullet2 = []
     game_world.clear()
 
 def pause():

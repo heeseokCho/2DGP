@@ -41,7 +41,7 @@ class Stage0State:
         else: Circle.dirY = 1
 
         Circle.dir = -1
-        Circle.velocity = RUN_SPEED_PPS*3/2
+        Circle.velocity = RUN_SPEED_PPS*2
 
     @staticmethod
     def exit(Circle, event):
@@ -52,8 +52,8 @@ class Stage0State:
         Circle.timer+=get_time()-Circle.cur_time
         Circle.cur_time = get_time()
 
-        if Circle.timer >= 8:
-            Circle.velocity += RUN_SPEED_PPS/5000
+        if Circle.timer >= 5:
+            Circle.velocity += RUN_SPEED_PPS/4000
 
             Circle.timer = 0
 

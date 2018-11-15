@@ -55,6 +55,9 @@ def enter():
 def exit():
     global game_cleared
     game_cleared = False
+    BOSS2.bullet1 = []
+    BOSS2.bullet2 = []
+
     game_world.clear()
 
 def pause():
