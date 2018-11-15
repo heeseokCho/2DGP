@@ -1,7 +1,10 @@
 from pico2d import*
 import game_framework
 import game_world
+
 import title_state
+import main_state2
+
 from class_ARROW import ARROW
 from class_ITEM import ITEM
 
@@ -354,6 +357,8 @@ class DieState:
             Link.timer = 0
             Link.cur_time = get_time()
 
+            Link.collide_able = False
+
 
 
     @staticmethod
@@ -389,9 +394,12 @@ class WinState:
         Link.timer = 0
         Link.cur_time = get_time()
 
+        Link.collide_able = False
+
     @staticmethod
     def exit(Link, event):
-        pass
+        Link.reset()
+        main_state2.game_cleared = False
 
     @staticmethod
     def do(Link):
@@ -401,8 +409,7 @@ class WinState:
         Link.cur_time = get_time()
 
         if Link.timer >= 5:
-            pass
-            #game_framework.change_state(title_state)
+            game_framework.change_state(title_state)
 
     @staticmethod
     def draw(Link):
@@ -477,6 +484,7 @@ class LINK:
         self.timer = 0
         self.enable = False
         self.end = False
+        self.collide_able = True
 
     def reset(self):
         LINK.dir = DOWN

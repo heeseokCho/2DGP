@@ -10,6 +10,7 @@ import math
 import random
 
 from class_LINK import LINK
+from class_ARROW import ARROW
 from class_BOSS2 import BOSS2
 from class_BACKGROUND import BACKGROUND
 from class_CIRCLE import CIRCLE
@@ -82,7 +83,7 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
-    if Link.end == False:
+    if Link.cur_state != Link.collide_able == True:
         collide_objects()
 
     if LINK.cur_stage == 4:
@@ -122,6 +123,7 @@ def collide_objects():
     for arrow in Link.arrow:
         if collide(Boss2,arrow):
             LINK.arrow.remove(arrow)
+            Boss2.life -= ARROW.damage
             game_world.remove_object(arrow)
 
     # 링크 bullet1

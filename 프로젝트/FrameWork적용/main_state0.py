@@ -82,7 +82,7 @@ def update():
     for game_object in game_world.all_objects():
         game_object.update()
 
-    if Link.end == False:
+    if Link.cur_state != Link.collide_able == True:
         collide_objects()
 
     if LINK.cur_stage == 1:

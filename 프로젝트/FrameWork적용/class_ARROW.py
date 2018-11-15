@@ -21,6 +21,7 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 
 class ARROW:
     image = None
+    damage = 0.1
 
     def __init__(self,x = 0,y = 0,dir = 0):
         if ARROW.image == None:
@@ -29,7 +30,6 @@ class ARROW:
         self.x,self.y = x,y
         self.velocity = RUN_SPEED_PPS*(class_LINK.LINK.arrow_speed/4+1)
         self.dir = dir
-        self.damage = 0.1
 
 
     def draw(self):

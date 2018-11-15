@@ -2,6 +2,7 @@ import game_framework
 from pico2d import*
 import game_world
 
+import class_LINK
 from class_BOSS1_BULLET1 import BOSS1_BULLET1
 from class_BOSS1_BULLET2 import BOSS1_BULLET2
 
@@ -53,6 +54,9 @@ class RunState:
             Boss1.shoot_bullet2()
             Boss1.shoot_bullet1()
             Boss1.timer = 0
+
+        if Boss1.life <= 0:
+            class_LINK.LINK.cur_stage += 1
 
     @staticmethod
     def draw(Boss1):

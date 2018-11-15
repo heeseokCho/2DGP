@@ -2,6 +2,7 @@ import game_framework
 from pico2d import*
 import game_world
 
+import class_LINK
 from class_BOSS2_BULLET1 import BOSS2_BULLET1
 from class_BOSS2_BULLET2 import BOSS2_BULLET2
 from class_BOSS2_BULLET3 import BOSS2_BULLET3
@@ -9,6 +10,7 @@ from class_BOSS2_BULLET3 import BOSS2_BULLET3
 import main_state2
 
 import math
+
 import random
 WINX,WINY = 1600, 1000
 PI = 3.141592
@@ -69,6 +71,10 @@ class RunState:
         Boss2.rotate_degree = math.atan2(main_state2.LINK.y - Boss2.y, main_state2.LINK.x - Boss2.x) * Boss2.dir
         Boss2.x = main_state2.Circle.x + (main_state2.Circle.r - SIZE) * math.cos(Boss2.revolution_degree)
         Boss2.y = main_state2.Circle.y + (main_state2.Circle.r - SIZE) * math.sin(Boss2.revolution_degree)
+
+
+        if Boss2.life == 0:
+            class_LINK.LINK.cur_stage += 1
 
 
     @staticmethod
