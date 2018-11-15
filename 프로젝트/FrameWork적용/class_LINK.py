@@ -292,7 +292,7 @@ class ShootState:
         Link.image = load_image('Shooting.png')
         Link.frame = 0
         Link.timer = 0
-        Link.cur_time = get_time()
+        #Link.cur_time = get_time()
 
         if event == UP_DOWN:
             LINK.velocityY += RUN_SPEED_PPS
