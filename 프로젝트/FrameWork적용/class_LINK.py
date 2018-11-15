@@ -28,7 +28,7 @@ FRAMES_PER_ACTION = 8
 #Link Event
 UP_DOWN,DOWN_DOWN,LEFT_DOWN,RIGHT_DOWN,\
 UP_UP,DOWN_UP,LEFT_UP,RIGHT_UP,\
-ATTACK_DOWN,ATTACK_UP,AIM_TIMER,LIFE_ZERO = range(12)
+ATTACK_DOWN,ATTACK_UP,AIM_TIMER,LIFE_ZERO,CLEAR = range(13)
 
 
 key_event_table = {
@@ -412,35 +412,43 @@ class WinState:
 next_state_table = {
     IdleState:{UP_DOWN:RunState,DOWN_DOWN:RunState,LEFT_DOWN:RunState,RIGHT_DOWN:RunState,
                UP_UP:RunState,DOWN_UP:RunState,LEFT_UP:RunState,RIGHT_UP:RunState,
-               ATTACK_DOWN:AimState,ATTACK_UP:IdleState,AIM_TIMER: IdleState,LIFE_ZERO:DieState},
+               ATTACK_DOWN:AimState,ATTACK_UP:IdleState,AIM_TIMER: IdleState,LIFE_ZERO:DieState,
+               CLEAR:WinState},
 
     RunState: {UP_DOWN:RunState,DOWN_DOWN:RunState,LEFT_DOWN:RunState,RIGHT_DOWN:RunState,
                UP_UP:RunState,DOWN_UP:RunState,LEFT_UP:RunState,RIGHT_UP:RunState,
-               ATTACK_DOWN:AimState,ATTACK_UP:RunState,AIM_TIMER: RunState,LIFE_ZERO:DieState},
+               ATTACK_DOWN:AimState,ATTACK_UP:RunState,AIM_TIMER: RunState,LIFE_ZERO:DieState,
+               CLEAR: WinState},
 
     AimState:{UP_DOWN:AimRunState,DOWN_DOWN:AimRunState,LEFT_DOWN:AimRunState,RIGHT_DOWN:AimRunState,
                UP_UP:RunState,DOWN_UP:RunState,LEFT_UP:RunState,RIGHT_UP:RunState,
-               ATTACK_DOWN:AimState,ATTACK_UP:RunState,AIM_TIMER:AimRunState,LIFE_ZERO:DieState},
+               ATTACK_DOWN:AimState,ATTACK_UP:RunState,AIM_TIMER:AimRunState,LIFE_ZERO:DieState,
+              CLEAR: WinState},
 
     AimIdleState:{UP_DOWN:AimRunState,DOWN_DOWN:AimRunState,LEFT_DOWN:AimRunState,RIGHT_DOWN:AimRunState,
                UP_UP:AimIdleState,DOWN_UP:AimIdleState,LEFT_UP:AimIdleState,RIGHT_UP:AimIdleState,
-               ATTACK_DOWN:AimIdleState,ATTACK_UP:ShootState,AIM_TIMER:AimIdleState,LIFE_ZERO:DieState},
+               ATTACK_DOWN:AimIdleState,ATTACK_UP:ShootState,AIM_TIMER:AimIdleState,LIFE_ZERO:DieState,
+                  CLEAR: WinState},
 
     AimRunState:{UP_DOWN:AimRunState,DOWN_DOWN:AimRunState,LEFT_DOWN:AimRunState,RIGHT_DOWN:AimRunState,
                UP_UP:AimRunState,DOWN_UP:AimRunState,LEFT_UP:AimRunState,RIGHT_UP:AimRunState,
-               ATTACK_DOWN:AimRunState,ATTACK_UP:ShootState,AIM_TIMER:AimRunState,LIFE_ZERO:DieState},
+               ATTACK_DOWN:AimRunState,ATTACK_UP:ShootState,AIM_TIMER:AimRunState,LIFE_ZERO:DieState,
+                 CLEAR: WinState},
 
     ShootState:{UP_DOWN:RunState,DOWN_DOWN:RunState,LEFT_DOWN:RunState,RIGHT_DOWN:RunState,
                UP_UP:ShootState,DOWN_UP:ShootState,LEFT_UP:ShootState,RIGHT_UP:ShootState,
-               ATTACK_DOWN:ShootState,ATTACK_UP:RunState,AIM_TIMER:RunState,LIFE_ZERO:DieState},
+               ATTACK_DOWN:ShootState,ATTACK_UP:RunState,AIM_TIMER:RunState,LIFE_ZERO:DieState,
+                CLEAR: WinState},
 
     DieState:{UP_DOWN:DieState,DOWN_DOWN:DieState,LEFT_DOWN:DieState,RIGHT_DOWN:DieState,
                UP_UP:DieState,DOWN_UP:DieState,LEFT_UP:DieState,RIGHT_UP:DieState,
-               ATTACK_DOWN:DieState,ATTACK_UP:DieState,AIM_TIMER:DieState,LIFE_ZERO:DieState},
+               ATTACK_DOWN:DieState,ATTACK_UP:DieState,AIM_TIMER:DieState,LIFE_ZERO:DieState,
+              CLEAR: WinState},
 
     WinState:{UP_DOWN:WinState,DOWN_DOWN:WinState,LEFT_DOWN:WinState,RIGHT_DOWN:WinState,
                UP_UP:WinState,DOWN_UP:WinState,LEFT_UP:WinState,RIGHT_UP:WinState,
-               ATTACK_DOWN:WinState,ATTACK_UP:WinState,AIM_TIMER:WinState,LIFE_ZERO:WinState}
+               ATTACK_DOWN:WinState,ATTACK_UP:WinState,AIM_TIMER:WinState,LIFE_ZERO:WinState,
+              CLEAR: WinState}
 
 }
 
