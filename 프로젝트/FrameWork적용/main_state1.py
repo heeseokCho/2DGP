@@ -125,7 +125,6 @@ def collide_objects():
         if collide(Boss1,arrow):
             LINK.arrow.remove(arrow)
             Boss1.life -= ARROW.damage
-            print(Boss1.life)
             game_world.remove_object(arrow)
 
     #링크와 지뢰 충돌

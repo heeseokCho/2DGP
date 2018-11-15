@@ -90,7 +90,6 @@ def update():
 
     if LINK.cur_stage == 4:
         game_cleared = True
-        game_framework.change_state(title_state)
 
     if Link.end == True:
         Link.reset()

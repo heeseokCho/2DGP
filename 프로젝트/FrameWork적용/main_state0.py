@@ -88,7 +88,7 @@ def update():
 
     if LINK.cur_stage == 1:
         game_framework.change_state(main_state1)
-    elif LINK.cur_stage == 2:
+    elif LINK.cur_stage == 3:
         game_framework.change_state(main_state2)
 
 
@@ -128,7 +128,6 @@ def collide_objects():
     #링크와 적의 충돌
     for enemy in Stage0.enemy:
         if collide(Link,enemy):
-            print("collide with enemy")
             Stage0.enemy.remove(enemy)
             game_world.remove_object(enemy)
             LINK.life -=1

@@ -128,8 +128,7 @@ class RunState:
         LINK.x = clamp(SIZE, LINK.x, WINX - SIZE)
         LINK.y = clamp(SIZE, LINK.y, WINY - 250)
 
-        if LINK.life == 0:
-            Link.add_event(LIFE_ZERO)
+        Link.check_end()
 
     @staticmethod
     def draw(Link):
@@ -190,6 +189,8 @@ class AimState:
             Link.enable = True
             Link.add_event(AIM_TIMER)
 
+        Link.check_end()
+
     @staticmethod
     def draw(Link):
         Link.image.clip_draw(int(Link.frame) * SIZE, LINK.dir, SIZE, SIZE, Link.x, Link.y)
@@ -231,6 +232,8 @@ class AimIdleState:
     @staticmethod
     def do(Link):
         Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 1
+
+        Link.check_end()
 
     @staticmethod
     def draw(Link):
@@ -277,6 +280,7 @@ class AimRunState:
         LINK.x = clamp(SIZE, LINK.x, WINX - SIZE)
         LINK.y = clamp(SIZE, LINK.y, WINY - 250)
 
+        Link.check_end()
     @staticmethod
     def draw(Link):
         Link.image.clip_draw(int(Link.frame) * SIZE, LINK.dir, SIZE, SIZE, Link.x, Link.y)
@@ -341,6 +345,7 @@ class ShootState:
         LINK.x = clamp(SIZE, LINK.x, WINX - SIZE)
         LINK.y = clamp(SIZE, LINK.y, WINY - 250)
 
+        Link.check_end()
 
     @staticmethod
     def draw(Link):
@@ -366,7 +371,7 @@ class DieState:
 
     @staticmethod
     def exit(Link, event):
-        pass
+        Link.reset_all()
 
     @staticmethod
     def do(Link):
@@ -382,7 +387,6 @@ class DieState:
         #print(Link.timer)
         if Link.timer >= 8:
             Link.end = True
-
 
     @staticmethod
     def draw(Link):
@@ -400,23 +404,28 @@ class WinState:
 
         Link.collide_able = False
 
+        bgm = load_music('GameClear.mp3')
+        bgm.set_volume(50)
+        bgm.repeat_play()
+
     @staticmethod
     def exit(Link, event):
-        pass
+        Link.reset_all()
+        main_state2.game_cleared = False
 
     @staticmethod
     def do(Link):
-        Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 9
 
         Link.timer += get_time() - Link.cur_time
         Link.cur_time = get_time()
 
+        print(Link.timer)
         if Link.timer >= 5:
             game_framework.change_state(title_state)
 
     @staticmethod
     def draw(Link):
-        Link.image.clip_draw(int(Link.frame) * SIZE, LINK.dir, SIZE, SIZE, Link.x, Link.y)
+        Link.image.clip_draw(0, 0, SIZE, SIZE, Link.x, Link.y)
 
 
 next_state_table = {
@@ -497,6 +506,30 @@ class LINK:
 
         LINK.cur_stage = 0
 
+    def reset_all(self):
+        LINK.x = WINX // 2
+        LINK.y = WINY // 2
+        LINK.dir = DOWN
+        LINK.velocityX, velocityY = 0.0, 0.0
+        LINK.life = 3
+        LINK.arrow_speed = 0
+        LINK.run_speed = 0
+        LINK.bgm = None
+        LINK.arrow = []
+        LINK.cur_stage = 0
+        LINK.dir = DOWN
+        LINK.life = 3
+        LINK.arrow_speed = 0
+        LINK.run_speed = 0
+        LINK.cur_stage = 0
+
+    def check_end(self):
+        if LINK.life == 0:
+            self.add_event(LIFE_ZERO)
+
+        if main_state2.game_cleared == True:
+            self.add_event(CLEAR)
+
     def get_bb(self):
         return LINK.x-10,LINK.y-10,LINK.x+10,LINK.y+10
 
@@ -530,8 +563,6 @@ class LINK:
             self.cur_state.exit(self,event)
             self.cur_state = next_state_table[self.cur_state][event]
             self.cur_state.enter(self,event)
-
-
 
     def draw(self):
         self.cur_state.draw(self)

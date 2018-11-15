@@ -73,7 +73,7 @@ class RunState:
         Boss2.y = main_state2.Circle.y + (main_state2.Circle.r - SIZE) * math.sin(Boss2.revolution_degree)
 
 
-        if Boss2.life == 0:
+        if Boss2.life < 0:
             class_LINK.LINK.cur_stage += 1
 
 

@@ -32,16 +32,16 @@ class Stage0State:
     def enter(Circle, event):
         CIRCLE.x, CIRCLE.y = main_state0.LINK.x, main_state0.LINK.y
         Circle.r = 380
-        if random.randint(0,2) ==0:
+        if random.randint(0,1) == 0:
             Circle.dirX = -1
         else: Circle.dirX = 1
 
-        if random.randint(0,1) ==0:
+        if random.randint(0,1) == 0:
             Circle.dirY = -1
         else: Circle.dirY = 1
 
         Circle.dir = -1
-        Circle.velocity = RUN_SPEED_PPS
+        Circle.velocity = RUN_SPEED_PPS*3/2
 
     @staticmethod
     def exit(Circle, event):
@@ -54,12 +54,6 @@ class Stage0State:
 
         if Circle.timer >= 8:
             Circle.velocity += RUN_SPEED_PPS/5000
-            if random.randint(0, 2) == 0:
-                Circle.dirX = -1
-            else: Circle.dirX = 1
-            if random.randint(0, 1) == 0:
-                Circle.dirY = -1
-            else: Circle.dirY = 1
 
             Circle.timer = 0
 
