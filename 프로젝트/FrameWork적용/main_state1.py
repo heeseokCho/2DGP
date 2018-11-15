@@ -85,7 +85,7 @@ def update():
         game_framework.change_state(main_state0)
 
     if Link.end == True:
-        Link.reset()
+        Link.reset_all()
         game_framework.change_state(title_state)
 
 

@@ -20,7 +20,8 @@ next_state_table ={}
 class RunState:
     @staticmethod
     def enter(Stage0,event):
-        pass
+        Stage0.timer = 0
+        Stage0.cur_time = get_time()
 
     @staticmethod
     def exit(Stage0,event):

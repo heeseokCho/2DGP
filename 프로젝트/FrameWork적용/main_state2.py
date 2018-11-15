@@ -92,7 +92,7 @@ def update():
         game_cleared = True
 
     if Link.end == True:
-        Link.reset()
+        Link.reset_all()
         game_framework.change_state(title_state)
 
 def draw():

@@ -23,7 +23,6 @@ SIZE = 64
 UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 
 
-
 def enter():
     global Link,Circle,Background, Stage0,Bgm
 
@@ -93,7 +92,7 @@ def update():
 
 
     if Link.end == True:
-        Link.reset()
+        Link.reset_all()
         game_framework.change_state(title_state)
 
 def draw():

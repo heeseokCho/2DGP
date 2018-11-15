@@ -371,18 +371,15 @@ class DieState:
 
     @staticmethod
     def exit(Link, event):
-        Link.reset_all()
+        pass
 
     @staticmethod
     def do(Link):
-
         if int(Link.frame) < 8:
             Link.frame = (Link.frame + FRAMES_PER_ACTION * ACTION_PER_TIME/2 * game_framework.frame_time) % 9
 
-
         Link.timer += get_time() - Link.cur_time
         Link.cur_time = get_time()
-
 
         #print(Link.timer)
         if Link.timer >= 8:
@@ -408,9 +405,10 @@ class WinState:
         bgm.set_volume(50)
         bgm.repeat_play()
 
+
+
     @staticmethod
     def exit(Link, event):
-        Link.reset_all()
         main_state2.game_cleared = False
 
     @staticmethod
@@ -419,9 +417,8 @@ class WinState:
         Link.timer += get_time() - Link.cur_time
         Link.cur_time = get_time()
 
-        print(Link.timer)
         if Link.timer >= 5:
-            game_framework.change_state(title_state)
+            Link.end = True
 
     @staticmethod
     def draw(Link):
@@ -528,6 +525,7 @@ class LINK:
             self.add_event(LIFE_ZERO)
 
         if main_state2.game_cleared == True:
+            main_state2.game_cleard =False
             self.add_event(CLEAR)
 
     def get_bb(self):
