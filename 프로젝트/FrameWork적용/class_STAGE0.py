@@ -42,9 +42,8 @@ class RunState:
             Stage0.create_item()
             Stage0.timer = 0
 
-        print (Stage0.clear_timer)
-        if Stage0.clear_timer >= 2:
-            if LINK.cur_stage == 0 and LINK.x > WINX//2+400:
+        if Stage0.clear_timer >= 5:
+            if LINK.cur_stage == 0:
                 LINK.cur_stage +=1
                 Stage0.clear_timer = 0
             elif LINK.cur_stage > 1:

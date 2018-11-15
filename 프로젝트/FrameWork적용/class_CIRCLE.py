@@ -52,7 +52,7 @@ class Stage0State:
         Circle.timer+=get_time()-Circle.cur_time
         Circle.cur_time = get_time()
 
-        if Circle.timer >= 5:
+        if Circle.timer % 5 < 0.01:
             Circle.velocity += RUN_SPEED_PPS/4000
 
             Circle.timer = 0
@@ -89,11 +89,14 @@ class Stage0State:
 class Stage1State:
     @staticmethod
     def enter(Circle,event):
-        #CIRCLE.x, CIRCLE.y = WINX // 2 + 500, WINY // 2
-        CIRCLE.x, CIRCLE.y = main_state1.LINK.x,main_state1.LINK.y
+        CIRCLE.x, CIRCLE.y = WINX // 2 + 500, WINY // 2
+
+        Circle.degree = math.atan2(main_state2.LINK.y - CIRCLE.y, main_state2.LINK.x - CIRCLE.x)
+
+        CIRCLE.x, CIRCLE.y = CIRCLE.x + math.fabs(main_state2.LINK.x-CIRCLE.x)*math.cos(Circle.degree),\
+                             CIRCLE.y + math.fabs(main_state2.LINK.y-CIRCLE.y)*math.sin(Circle.degree)
         Circle.r = 300
         Circle.dir = 1
-        Circle.degree = 0
         Circle.timer = 0
         Circle.velocity = 0.05
 
@@ -103,7 +106,7 @@ class Stage1State:
 
     @staticmethod
     def do(Circle):
-        Circle.degree +=Circle.dir*(DEGREE_PER_TIME+Circle.velocity)*game_framework.frame_time
+        Circle.degree += Circle.dir*(DEGREE_PER_TIME+Circle.velocity)*game_framework.frame_time
 
         Circle.timer+=get_time()-Circle.cur_time
         Circle.cur_time = get_time()
@@ -222,9 +225,15 @@ class CIRCLE:
         elif phase == 1:
             self.cur_state = Stage1State
 
-            CIRCLE.x, CIRCLE.y = main_state1.LINK.x, main_state1.LINK.y
+            CIRCLE.x, CIRCLE.y = WINX//2,WINY//2
             self.r = 300
             self.degree = 0
+
+            self.degree = math.atan2(main_state2.LINK.y - CIRCLE.y, main_state2.LINK.x - CIRCLE.x)
+            print(self.degree)
+
+            CIRCLE.x, CIRCLE.y = CIRCLE.x + 300 * math.cos(self.degree), \
+                                 CIRCLE.y + 300 * math.sin(self.degree)
 
         elif phase == 2:
             self.cur_state = Stage2State
