@@ -7,6 +7,7 @@ import main_state0
 import main_state1
 import main_state2
 
+
 #윈도우 크기
 WINX  = 1600
 WINY  = 1000
@@ -71,9 +72,11 @@ class Stage0State:
         elif (CIRCLE.y < Circle.r):
             Circle.dirY = 1
 
-        CIRCLE.x += Circle.dirX * Circle.velocity
-        CIRCLE.y += Circle.dirY * Circle.velocity
-        Circle.r += Circle.dir * Circle.velocity*3
+
+        if main_state0.Link != None and main_state0.Link.collide_able:
+            CIRCLE.x += Circle.dirX * Circle.velocity
+            CIRCLE.y += Circle.dirY * Circle.velocity
+            Circle.r += Circle.dir * Circle.velocity*3
 
 
 
@@ -117,8 +120,9 @@ class Stage1State:
                 Circle.dir *= -1
             Circle.timer = 0
 
-        CIRCLE.x =WINX//2+ 8*PIXEL_PER_METER*math.cos(Circle.degree)
-        CIRCLE.y =WINY//2+ 8*PIXEL_PER_METER*math.sin(Circle.degree)
+        if main_state1.Link != None and main_state1.Link.collide_able:
+            CIRCLE.x =WINX//2+ 8*PIXEL_PER_METER*math.cos(Circle.degree)
+            CIRCLE.y =WINY//2+ 8*PIXEL_PER_METER*math.sin(Circle.degree)
 
     @staticmethod
     def draw(Circle):
@@ -171,9 +175,10 @@ class Stage2State:
         elif (CIRCLE.y < Circle.r):
             Circle.dirY = 1
 
-        CIRCLE.x += Circle.dirX * Circle.velocity
-        CIRCLE.y += Circle.dirY * Circle.velocity
-        Circle.r += Circle.dir * Circle.velocity*2
+        if main_state2.Link != None and main_state2.Link.collide_able:
+            CIRCLE.x += Circle.dirX * Circle.velocity
+            CIRCLE.y += Circle.dirY * Circle.velocity
+            Circle.r += Circle.dir * Circle.velocity*2
 
 
 
