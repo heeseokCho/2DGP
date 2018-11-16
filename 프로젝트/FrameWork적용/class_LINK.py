@@ -458,15 +458,15 @@ next_state_table = {
                ATTACK_DOWN:ShootState,ATTACK_UP:RunState,AIM_TIMER:RunState,LIFE_ZERO:DieState,
                 CLEAR: WinState},
 
-    DieState:{UP_DOWN:DieState,DOWN_DOWN:DieState,LEFT_DOWN:DieState,RIGHT_DOWN:DieState,
-               UP_UP:DieState,DOWN_UP:DieState,LEFT_UP:DieState,RIGHT_UP:DieState,
-               ATTACK_DOWN:DieState,ATTACK_UP:DieState,AIM_TIMER:DieState,LIFE_ZERO:DieState,
-              CLEAR: WinState},
+    DieState:{UP_DOWN:None,DOWN_DOWN:None,LEFT_DOWN:None,RIGHT_DOWN:None,
+               UP_UP:None,DOWN_UP:None,LEFT_UP:None,RIGHT_UP:None,
+               ATTACK_DOWN:None,ATTACK_UP:None,AIM_TIMER:None,LIFE_ZERO:None,
+              CLEAR: None},
 
-    WinState:{UP_DOWN:WinState,DOWN_DOWN:WinState,LEFT_DOWN:WinState,RIGHT_DOWN:WinState,
-               UP_UP:WinState,DOWN_UP:WinState,LEFT_UP:WinState,RIGHT_UP:WinState,
-               ATTACK_DOWN:WinState,ATTACK_UP:WinState,AIM_TIMER:WinState,LIFE_ZERO:WinState,
-              CLEAR: WinState}
+    WinState:{UP_DOWN:None,DOWN_DOWN:None,LEFT_DOWN:None,RIGHT_DOWN:None,
+               UP_UP:None,DOWN_UP:None,LEFT_UP:None,RIGHT_UP:None,
+               ATTACK_DOWN:None,ATTACK_UP:None,AIM_TIMER:None,LIFE_ZERO:None,
+              CLEAR: None}
 
 }
 
@@ -561,8 +561,9 @@ class LINK:
         if len(self.event_que) > 0:
             event = self.event_que.pop()
             self.cur_state.exit(self,event)
-            self.cur_state = next_state_table[self.cur_state][event]
-            self.cur_state.enter(self,event)
+            if next_state_table[self.cur_state][event] != None:
+                self.cur_state = next_state_table[self.cur_state][event]
+                self.cur_state.enter(self,event)
 
     def draw(self):
         self.cur_state.draw(self)
