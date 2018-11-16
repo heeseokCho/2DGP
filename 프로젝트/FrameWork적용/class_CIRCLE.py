@@ -230,7 +230,6 @@ class CIRCLE:
             self.degree = 0
 
             self.degree = math.atan2(main_state2.LINK.y - CIRCLE.y, main_state2.LINK.x - CIRCLE.x)
-            print(self.degree)
 
             CIRCLE.x, CIRCLE.y = CIRCLE.x + 300 * math.cos(self.degree), \
                                  CIRCLE.y + 300 * math.sin(self.degree)

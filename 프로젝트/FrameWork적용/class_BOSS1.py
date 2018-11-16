@@ -56,7 +56,7 @@ class RunState:
             Boss1.timer = 0
 
         if Boss1.life <= 0:
-            class_LINK.LINK.cur_stage += 1
+            class_LINK.LINK.cur_stage = 2
 
     @staticmethod
     def draw(Boss1):

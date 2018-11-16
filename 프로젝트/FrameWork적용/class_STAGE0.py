@@ -44,10 +44,10 @@ class RunState:
 
         if Stage0.clear_timer >= 5:
             if LINK.cur_stage == 0:
-                LINK.cur_stage +=1
+                LINK.cur_stage = 1
                 Stage0.clear_timer = 0
-            elif LINK.cur_stage > 1:
-                LINK.cur_stage +=1
+            elif LINK.cur_stage == 2:
+                LINK.cur_stage = 3
                 Stage0.clear_timer = 0
 
 

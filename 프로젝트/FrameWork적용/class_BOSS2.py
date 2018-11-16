@@ -74,7 +74,7 @@ class RunState:
 
 
         if Boss2.life < 0:
-            class_LINK.LINK.cur_stage += 1
+            class_LINK.LINK.cur_stage = 4
 
 
     @staticmethod

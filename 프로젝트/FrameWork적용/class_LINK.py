@@ -353,14 +353,16 @@ class ShootState:
 
 
 class DieState:
+
     @staticmethod
     def enter(Link, event):
         if event == LIFE_ZERO:
             Link.image = load_image('Dieing.png')
             Link.frame = 0
-            bgm = load_music('GameOver.mp3')
-            bgm.set_volume(50)
-            bgm.repeat_play()
+
+            title_state.Bgm = load_music('GameOver.mp3')
+            title_state.Bgm.set_volume(50)
+            title_state.Bgm.repeat_play()
 
             Link.timer = 0
             Link.cur_time = get_time()
@@ -401,9 +403,9 @@ class WinState:
 
         Link.collide_able = False
 
-        bgm = load_music('GameClear.mp3')
-        bgm.set_volume(50)
-        bgm.repeat_play()
+        title_state.Bgm = load_music('GameClear.mp3')
+        title_state.Bgm.set_volume(50)
+        title_state.Bgm.repeat_play()
 
 
 
@@ -525,7 +527,7 @@ class LINK:
             self.add_event(LIFE_ZERO)
 
         if main_state2.game_cleared == True:
-            main_state2.game_cleard =False
+            main_state2.game_cleared = False
             self.add_event(CLEAR)
 
     def get_bb(self):
