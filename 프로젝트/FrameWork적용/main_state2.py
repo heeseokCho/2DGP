@@ -126,6 +126,7 @@ def collideout_circle():
 
 def collide_objects():
     if collideout_circle():
+        LINK.life -= 1
         print("Circle Out")
 
     #적과 화살

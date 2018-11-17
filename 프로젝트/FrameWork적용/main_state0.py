@@ -124,6 +124,7 @@ def collideout_circle():
 def collide_objects():
     if collideout_circle():
         print("Circle Out")
+        LINK.life -= 1
 
     #링크와 적의 충돌
     for enemy in Stage0.enemy:
