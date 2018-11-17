@@ -31,18 +31,25 @@ TIMER = range(0)
 class Stage0State:
     @staticmethod
     def enter(Circle, event):
-        CIRCLE.x, CIRCLE.y = main_state0.LINK.x, main_state0.LINK.y
+        Circle.timer =0
+        Circle.cur_time = get_time()
+
+        Circle.dirX, Circle.dirY = 0, 0
+
+        CIRCLE.x, CIRCLE.y = main_state2.LINK.x, main_state2.LINK.y
         Circle.r = 380
-        if random.randint(0,1) == 0:
+        if random.randint(0, 1) == 0:
             Circle.dirX = -1
-        else: Circle.dirX = 1
+        else:
+            Circle.dirX = 1
 
-        if random.randint(0,1) == 0:
+        if random.randint(0, 1) == 0:
             Circle.dirY = -1
-        else: Circle.dirY = 1
+        else:
+            Circle.dirY = 1
 
-        Circle.dir = -1
-        Circle.velocity = RUN_SPEED_PPS*2
+            Circle.dir = -1
+            Circle.velocity = RUN_SPEED_PPS / 1000
 
     @staticmethod
     def exit(Circle, event):
@@ -53,7 +60,7 @@ class Stage0State:
         Circle.timer+=get_time()-Circle.cur_time
         Circle.cur_time = get_time()
 
-        if Circle.timer % 5 < 0.01:
+        if Circle.timer >5 < 0.01:
             Circle.velocity += RUN_SPEED_PPS/4000
 
             Circle.timer = 0
@@ -92,16 +99,16 @@ class Stage0State:
 class Stage1State:
     @staticmethod
     def enter(Circle,event):
-        CIRCLE.x, CIRCLE.y = WINX // 2 + 500, WINY // 2
+        Circle.cur_state = Stage1State
+
+        CIRCLE.x, CIRCLE.y = WINX // 2, WINY // 2
+        Circle.r = 300
+        Circle.degree = 0
 
         Circle.degree = math.atan2(main_state2.LINK.y - CIRCLE.y, main_state2.LINK.x - CIRCLE.x)
 
-        CIRCLE.x, CIRCLE.y = CIRCLE.x + math.fabs(main_state2.LINK.x-CIRCLE.x)*math.cos(Circle.degree),\
-                             CIRCLE.y + math.fabs(main_state2.LINK.y-CIRCLE.y)*math.sin(Circle.degree)
-        Circle.r = 300
-        Circle.dir = 1
-        Circle.timer = 0
-        Circle.velocity = 0.05
+        CIRCLE.x, CIRCLE.y = CIRCLE.x + 300 * math.cos(Circle.degree), \
+                             CIRCLE.y + 300 * math.sin(Circle.degree)
 
     @staticmethod
     def exit(Circle,event):
@@ -134,18 +141,22 @@ class Stage1State:
 class Stage2State:
     @staticmethod
     def enter(Circle, event):
-        CIRCLE.x, CIRCLE.y = main_state2.LINK.x,main_state2.LINK.y
+        Circle.dirX, Circle.dirY = 0, 0
+
+        CIRCLE.x, CIRCLE.y = main_state2.LINK.x, main_state2.LINK.y
         Circle.r = 380
-        if random.randint(0,1) ==0:
+        if random.randint(0, 1) == 0:
             Circle.dirX = -1
-        else: Circle.dirX = 1
+        else:
+            Circle.dirX = 1
 
-        if random.randint(0,1) ==0:
+        if random.randint(0, 1) == 0:
             Circle.dirY = -1
-        else: Circle.dirY = 1
+        else:
+            Circle.dirY = 1
 
-        Circle.dir = -1
-        Circle.velocity = RUN_SPEED_PPS
+            Circle.dir = -1
+            Circle.velocity = RUN_SPEED_PPS / 1000
 
     @staticmethod
     def exit(Circle, event):
@@ -201,7 +212,7 @@ class CIRCLE:
 
         self.event_que = []
         self.cur_state = Stage0State
-        self.cur_state.enter(self, None)
+
         self.cur_time = 0
         self.timer = 0
         self.r =0
@@ -210,54 +221,17 @@ class CIRCLE:
         CIRCLE.x,CIRCLE.y = 0,0
 
         if phase == 0:
-            self.cur_state = Stage2State
-            self.dirX,self.dirY =0,0
-
-            CIRCLE.x, CIRCLE.y = main_state2.LINK.x,main_state2.LINK.y
-            self.r = 380
-            if random.randint(0, 1) == 0:
-                self.dirX = -1
-            else:
-                self.dirX = 1
-
-            if random.randint(0, 1) == 0:
-                self.dirY = -1
-            else:
-                self.dirY = 1
-
-                self.dir = -1
-                self.velocity = RUN_SPEED_PPS/1000
+            self.cur_state = Stage0State
+            self.cur_state.enter(self, None)
 
         elif phase == 1:
             self.cur_state = Stage1State
-
-            CIRCLE.x, CIRCLE.y = WINX//2,WINY//2
-            self.r = 300
-            self.degree = 0
-
-            self.degree = math.atan2(main_state2.LINK.y - CIRCLE.y, main_state2.LINK.x - CIRCLE.x)
-
-            CIRCLE.x, CIRCLE.y = CIRCLE.x + 300 * math.cos(self.degree), \
-                                 CIRCLE.y + 300 * math.sin(self.degree)
+            self.cur_state.enter(self, None)
 
         elif phase == 2:
             self.cur_state = Stage2State
-            self.dirX,self.dirY =0,0
+            self.cur_state.enter(self, None)
 
-            CIRCLE.x, CIRCLE.y = main_state2.LINK.x,main_state2.LINK.y
-            self.r = 380
-            if random.randint(0, 1) == 0:
-                self.dirX = -1
-            else:
-                self.dirX = 1
-
-            if random.randint(0, 1) == 0:
-                self.dirY = -1
-            else:
-                self.dirY = 1
-
-                self.dir = -1
-                self.velocity = RUN_SPEED_PPS/1000
 
 
     def draw(self):
@@ -283,7 +257,10 @@ class CIRCLE:
         pass
 
     def get_bb(self):
-        if self.cur_state == Stage1State:
+        if self.cur_state == Stage0State:
+            return CIRCLE.x - 320 - self.r / 8, CIRCLE.y - 320 - self.r / 8, \
+                   CIRCLE.x + 320 + self.r / 8, CIRCLE.y + 320 + self.r / 8
+        elif self.cur_state == Stage1State:
             return CIRCLE.x-self.r-SIZE,CIRCLE.y-self.r-SIZE,CIRCLE.x+self.r+SIZE,CIRCLE.y+self.r+SIZE
         elif self.cur_state == Stage2State:
             return CIRCLE.x - 320-self.r/8, CIRCLE.y - 320-self.r/8,\

@@ -1,6 +1,7 @@
 import game_framework
 from pico2d import*
 import game_world
+import main_state0
 
 from class_ENEMY import ENEMY
 from class_ITEM import ITEM
@@ -30,11 +31,12 @@ class RunState:
 
     @staticmethod
     def do(Stage0):
-        Stage0.timer += get_time() - Stage0.cur_time
+        if main_state0.Link.collide_able:
+            Stage0.timer += get_time() - Stage0.cur_time
 
-        Stage0.clear_timer += get_time() - Stage0.cur_time
+            Stage0.clear_timer += get_time() - Stage0.cur_time
 
-        Stage0.cur_time = get_time()
+            Stage0.cur_time = get_time()
 
         if 0< Stage0.timer % 1<0.1:
             Stage0.create_enemy(random.randint(0,1))
@@ -43,7 +45,7 @@ class RunState:
             Stage0.create_item()
             Stage0.timer = 0
 
-        if Stage0.clear_timer >= 10:
+        if Stage0.clear_timer >= 20:
             if LINK.cur_stage == 0:
                 LINK.cur_stage = 1
                 Stage0.clear_timer = 0

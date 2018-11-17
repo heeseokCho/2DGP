@@ -334,8 +334,6 @@ class DieState:
 
             Link.collide_able = False
 
-
-
     @staticmethod
     def exit(Link, event):
         LINK.velocityX,LINK.velocityY = 0,0
@@ -348,7 +346,7 @@ class DieState:
         Link.timer += get_time() - Link.cur_time
         Link.cur_time = get_time()
 
-        if Link.timer >= 8:
+        if Link.timer >= 7:
             Link.end = True
 
     @staticmethod
@@ -384,7 +382,7 @@ class WinState:
         Link.timer += get_time() - Link.cur_time
         Link.cur_time = get_time()
 
-        if Link.timer >= 5:
+        if Link.timer >= 14.5:
             Link.end = True
 
     @staticmethod
@@ -522,7 +520,6 @@ class LINK:
         self.event_que.insert(0,event)
 
     def update(self):
-        print(self.velocityY)
 
         self.cur_state.do(self)
         if len(self.event_que) > 0:
