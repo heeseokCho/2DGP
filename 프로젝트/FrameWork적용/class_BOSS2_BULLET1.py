@@ -41,8 +41,9 @@ class BOSS2_BULLET1:
 
 
     def draw(self):
-        BOSS2_BULLET1.image.rotate_draw(math.radians(self.bullet_rotate_degree), self.x, self.y, SIZE / 2, SIZE / 2)
-        draw_rectangle(*self.get_bb())
+        if main_state2.Boss2.life > 0:
+            BOSS2_BULLET1.image.rotate_draw(math.radians(self.bullet_rotate_degree), self.x, self.y, SIZE / 2, SIZE / 2)
+            draw_rectangle(*self.get_bb())
 
     def update(self):
         self.bullet_rotate_degree += self.bullet_rotate_dir*DEGREE_PER_TIME*game_framework.frame_time

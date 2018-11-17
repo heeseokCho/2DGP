@@ -6,10 +6,10 @@ WINY  = 1000
 
 class BACKGROUND():
     def __init__(self,phase = 0):
-        if phase == 1:
+        if phase == 0:
             self.image = load_image('Background.png')
 
-        elif phase == 2:
+        elif phase == 1:
             self.image = load_image('Background2.png')
 
     def draw(self):

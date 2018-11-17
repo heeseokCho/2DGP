@@ -460,14 +460,6 @@ class LINK:
         self.cur_state = IdleState
         self.cur_state.enter(self,None)
 
-    def reset(self):
-        LINK.dir = DOWN
-        LINK.life = 3
-        LINK.arrow_speed = 0
-        LINK.run_speed = 0
-
-        LINK.cur_stage = 0
-
     def reset_all(self):
         LINK.x = WINX // 2
         LINK.y = WINY // 2

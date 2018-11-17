@@ -35,7 +35,7 @@ def enter():
     global Link,Circle,Background,Boss1,Bgm
     game_world.objects = [[], [], []]
 
-    Background = BACKGROUND(1)
+    Background = BACKGROUND(0)
     Link = LINK()
     Boss1 = BOSS1()
     Circle = CIRCLE(1)

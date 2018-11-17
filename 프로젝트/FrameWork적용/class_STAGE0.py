@@ -41,7 +41,7 @@ class RunState:
         if 0< Stage0.timer % 1<0.1:
             Stage0.create_enemy(random.randint(0,1))
 
-        if Stage0.timer >=5:
+        if Stage0.timer >=4:
             Stage0.create_item()
             Stage0.timer = 0
 

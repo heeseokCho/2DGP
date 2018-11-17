@@ -33,8 +33,11 @@ def enter():
 
     game_world.objects = [[],[],[]]
 
+    if LINK.cur_stage == 0:
+        Background = BACKGROUND(0)
+    else:
+        Background = BACKGROUND(1)
 
-    Background = BACKGROUND(1)
     Link = LINK()
     Stage0 = STAGE0()
     Circle = CIRCLE(0)

@@ -44,8 +44,9 @@ class BOSS2_BULLET3:
 
 
     def draw(self):
-        BOSS2_BULLET3.image.clip_composite_draw(int(BOSS2_BULLET3.frame) * SIZE//2, 0, SIZE//2, SIZE//2, math.radians(self.dir*self.degree),
-                                       'v', self.x, self.y, SIZE, SIZE)
+        if main_state2.Boss2.life > 0:
+            BOSS2_BULLET3.image.clip_composite_draw(int(BOSS2_BULLET3.frame) * SIZE//2, 0, SIZE//2, SIZE//2, math.radians(self.dir*self.degree),
+                                           'v', self.x, self.y, SIZE, SIZE)
 
         draw_rectangle(*self.get_bb())
     def update(self):
