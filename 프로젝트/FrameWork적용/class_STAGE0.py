@@ -7,7 +7,6 @@ from class_ENEMY import ENEMY
 from class_ITEM import ITEM
 from class_LINK import LINK
 
-import math
 import random
 WINX,WINY = 1600, 1000
 PI = 3.141592
@@ -41,7 +40,7 @@ class RunState:
         if 0< Stage0.timer % 1<0.1:
             Stage0.create_enemy(random.randint(0,1))
 
-        if Stage0.timer >=4:
+        if Stage0.timer >=3:
             Stage0.create_item()
             Stage0.timer = 0
 

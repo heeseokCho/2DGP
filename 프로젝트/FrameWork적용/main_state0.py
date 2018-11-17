@@ -160,6 +160,7 @@ def collide_objects():
     #링크와 아이템의 충돌
     for item in STAGE0.item:
         if collide(Link,item):
+            item_bgm.play()
             # RunSpeed, ArrowSpeed, Heart
             if item.kind == 0:
                 LINK.run_speed += 1
@@ -173,7 +174,7 @@ def collide_objects():
             Stage0.item.remove(item)
             game_world.remove_object(item)
 
-            item_bgm.play()
+
 
     LINK.life = clamp(0,LINK.life,3)
 

@@ -21,7 +21,7 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 
 class ARROW:
     image = None
-    damage = 0.1
+    damage = 0.01
 
     def __init__(self,x = 0,y = 0,dir = 0):
         if ARROW.image == None:
