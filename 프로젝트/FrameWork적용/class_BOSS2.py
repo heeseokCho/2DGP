@@ -102,7 +102,7 @@ class BOSS2:
         self.timer = 0
         self.bullet3 = []
         self.shoot_bullet3()
-        self.life = 0.7
+        self.life = 0.6
 
 
 
