@@ -122,7 +122,7 @@ def collide_objects():
     if collideout_circle():
         if not Link.invincibility:
             LINK.life -= 1
-        Link.cur_time = get_time()
+        Link.invincibility_time = get_time()
         Link.invincibility = True
 
     #적과 화살 충돌
@@ -139,7 +139,7 @@ def collide_objects():
             game_world.remove_object(bullet1)
             if not Link.invincibility:
                 LINK.life -= 1
-            Link.cur_time = get_time()
+            Link.invincibility_time = get_time()
             Link.invincibility = True
 
     #링크와 적탄 충돌
@@ -149,7 +149,7 @@ def collide_objects():
             game_world.remove_object(bullet2)
             if not Link.invincibility:
                 LINK.life -= 1
-            Link.cur_time = get_time()
+            Link.invincibility_time = get_time()
             Link.invincibility = True
 
     LINK.life = clamp(0,LINK.life,3)

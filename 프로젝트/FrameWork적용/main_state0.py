@@ -126,7 +126,7 @@ def collide_objects():
         print("Circle Out")
         if not Link.invincibility:
             LINK.life -= 1
-        Link.cur_time = get_time()
+        Link.invincibility_time = get_time()
         Link.invincibility = True
 
     #링크와 적의 충돌
@@ -136,7 +136,7 @@ def collide_objects():
             game_world.remove_object(enemy)
             if not Link.invincibility:
                 LINK.life -= 1
-            Link.cur_time = get_time()
+            Link.invincibility_time = get_time()
             Link.invincibility = True
             break
 
