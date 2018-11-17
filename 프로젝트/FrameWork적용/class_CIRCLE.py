@@ -198,8 +198,9 @@ class CIRCLE:
     def __init__(self,phase):
         if CIRCLE.image == None:
             CIRCLE.image = load_image('Circle.png')
-        self.cur_state = Stage0State
+
         self.event_que = []
+        self.cur_state = Stage0State
         self.cur_state.enter(self, None)
         self.cur_time = 0
         self.timer = 0

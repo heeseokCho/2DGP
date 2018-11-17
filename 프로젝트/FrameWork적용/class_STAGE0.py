@@ -21,6 +21,7 @@ class RunState:
     @staticmethod
     def enter(Stage0,event):
         Stage0.timer = 0
+        Stage0.clear_timer = 0
         Stage0.cur_time = get_time()
 
     @staticmethod
@@ -30,10 +31,10 @@ class RunState:
     @staticmethod
     def do(Stage0):
         Stage0.timer += get_time() - Stage0.cur_time
+
         Stage0.clear_timer += get_time() - Stage0.cur_time
 
         Stage0.cur_time = get_time()
-
 
         if 0< Stage0.timer % 1<0.1:
             Stage0.create_enemy(random.randint(0,1))
@@ -42,7 +43,7 @@ class RunState:
             Stage0.create_item()
             Stage0.timer = 0
 
-        if Stage0.clear_timer >= 5:
+        if Stage0.clear_timer >= 10:
             if LINK.cur_stage == 0:
                 LINK.cur_stage = 1
                 Stage0.clear_timer = 0
@@ -66,12 +67,13 @@ class STAGE0:
     def __init__(self):
         self.image = load_image('Boss1.png')
         self.event_que = []
-        self.cur_state = RunState
-        self.cur_state.enter(self, None)
         self.cur_time = 0
         self.timer = 0
 
         self.clear_timer = 0
+
+        self.cur_state = RunState
+        self.cur_state.enter(self, None)
 
     #아이템
     def create_item(self):

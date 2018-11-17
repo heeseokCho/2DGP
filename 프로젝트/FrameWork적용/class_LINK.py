@@ -55,25 +55,14 @@ class IdleState:
         Link.image = load_image('Standing.png')
 
         if event == UP_DOWN:
-            LINK.velocityY += RUN_SPEED_PPS
             LINK.dir = UP
         elif event == DOWN_DOWN:
-            LINK.velocityY -= RUN_SPEED_PPS
             LINK.dir = DOWN
-        elif event == UP_UP:
-            LINK.velocityY -= RUN_SPEED_PPS
-        elif event == DOWN_UP:
-            LINK.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
-            LINK.velocityX -= RUN_SPEED_PPS
             LINK.dir = LEFT
         elif event == RIGHT_DOWN:
-            LINK.velocityX += RUN_SPEED_PPS
             LINK.dir = RIGHT
-        elif event == LEFT_UP:
-            LINK.velocityX += RUN_SPEED_PPS
-        elif event == RIGHT_UP:
-            LINK.velocityX -= RUN_SPEED_PPS
+
 
     @staticmethod
     def exit(Link, event):
@@ -147,25 +136,13 @@ class AimState:
         Link.enable = False
 
         if event == UP_DOWN:
-            LINK.velocityY += RUN_SPEED_PPS
             LINK.dir = UP
         elif event == DOWN_DOWN:
-            LINK.velocityY -= RUN_SPEED_PPS
             LINK.dir = DOWN
-        elif event == UP_UP:
-            LINK.velocityY -= RUN_SPEED_PPS
-        elif event == DOWN_UP:
-            LINK.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
-            LINK.velocityX -= RUN_SPEED_PPS
             LINK.dir = LEFT
         elif event == RIGHT_DOWN:
-            LINK.velocityX += RUN_SPEED_PPS
             LINK.dir = RIGHT
-        elif event == LEFT_UP:
-            LINK.velocityX += RUN_SPEED_PPS
-        elif event == RIGHT_UP:
-            LINK.velocityX -= RUN_SPEED_PPS
 
     @staticmethod
     def exit(Link, event):
@@ -204,25 +181,13 @@ class AimIdleState:
         Link.frame = 0
 
         if event == UP_DOWN:
-            LINK.velocityY += RUN_SPEED_PPS
             LINK.dir = UP
         elif event == DOWN_DOWN:
-            LINK.velocityY -= RUN_SPEED_PPS
             LINK.dir = DOWN
-        elif event == UP_UP:
-            LINK.velocityY -= RUN_SPEED_PPS
-        elif event == DOWN_UP:
-            LINK.velocityY += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
-            LINK.velocityX -= RUN_SPEED_PPS
             LINK.dir = LEFT
         elif event == RIGHT_DOWN:
-            LINK.velocityX += RUN_SPEED_PPS
             LINK.dir = RIGHT
-        elif event == LEFT_UP:
-            LINK.velocityX += RUN_SPEED_PPS
-        elif event == RIGHT_UP:
-            LINK.velocityX -= RUN_SPEED_PPS
 
 
     @staticmethod
@@ -373,7 +338,7 @@ class DieState:
 
     @staticmethod
     def exit(Link, event):
-        pass
+        LINK.velocityX,LINK.velocityY = 0,0
 
     @staticmethod
     def do(Link):
@@ -383,7 +348,6 @@ class DieState:
         Link.timer += get_time() - Link.cur_time
         Link.cur_time = get_time()
 
-        #print(Link.timer)
         if Link.timer >= 8:
             Link.end = True
 
@@ -412,6 +376,7 @@ class WinState:
     @staticmethod
     def exit(Link, event):
         main_state2.game_cleared = False
+        LINK.velocityX,LINK.velocityY = 0,0
 
     @staticmethod
     def do(Link):
@@ -475,7 +440,7 @@ class LINK:
     x = WINX // 2
     y = WINY // 2
     dir = DOWN
-    velocityX,velocityY = 0.0,0.0
+    velocityX, velocityY = 0.0, 0.0
     life = 3
     arrow_speed = 0
     run_speed = 0
@@ -488,14 +453,14 @@ class LINK:
     def __init__(self):
         self.image = load_image('Standing.png')
         self.event_que = []
-        self.cur_state = IdleState
-        self.cur_state.enter(self,None)
         self.cur_time = get_time()
         self.frame = 0
         self.timer = 0
         self.enable = False
         self.end = False
         self.collide_able = True
+        self.cur_state = IdleState
+        self.cur_state.enter(self,None)
 
     def reset(self):
         LINK.dir = DOWN
@@ -557,6 +522,8 @@ class LINK:
         self.event_que.insert(0,event)
 
     def update(self):
+        print(self.velocityY)
+
         self.cur_state.do(self)
         if len(self.event_que) > 0:
             event = self.event_que.pop()
