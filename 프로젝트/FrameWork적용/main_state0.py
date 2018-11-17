@@ -27,9 +27,10 @@ Link = None
 Circle = None
 Stage0 = None
 Bgm = None
+item_bgm = None
 
 def enter():
-    global Link,Circle,Background, Stage0,Bgm
+    global Link,Circle,Background, Stage0,Bgm,item_bgm
 
     game_world.objects = [[],[],[]]
 
@@ -50,6 +51,9 @@ def enter():
     Bgm = load_music('Field.ogg')
     Bgm.set_volume(40)
     Bgm.repeat_play()
+
+    item_bgm = load_wav('GetItem.ogg')
+    item_bgm.set_volume(50)
 
 def exit():
     STAGE0.enemy = []
@@ -122,6 +126,8 @@ def collideout_circle():
         return True
 
 def collide_objects():
+    global item_bgm
+
     if collideout_circle():
         print("Circle Out")
         if not Link.invincibility:
@@ -166,6 +172,8 @@ def collide_objects():
 
             Stage0.item.remove(item)
             game_world.remove_object(item)
+
+            item_bgm.play()
 
     LINK.life = clamp(0,LINK.life,3)
 
