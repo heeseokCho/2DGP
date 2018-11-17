@@ -40,7 +40,7 @@ def enter():
     Boss1 = BOSS1()
     Circle = CIRCLE(1)
 
-    Bgm = load_music('BossBattle1.mp3')
+    Bgm = load_music('BossBattle1.ogg')
     Bgm.set_volume(40)
     Bgm.repeat_play()
 

@@ -83,7 +83,7 @@ class BOSS1:
 
 
 
-        self.bgm = load_wav('BossShot.wav')
+        self.bgm = load_wav('BossShot.ogg')
 
     #지뢰
     def shoot_bullet1(self):

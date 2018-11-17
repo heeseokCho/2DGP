@@ -147,7 +147,7 @@ class AimState:
     @staticmethod
     def exit(Link, event):
         if Link.enable == False:
-            Link.bgm = load_wav('ShotFail.wav')
+            Link.bgm = load_wav('ShotFail.ogg')
             Link.bgm.set_volume(50)
             Link.bgm.play()
 
@@ -325,7 +325,7 @@ class DieState:
             Link.image = load_image('Dieing.png')
             Link.frame = 0
 
-            title_state.Bgm = load_music('GameOver.mp3')
+            title_state.Bgm = load_music('GameOver.ogg')
             title_state.Bgm.set_volume(50)
             title_state.Bgm.repeat_play()
 
@@ -365,7 +365,7 @@ class WinState:
 
         Link.collide_able = False
 
-        title_state.Bgm = load_music('GameClear.mp3')
+        title_state.Bgm = load_music('GameClear.ogg')
         title_state.Bgm.set_volume(50)
         title_state.Bgm.repeat_play()
 
@@ -506,7 +506,7 @@ class LINK:
         self.enable = False
         game_world.add_object(Arrow,1)
 
-        self.bgm = load_wav('Shot.wav')
+        self.bgm = load_wav('Shot.ogg')
         self.bgm.set_volume(50)
         self.bgm.play()
 

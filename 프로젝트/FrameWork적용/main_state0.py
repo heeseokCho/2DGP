@@ -47,7 +47,7 @@ def enter():
     game_world.add_object(Link,1)
     game_world.add_object(Stage0,1)
 
-    Bgm = load_music('Field.mp3')
+    Bgm = load_music('Field.ogg')
     Bgm.set_volume(40)
     Bgm.repeat_play()
 
