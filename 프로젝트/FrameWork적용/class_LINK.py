@@ -446,8 +446,6 @@ class LINK:
     arrow = []
     cur_stage = 0
 
-
-
     def __init__(self):
         self.image = load_image('Standing.png')
         self.event_que = []
@@ -459,6 +457,8 @@ class LINK:
         self.collide_able = True
         self.cur_state = IdleState
         self.cur_state.enter(self,None)
+        self.invincibility = True
+        self.invincibility_timer = 0
 
     def reset_all(self):
         LINK.x = WINX // 2
@@ -512,6 +512,14 @@ class LINK:
         self.event_que.insert(0,event)
 
     def update(self):
+        if self.invincibility:
+            print ("Im invinciblilty")
+            self.invincibility_timer += get_time() - self.cur_time
+            self.cur_time = get_time()
+
+            if self.invincibility_timer > 2:
+                self.invincibility = False
+                self.invincibility_timer = 0
 
         self.cur_state.do(self)
         if len(self.event_que) > 0:
