@@ -31,7 +31,7 @@ def handle_events():
 
 def draw():
     clear_canvas()
-    image.draw(WINX//2,WINY//2)
+    image.draw(WINX//2,WINY//2,WINX,WINY)
 
     update_canvas()
 
