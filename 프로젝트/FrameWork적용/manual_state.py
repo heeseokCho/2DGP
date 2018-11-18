@@ -21,14 +21,13 @@ def exit():
     del (image)
 
 def handle_events():
-    global phase
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
         else:
-            if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
-                game_framework.quit()
+            if event.type == SDL_MOUSEBUTTONDOWN:
+                game_framework.change_state(title_state)
 
 def draw():
     clear_canvas()

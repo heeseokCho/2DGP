@@ -3,6 +3,7 @@ from pico2d import*
 import main_state1
 import main_state2
 import main_state0
+import manual_state
 
 name = "TitleState"
 
@@ -50,20 +51,26 @@ def exit():
     del (Exit_image)
 
 def handle_events():
-    global phase
     events = get_events()
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
-        else:
-            if (event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
+        elif event.type == SDL_KEYDOWN:
+            if event.key == SDLK_ESCAPE:
                 game_framework.quit()
-            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_1):
-                game_framework.change_state(main_state1)
-            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_2):
-                game_framework.change_state(main_state2)
-            elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_0):
+            elif event.key == SDLK_0:
                 game_framework.change_state(main_state0)
+            elif event.key == SDLK_1:
+                game_framework.change_state(main_state1)
+            elif event.key == SDLK_2:
+                game_framework.change_state(main_state2)
+        elif event.type == SDL_MOUSEBUTTONDOWN:
+            if 250 - 160 < event.x and event.x < 250 + 160 and 600 - 40 < WINY-event.y and WINY-event.y < 600 + 40:
+                game_framework.change_state(main_state0)
+            elif 300 - 160 < event.x and event.x < 300 + 160 and 400 - 40 < WINY-event.y and WINY-event.y < 400 + 40:
+                game_framework.change_state(manual_state)
+            elif 350 - 160 < event.x and event.x < 350 + 160 and 200 - 40 < WINY-event.y and WINY-event.y < 200 + 40:
+                game_framework.quit()
 
 def draw():
     clear_canvas()
