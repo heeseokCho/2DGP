@@ -9,7 +9,7 @@ import game_world
 
 from class_LINK import LINK
 from class_ARROW import ARROW
-from class_BOSS2 import BOSS2
+from class_BOSS2_DEVIL import BOSS2_DEVIL
 from class_BACKGROUND import BACKGROUND
 from class_CIRCLE import CIRCLE
 
@@ -27,18 +27,18 @@ UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 Background = None
 Link = None
 Circle = None
-Boss2 = None
+Boss2_Devil = None
 Bgm = None
 
 game_cleared = False
 
 def enter():
-    global Link,Circle,Background,Boss2,Bgm
+    global Link,Circle,Background,Boss2_Devil,Bgm
     game_world.objects = [[], [], []]
 
     Background = BACKGROUND(1)
     Link = LINK()
-    Boss2 = BOSS2()
+    Boss2_Devil = BOSS2_DEVIL()
     Circle = CIRCLE(2)
 
     Bgm = load_music('BossBattle2.ogg')
@@ -46,15 +46,15 @@ def enter():
     Bgm.repeat_play()
 
     game_world.add_object(Background,0)
-    game_world.add_object(Boss2,1)
+    game_world.add_object(Boss2_Devil,1)
     game_world.add_object(Circle,2)
     game_world.add_object(Link,1)
 
 def exit():
     global game_cleared
     game_cleared = False
-    BOSS2.bullet1 = []
-    BOSS2.bullet2 = []
+    BOSS2_DEVIL.bullet1 = []
+    BOSS2_DEVIL.bullet2 = []
 
     game_world.clear()
 
@@ -131,34 +131,34 @@ def collide_objects():
 
     #적과 화살
     for arrow in Link.arrow:
-        if collide(Boss2,arrow):
+        if collide(Boss2_Devil,arrow):
             LINK.arrow.remove(arrow)
-            Boss2.life -= ARROW.damage
+            Boss2_Devil.life -= ARROW.damage
             game_world.remove_object(arrow)
 
-    # 링크 bullet1
-    for bullet1 in BOSS2.bullet1:
-        if collide(Link,bullet1):
-            BOSS2.bullet1.remove(bullet1)
-            game_world.remove_object(bullet1)
+    # 링크 bullet_ball
+    for bullet in BOSS2_DEVIL.bullet_ball:
+        if collide(Link,bullet):
+            BOSS2_DEVIL.bullet_ball.remove(bullet)
+            game_world.remove_object(bullet)
             if not Link.invincibility:
                 LINK.life -= 1
             Link.invincibility_time = get_time()
             Link.invincibility = True
 
-    #링크 bullet2
-    for bullet2 in BOSS2.bullet2:
-        if collide(Link,bullet2):
-            BOSS2.bullet2.remove(bullet2)
-            game_world.remove_object(bullet2)
+    #링크 bullet_ring
+    for bullet in BOSS2_DEVIL.bullet_ring:
+        if collide(Link,bullet):
+            BOSS2_DEVIL.bullet_ring.remove(bullet)
+            game_world.remove_object(bullet)
             if not Link.invincibility:
                 LINK.life -= 1
             Link.invincibility_time = get_time()
             Link.invincibility = True
 
     #링크 bullet3
-    for bullet3 in Boss2.bullet3:
-        if collide(Link,bullet3):
+    for bullet in Boss2_Devil.bullet_column:
+        if collide(Link,bullet):
             if not Link.invincibility:
                 LINK.life -= 1
             Link.invincibility_time = get_time()

@@ -44,7 +44,7 @@ class BOSS2_BULLET3:
 
 
     def draw(self):
-        if main_state2_sunset.Boss2.life > 0:
+        if main_state2_sunset.Boss2_Devil.life > 0:
             BOSS2_BULLET3.image.clip_composite_draw(int(BOSS2_BULLET3.frame) * SIZE//2, 0, SIZE//2, SIZE//2, math.radians(self.dir*self.degree),
                                            'v', self.x, self.y, SIZE, SIZE)
 
@@ -62,8 +62,8 @@ class BOSS2_BULLET3:
 
         self.degree += self.dir_revolution*DEGREE_PER_TIME*game_framework.frame_time
 
-        self.x = main_state2_sunset.Boss2.x + self.r*math.cos(math.radians(self.degree))
-        self.y = main_state2_sunset.Boss2.y + self.r*math.sin(math.radians(self.degree))
+        self.x = main_state2_sunset.Boss2_Devil.x + self.r*math.cos(math.radians(self.degree))
+        self.y = main_state2_sunset.Boss2_Devil.y + self.r*math.sin(math.radians(self.degree))
         self.r = self.r + self.dir*self.velocity*game_framework.frame_time
 
     def get_bb(self):

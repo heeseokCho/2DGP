@@ -82,9 +82,9 @@ class RunState:
                                        '', Boss2.x, Boss2.y, SIZE * 3, SIZE * 3)
 
 
-class BOSS2:
-    bullet1 = []
-    bullet2 = []
+class BOSS2_DEVIL:
+    bullet_ball = []
+    bullet_ring = []
     def __init__(self):
         self.x, self.y = WINX//2, WINY//2
         self.image = load_image('Boss2.png')
@@ -99,7 +99,7 @@ class BOSS2:
         self.rotation_degree = 0
         self.revolution_degree =0
         self.timer = 0
-        self.bullet3 = []
+        self.bullet_column = []
         self.shoot_bullet3()
         self.life = 0.6
 
@@ -107,25 +107,25 @@ class BOSS2:
 
     #Link에게쏘는탄
     def shoot_bullet1(self):
-        bullet1 = BOSS2_BULLET1(self.x,self.y)
-        BOSS2.bullet1.append(bullet1)
-        game_world.add_object(bullet1,1)
+        bullet_ball = BOSS2_BULLET1(self.x,self.y)
+        BOSS2_DEVIL.bullet_ball.append(bullet_ball)
+        game_world.add_object(bullet_ball,1)
 
     #8방
     def shoot_bullet2(self):
-        bullet2 = [BOSS2_BULLET2(self.x,self.y,i) for i in range(8)]
+        bullet_ring = [BOSS2_BULLET2(self.x,self.y,i) for i in range(8)]
 
-        for o in bullet2:
-            BOSS2.bullet2.append(o)
+        for o in bullet_ring:
+            BOSS2_DEVIL.bullet_ring.append(o)
             game_world.add_object(o,1)
 
     def shoot_bullet3(self):
-        bullet3 = [BOSS2_BULLET3(self.x,self.y,90),
+        bullet_column = [BOSS2_BULLET3(self.x,self.y,90),
                    BOSS2_BULLET3(self.x, self.y, 210),
                    BOSS2_BULLET3(self.x, self.y,330)]
 
-        for o in bullet3:
-            self.bullet3.append(o)
+        for o in bullet_column:
+            self.bullet_column.append(o)
             game_world.add_object(o,1)
 
     def add_event(self, event):

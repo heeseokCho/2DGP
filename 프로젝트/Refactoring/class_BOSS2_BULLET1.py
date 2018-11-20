@@ -3,7 +3,7 @@ import game_world
 import game_framework
 import main_state2_sunset
 
-import class_BOSS2
+import class_BOSS2_DEVIL
 import random
 import math
 
@@ -41,7 +41,7 @@ class BOSS2_BULLET1:
 
 
     def draw(self):
-        if main_state2_sunset.Boss2.life > 0:
+        if main_state2_sunset.Boss2_Devil.life > 0:
             BOSS2_BULLET1.image.rotate_draw(math.radians(self.bullet_rotate_degree), self.x, self.y, SIZE / 2, SIZE / 2)
             draw_rectangle(*self.get_bb())
 
@@ -53,7 +53,7 @@ class BOSS2_BULLET1:
         self.y = (1 - self.t) * self.startY + self.t * self.endY
 
         if self.x < SIZE or self.x > WINX-SIZE or self.y < SIZE or self.y > WINY-250:
-            class_BOSS2.BOSS2.bullet1.remove(self)
+            class_BOSS2_DEVIL.BOSS2_DEVIL.bullet_ball.remove(self)
             game_world.remove_object(self)
 
     def get_bb(self):

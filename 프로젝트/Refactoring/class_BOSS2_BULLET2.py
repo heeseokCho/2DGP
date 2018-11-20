@@ -3,7 +3,7 @@ import game_framework
 import game_world
 import main_state2_sunset
 
-import class_BOSS2
+import class_BOSS2_DEVIL
 
 import random
 
@@ -31,7 +31,6 @@ class BOSS2_BULLET2:
 
     def __init__(self,x = WINX//2,y=WINY//2,dir=0):
         if BOSS2_BULLET2.image == None:
-            #BOSS2_BULLET2.image = load_image('Boss2_Bullet.png')
             BOSS2_BULLET2.image = load_image('Boss2Bullet2.png')
         self.frame = 0
         self.x,self.y = x,y
@@ -41,7 +40,7 @@ class BOSS2_BULLET2:
 
 
     def draw(self):
-        if main_state2_sunset.Boss2.life > 0:
+        if main_state2_sunset.Boss2_Devil.life > 0:
             BOSS2_BULLET2.image.clip_composite_draw(int(self.frame) * SIZE // 2, 0, SIZE // 2, SIZE // 2,
                                                     math.radians(self.degree),'v', self.x, self.y, SIZE, SIZE)
 
@@ -75,7 +74,7 @@ class BOSS2_BULLET2:
 
         if self.x <0 or self.x > WINX or \
                 self.y <0 or self.y > WINY:
-            class_BOSS2.BOSS2.bullet2.remove(self)
+            class_BOSS2_DEVIL.BOSS2_DEVIL.bullet_ring.remove(self)
             game_world.remove_object(self)
 
     def get_bb(self):
