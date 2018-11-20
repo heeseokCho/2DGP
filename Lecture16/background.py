@@ -23,11 +23,11 @@ class FixedBackground:
 
     def update(self):
         self.window_left = clamp(0,
-                                 int(self.center_object.x) - self.canvas_width // 2,
-                                 self.w - self.canvas_width)
+            int(self.center_object.x) - self.canvas_width // 2,
+            self.w - self.canvas_width)
         self.window_bottom = clamp(0,
-                                   int(self.center_object.y) - self.canvas_height // 2,
-                                   self.h - self.canvas_height)
+            int(self.center_object.y) - self.canvas_height // 2,
+            self.h - self.canvas_height)
 
     def handle_event(self, event):
         pass
