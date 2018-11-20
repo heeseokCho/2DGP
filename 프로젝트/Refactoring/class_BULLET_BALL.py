@@ -19,12 +19,12 @@ RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 
 DEGREE_PER_TIME = PI/36
 
-class BOSS2_BULLET1:
+class BULLET_BALL:
     image = None
 
     def __init__(self,x=0,y=0):
-        if BOSS2_BULLET1.image == None:
-            BOSS2_BULLET1.image = load_image('Boss2_Bullet.png')
+        if BULLET_BALL.image == None:
+            BULLET_BALL.image = load_image('Bullet_Ball.png')
 
         self.startX,self.startY = x,y
         self.endX,self.endY=main_state2_sunset.LINK.x,main_state2_sunset.LINK.y
@@ -42,7 +42,7 @@ class BOSS2_BULLET1:
 
     def draw(self):
         if main_state2_sunset.Boss2_Devil.life > 0:
-            BOSS2_BULLET1.image.rotate_draw(math.radians(self.bullet_rotate_degree), self.x, self.y, SIZE / 2, SIZE / 2)
+            BULLET_BALL.image.rotate_draw(math.radians(self.bullet_rotate_degree), self.x, self.y, SIZE / 2, SIZE / 2)
             draw_rectangle(*self.get_bb())
 
     def update(self):

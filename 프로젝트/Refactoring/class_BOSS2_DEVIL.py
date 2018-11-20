@@ -3,9 +3,9 @@ from pico2d import*
 import game_world
 
 import class_LINK
-from class_BOSS2_BULLET1 import BOSS2_BULLET1
-from class_BOSS2_BULLET2 import BOSS2_BULLET2
-from class_BOSS2_BULLET3 import BOSS2_BULLET3
+from class_BULLET_BALL import BULLET_BALL
+from class_BULLET_RING import BULLET_RING
+from class_BULLET_COLUMN import BULLET_COLUMN
 
 import main_state2_sunset
 
@@ -107,22 +107,22 @@ class BOSS2_DEVIL:
 
     #Link에게쏘는탄
     def shoot_bullet1(self):
-        bullet_ball = BOSS2_BULLET1(self.x,self.y)
+        bullet_ball = BULLET_BALL(self.x,self.y)
         BOSS2_DEVIL.bullet_ball.append(bullet_ball)
         game_world.add_object(bullet_ball,1)
 
     #8방
     def shoot_bullet2(self):
-        bullet_ring = [BOSS2_BULLET2(self.x,self.y,i) for i in range(8)]
+        bullet_ring = [BULLET_RING(self.x,self.y,i) for i in range(8)]
 
         for o in bullet_ring:
             BOSS2_DEVIL.bullet_ring.append(o)
             game_world.add_object(o,1)
 
     def shoot_bullet3(self):
-        bullet_column = [BOSS2_BULLET3(self.x,self.y,90),
-                   BOSS2_BULLET3(self.x, self.y, 210),
-                   BOSS2_BULLET3(self.x, self.y,330)]
+        bullet_column = [BULLET_COLUMN(self.x,self.y,90),
+                         BULLET_COLUMN(self.x, self.y, 210),
+                         BULLET_COLUMN(self.x, self.y,330)]
 
         for o in bullet_column:
             self.bullet_column.append(o)

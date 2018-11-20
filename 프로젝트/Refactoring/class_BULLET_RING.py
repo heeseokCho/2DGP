@@ -5,8 +5,6 @@ import main_state2_sunset
 
 import class_BOSS2_DEVIL
 
-import random
-
 WINX,WINY = 1600,1000
 SIZE  = 64
 PI = 3.141592
@@ -26,12 +24,12 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0/TIME_PER_ACTION
 FRAMES_PER_ACTION = 1
 
-class BOSS2_BULLET2:
+class BULLET_RING:
     image = None
 
     def __init__(self,x = WINX//2,y=WINY//2,dir=0):
-        if BOSS2_BULLET2.image == None:
-            BOSS2_BULLET2.image = load_image('Boss2Bullet2.png')
+        if BULLET_RING.image == None:
+            BULLET_RING.image = load_image('Bullet_Ring.png')
         self.frame = 0
         self.x,self.y = x,y
         self.dir = dir
@@ -41,7 +39,7 @@ class BOSS2_BULLET2:
 
     def draw(self):
         if main_state2_sunset.Boss2_Devil.life > 0:
-            BOSS2_BULLET2.image.clip_composite_draw(int(self.frame) * SIZE // 2, 0, SIZE // 2, SIZE // 2,
+            BULLET_RING.image.clip_composite_draw(int(self.frame) * SIZE // 2, 0, SIZE // 2, SIZE // 2,
                                                     math.radians(self.degree),'v', self.x, self.y, SIZE, SIZE)
 
             draw_rectangle(*self.get_bb())
