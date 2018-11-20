@@ -2,6 +2,8 @@ import game_framework
 from pico2d import *
 from ball import Ball
 
+import main_state
+
 import game_world
 
 # Boy Run Speed
@@ -118,6 +120,10 @@ class RunState:
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
         boy.x += boy.x_velocity * game_framework.frame_time
         boy.y += boy.y_velocity * game_framework.frame_time
+
+        for ball in main_state.balls:
+            ball.x -= boy.x_velocity * game_framework.frame_time
+            ball.y -= boy.y_velocity * game_framework.frame_time
 
         boy.x = clamp(25, boy.x, boy.bg.w - 25)
         boy.y = clamp(50, boy.y, boy.bg.h - 50)
