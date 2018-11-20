@@ -41,13 +41,23 @@ class IdleState:
     @staticmethod
     def enter(boy, event):
         if event == RIGHT_DOWN:
-            boy.velocity += RUN_SPEED_PPS
-        elif event == LEFT_DOWN:
-            boy.velocity -= RUN_SPEED_PPS
+            boy.x_velocity += RUN_SPEED_PPS
         elif event == RIGHT_UP:
-            boy.velocity -= RUN_SPEED_PPS
+            boy.x_velocity -= RUN_SPEED_PPS
+        if event == LEFT_DOWN:
+            boy.x_velocity -= RUN_SPEED_PPS
         elif event == LEFT_UP:
-            boy.velocity += RUN_SPEED_PPS
+            boy.x_velocity += RUN_SPEED_PPS
+
+        if event == UP_DOWN:
+            boy.y_velocity += RUN_SPEED_PPS
+        elif event == UP_UP:
+            boy.y_velocity -= RUN_SPEED_PPS
+        if event == DOWN_DOWN:
+            boy.y_velocity -= RUN_SPEED_PPS
+        elif event == DOWN_UP:
+            boy.y_velocity += RUN_SPEED_PPS
+
         boy.timer = 1000
 
     @staticmethod
@@ -76,14 +86,24 @@ class RunState:
     @staticmethod
     def enter(boy, event):
         if event == RIGHT_DOWN:
-            boy.velocity += RUN_SPEED_PPS
-        elif event == LEFT_DOWN:
-            boy.velocity -= RUN_SPEED_PPS
+            boy.x_velocity += RUN_SPEED_PPS
         elif event == RIGHT_UP:
-            boy.velocity -= RUN_SPEED_PPS
+            boy.x_velocity -= RUN_SPEED_PPS
+        if event == LEFT_DOWN:
+            boy.x_velocity -= RUN_SPEED_PPS
         elif event == LEFT_UP:
-            boy.velocity += RUN_SPEED_PPS
-        boy.dir = clamp(-1, boy.velocity, 1)
+            boy.x_velocity += RUN_SPEED_PPS
+
+        if event == UP_DOWN:
+            boy.y_velocity += RUN_SPEED_PPS
+        elif event == UP_UP:
+            boy.y_velocity -= RUN_SPEED_PPS
+        if event == DOWN_DOWN:
+            boy.y_velocity -= RUN_SPEED_PPS
+        elif event == DOWN_UP:
+            boy.y_velocity += RUN_SPEED_PPS
+
+        boy.dir = clamp(-1, boy.x_velocity, 1)
 
     @staticmethod
     def exit(boy, event):
@@ -93,7 +113,9 @@ class RunState:
     def do(boy):
         #boy.frame = (boy.frame + 1) % 8
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
-        boy.x += boy.velocity * game_framework.frame_time
+        boy.x += boy.x_velocity * game_framework.frame_time
+        boy.y += boy.y_velocity * game_framework.frame_time
+
         boy.x = clamp(25, boy.x, 1600 - 25)
 
     @staticmethod
@@ -131,8 +153,10 @@ class SleepState:
 
 
 next_state_table = {
-    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, SLEEP_TIMER: SleepState, SPACE: IdleState},
-    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, SPACE: RunState},
+    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, UP_UP: RunState,DOWN_UP: RunState,
+                RIGHT_DOWN: RunState, LEFT_DOWN: RunState, UP_DOWN:RunState, DOWN_DOWN: RunState,SLEEP_TIMER: SleepState, SPACE: IdleState},
+    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState,UP_UP:IdleState,DOWN_UP:IdleState,
+               LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState,UP_DOWN: IdleState,DOWN_DOWN: IdleState, SPACE: RunState},
     SleepState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: RunState, RIGHT_UP: RunState, SPACE: IdleState}
 }
 
@@ -143,7 +167,8 @@ class Boy:
         self.image = load_image('animation_sheet.png')
         self.font = load_font('ENCR10B.TTF', 16)
         self.dir = 1
-        self.velocity = 0
+        self.x_velocity = 0
+        self.y_velocity = 0
         self.frame = 0
         self.event_que = []
         self.cur_state = IdleState
@@ -178,7 +203,7 @@ class Boy:
         self.font.draw(self.x - 60, self.y + 50, '(Time: %3.2f)' % get_time(), (255, 255, 0))
         #fill here
         draw_rectangle(*self.get_bb())
-        debug_print('Velocity :' + str(self.velocity) + '  Dir:' + str(self.dir) + ' Frame Time:' + str(game_framework.frame_time))
+        #debug_print('Velocity :' + str(self.velocity) + '  Dir:' + str(self.dir) + ' Frame Time:' + str(game_framework.frame_time))
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:
