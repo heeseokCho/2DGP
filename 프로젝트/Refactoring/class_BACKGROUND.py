@@ -7,10 +7,10 @@ WINY  = 1000
 class BACKGROUND():
     def __init__(self,phase = 0):
         if phase == 0:
-            self.image = load_image('Background.png')
+            self.image = load_image('Background_day.png')
 
         elif phase == 1:
-            self.image = load_image('Background2.png')
+            self.image = load_image('Background_sunset.png')
 
     def draw(self):
         self.image.draw(WINX // 2, WINY // 2, WINX, WINY)
