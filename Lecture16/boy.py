@@ -173,6 +173,7 @@ class Boy:
         self.event_que = []
         self.cur_state = IdleState
         self.cur_state.enter(self, None)
+        self.eat_cnt = 0
 
         # fill here
         self.eat_sound = load_wav('pickup.wav')
@@ -181,6 +182,7 @@ class Boy:
     def eat(self, ball):
         # fill here
         self.eat_sound.play()
+        self.eat_cnt += 1
 
 
     def get_bb(self):
@@ -200,7 +202,7 @@ class Boy:
 
     def draw(self):
         self.cur_state.draw(self)
-        self.font.draw(self.x - 60, self.y + 50, '(Time: %3.2f)' % get_time(), (255, 255, 0))
+        self.font.draw(self.x - 60, self.y + 50, '(Eat: %3.2i)' % self.eat_cnt, (255, 255, 0))
         #fill here
         draw_rectangle(*self.get_bb())
         #debug_print('Velocity :' + str(self.velocity) + '  Dir:' + str(self.dir) + ' Frame Time:' + str(game_framework.frame_time))
