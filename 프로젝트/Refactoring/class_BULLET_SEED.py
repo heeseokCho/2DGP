@@ -2,7 +2,7 @@ from pico2d import*
 import game_framework
 import game_world
 
-import class_BOSS1
+import class_BOSS1_PLANT
 
 WINX,WINY = 1600,1000
 SIZE  = 64
@@ -16,12 +16,12 @@ RUN_SPEED_MPM = (RUN_SPEED_KMPH*1000.0/60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
 RUN_SPEED_PPS = (RUN_SPEED_MPS*PIXEL_PER_METER)
 
-class BOSS1_BULLET2:
+class BULLET_SEED:
     image = None
 
-    def __init__(self,x = WINX//2,y=WINY//2,dir=0):
-        if BOSS1_BULLET2.image == None:
-            BOSS1_BULLET2.image = load_image('Boss1Bullet2.png')
+    def __init__(self, x = WINX//2, y=WINY//2, dir=0):
+        if BULLET_SEED.image == None:
+            BULLET_SEED.image = load_image('Bullet_seed.png')
         self.x,self.y = x,y
         self.dir = dir
         self.velocity = RUN_SPEED_PPS
@@ -29,21 +29,21 @@ class BOSS1_BULLET2:
 
     def draw(self):
         if self.dir == LEFT_TOP:
-            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
+            BULLET_SEED.image.clip_draw(SIZE*0,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
         elif self.dir == LEFT:
-            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE//2*1,SIZE//2,SIZE//2,self.x,self.y)
+            BULLET_SEED.image.clip_draw(SIZE*0,SIZE//2*1,SIZE//2,SIZE//2,self.x,self.y)
         elif self.dir == LEFT_BOTTOM:
-            BOSS1_BULLET2.image.clip_draw(SIZE*0,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
+            BULLET_SEED.image.clip_draw(SIZE*0,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
         elif self.dir == BOTTOM:
-            BOSS1_BULLET2.image.clip_draw(SIZE//2*1,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
+            BULLET_SEED.image.clip_draw(SIZE//2*1,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
         elif self.dir == RIGHT_BOTTOM:
-            BOSS1_BULLET2.image.clip_draw(SIZE//2*2,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
+            BULLET_SEED.image.clip_draw(SIZE//2*2,SIZE//2*0,SIZE//2,SIZE//2,self.x,self.y)
         elif self.dir == RIGHT:
-            BOSS1_BULLET2.image.clip_draw(SIZE//2*2,SIZE//2*1,SIZE//2,SIZE//2,self.x,self.y)
+            BULLET_SEED.image.clip_draw(SIZE//2*2,SIZE//2*1,SIZE//2,SIZE//2,self.x,self.y)
         elif self.dir == RIGHT_TOP:
-            BOSS1_BULLET2.image.clip_draw(SIZE//2*2,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
+            BULLET_SEED.image.clip_draw(SIZE//2*2,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
         elif self.dir == TOP:
-            BOSS1_BULLET2.image.clip_draw(SIZE//2*1,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
+            BULLET_SEED.image.clip_draw(SIZE//2*1,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
 
         draw_rectangle(*self.get_bb())
 
@@ -72,8 +72,8 @@ class BOSS1_BULLET2:
 
         if self.x <SIZE or self.x > WINX-SIZE or \
                 self.y <SIZE or self. y >WINY-250:
-            if self in class_BOSS1.BOSS1.bullet2:
-                class_BOSS1.BOSS1.bullet2.remove(self)
+            if self in class_BOSS1_PLANT.BOSS1_PLANT.bullet_seed:
+                class_BOSS1_PLANT.BOSS1_PLANT.bullet_seed.remove(self)
                 game_world.remove_object(self)
 
     def get_bb(self):

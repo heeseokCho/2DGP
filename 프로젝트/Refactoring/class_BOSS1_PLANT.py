@@ -3,11 +3,8 @@ from pico2d import*
 import game_world
 
 import class_LINK
-from class_BOSS1_BULLET1 import BOSS1_BULLET1
-from class_BOSS1_BULLET2 import BOSS1_BULLET2
-
-import math
-import random
+from class_BULLET_MINE import BULLET_MINE
+from class_BULLET_SEED import BULLET_SEED
 
 WINX,WINY = 1600, 1000
 PI = 3.141592
@@ -63,13 +60,13 @@ class RunState:
         Boss1.image.clip_draw(int(Boss1.frame)*SIZE*3,0,SIZE*3,SIZE*3,Boss1.x,Boss1.y)
 
 
-class BOSS1:
-    bullet1 = []
-    bullet2 = []
+class BOSS1_PLANT:
+    bullet_mine = []
+    bullet_seed = []
 
     def __init__(self):
         self.x, self.y = WINX//2, WINY//2
-        self.image = load_image('Boss1.png')
+        self.image = load_image('Boss1_plant.png')
         self.dir = 1
         self.velocity = 0
         self.frame = 0
@@ -87,20 +84,20 @@ class BOSS1:
 
     #지뢰
     def shoot_bullet1(self):
-        bullet1 = BOSS1_BULLET1()
-        BOSS1.bullet1.append(bullet1)
+        bullet_mine = BULLET_MINE()
+        BOSS1_PLANT.bullet_mine.append(bullet_mine)
 
-        game_world.add_object(bullet1,1)
+        game_world.add_object(bullet_mine,1)
         self.bgm.set_volume(30)
         self.bgm.play()
 
     #8방
     def shoot_bullet2(self):
-        bullet2 = [BOSS1_BULLET2(self.x,self.y,i) for i in range(8)]
-        for i in bullet2:
-            BOSS1.bullet2.append(i)
+        bullet_seed = [BULLET_SEED(self.x,self.y,i) for i in range(8)]
+        for i in bullet_seed:
+            BOSS1_PLANT.bullet_seed.append(i)
 
-        for o in bullet2:
+        for o in bullet_seed:
             game_world.add_object(o,1)
 
     def add_event(self, event):

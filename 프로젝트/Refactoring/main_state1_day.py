@@ -11,7 +11,7 @@ import random
 
 from class_LINK import LINK
 from class_ARROW import ARROW
-from class_BOSS1 import BOSS1
+from class_BOSS1_PLANT import BOSS1_PLANT
 from class_BACKGROUND import BACKGROUND
 from class_CIRCLE import CIRCLE
 
@@ -28,16 +28,16 @@ UP,DOWN,LEFT,RIGHT = SIZE*3, SIZE*2, SIZE*1, SIZE*0
 Background = None
 Link = None
 Circle = None
-Boss1 = None
+Boss1_Plant = None
 Bgm = None
 
 def enter():
-    global Link,Circle,Background,Boss1,Bgm
+    global Link,Circle,Background,Boss1_Plant,Bgm
     game_world.objects = [[], [], []]
 
     Background = BACKGROUND(0)
     Link = LINK()
-    Boss1 = BOSS1()
+    Boss1_Plant = BOSS1_PLANT()
     Circle = CIRCLE(1)
 
     Bgm = load_music('BossBattle1.ogg')
@@ -45,13 +45,13 @@ def enter():
     Bgm.repeat_play()
 
     game_world.add_object(Background,0)
-    game_world.add_object(Boss1,1)
+    game_world.add_object(Boss1_Plant,1)
     game_world.add_object(Circle,2)
     game_world.add_object(Link,1)
 
 def exit():
-    BOSS1.bullet1 = []
-    BOSS1.bullet2 = []
+    BOSS1_PLANT.bullet_mine = []
+    BOSS1_PLANT.bullet_seed = []
     game_world.clear()
 
 def pause():
@@ -127,26 +127,26 @@ def collide_objects():
 
     #적과 화살 충돌
     for arrow in Link.arrow:
-        if collide(Boss1,arrow):
+        if collide(Boss1_Plant,arrow):
             LINK.arrow.remove(arrow)
-            Boss1.life -= ARROW.damage
+            Boss1_Plant.life -= ARROW.damage
             game_world.remove_object(arrow)
 
     #링크와 지뢰 충돌
-    for bullet1 in BOSS1.bullet1:
-        if collide(Link,bullet1):
-            BOSS1.bullet1.remove(bullet1)
-            game_world.remove_object(bullet1)
+    for bullet in BOSS1_PLANT.bullet_mine:
+        if collide(Link,bullet):
+            BOSS1_PLANT.bullet_mine.remove(bullet)
+            game_world.remove_object(bullet)
             if not Link.invincibility:
                 LINK.life -= 1
             Link.invincibility_time = get_time()
             Link.invincibility = True
 
     #링크와 적탄 충돌
-    for bullet2 in BOSS1.bullet2:
-        if collide(Link,bullet2):
-            BOSS1.bullet2.remove(bullet2)
-            game_world.remove_object(bullet2)
+    for bullet in BOSS1_PLANT.bullet_seed:
+        if collide(Link,bullet):
+            BOSS1_PLANT.bullet_seed.remove(bullet)
+            game_world.remove_object(bullet)
             if not Link.invincibility:
                 LINK.life -= 1
             Link.invincibility_time = get_time()

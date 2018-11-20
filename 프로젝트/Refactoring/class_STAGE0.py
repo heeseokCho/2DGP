@@ -65,7 +65,7 @@ class STAGE0:
     item = []
 
     def __init__(self):
-        self.image = load_image('Boss1.png')
+        self.image = load_image('Boss1_plant.png')
         self.event_que = []
         self.cur_time = 0
         self.timer = 0
