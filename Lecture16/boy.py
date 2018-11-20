@@ -184,6 +184,10 @@ class Boy:
         self.eat_sound.play()
         self.eat_cnt += 1
 
+    def set_background(self,bg):
+        self.bg = bg
+        self.x = self.bg.w/2
+        self.y = self.bg.h/2
 
     def get_bb(self):
         return self.x - 50, self.y - 50, self.x + 50, self.y + 50
@@ -201,6 +205,7 @@ class Boy:
             self.cur_state.enter(self, event)
 
     def draw(self):
+
         self.cur_state.draw(self)
         self.font.draw(self.x - 60, self.y + 50, '(Eat: %3.2i)' % self.eat_cnt, (255, 255, 0))
         #fill here
