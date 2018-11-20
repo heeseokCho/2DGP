@@ -3,7 +3,7 @@ import game_framework
 import random
 import math
 
-import main_state0
+import main_state_bonus
 import main_state1
 import main_state2
 
@@ -79,7 +79,7 @@ class Stage0State:
             Circle.dirY = 1
 
 
-        if main_state0.Link != None and main_state0.Link.collide_able:
+        if main_state_bonus.Link != None and main_state_bonus.Link.collide_able:
             CIRCLE.x += Circle.dirX * Circle.velocity
             CIRCLE.y += Circle.dirY * Circle.velocity
             Circle.r += Circle.dir * Circle.velocity*3

@@ -1,7 +1,7 @@
 import game_framework
 from pico2d import*
 import game_world
-import main_state0
+import main_state_bonus
 
 from class_ENEMY import ENEMY
 from class_ITEM import ITEM
@@ -30,7 +30,7 @@ class RunState:
 
     @staticmethod
     def do(Stage0):
-        if main_state0.Link.collide_able:
+        if main_state_bonus.Link.collide_able:
             Stage0.timer += get_time() - Stage0.cur_time
 
             Stage0.clear_timer += get_time() - Stage0.cur_time

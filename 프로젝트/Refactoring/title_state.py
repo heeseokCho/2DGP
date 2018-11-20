@@ -2,7 +2,7 @@ import game_framework
 from pico2d import*
 import main_state1
 import main_state2
-import main_state0
+import main_state_bonus
 import manual_state
 
 name = "TitleState"
@@ -59,14 +59,14 @@ def handle_events():
             if event.key == SDLK_ESCAPE:
                 game_framework.quit()
             elif event.key == SDLK_0:
-                game_framework.change_state(main_state0)
+                game_framework.change_state(main_state_bonus)
             elif event.key == SDLK_1:
                 game_framework.change_state(main_state1)
             elif event.key == SDLK_2:
                 game_framework.change_state(main_state2)
         elif event.type == SDL_MOUSEBUTTONDOWN:
             if 250 - 160 < event.x and event.x < 250 + 160 and 600 - 40 < WINY-event.y and WINY-event.y < 600 + 40:
-                game_framework.change_state(main_state0)
+                game_framework.change_state(main_state_bonus)
             elif 300 - 160 < event.x and event.x < 300 + 160 and 400 - 40 < WINY-event.y and WINY-event.y < 400 + 40:
                 game_framework.change_state(manual_state)
             elif 350 - 160 < event.x and event.x < 350 + 160 and 200 - 40 < WINY-event.y and WINY-event.y < 200 + 40:

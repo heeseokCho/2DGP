@@ -1,7 +1,7 @@
 from pico2d import*
 
 import title_state
-import main_state0
+import main_state_bonus
 import main_state2
 
 import game_framework
@@ -70,7 +70,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_0:
-            game_framework.change_state(main_state0)
+            game_framework.change_state(main_state_bonus)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
             game_framework.change_state(main_state2)
         else:
@@ -84,7 +84,7 @@ def update():
         collide_objects()
 
     if LINK.cur_stage == 2:
-        game_framework.change_state(main_state0)
+        game_framework.change_state(main_state_bonus)
 
     if Link.end == True:
         Link.reset_all()
