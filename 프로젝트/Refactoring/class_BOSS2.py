@@ -7,7 +7,7 @@ from class_BOSS2_BULLET1 import BOSS2_BULLET1
 from class_BOSS2_BULLET2 import BOSS2_BULLET2
 from class_BOSS2_BULLET3 import BOSS2_BULLET3
 
-import main_state2
+import main_state2_sunset
 
 import math
 
@@ -68,9 +68,9 @@ class RunState:
             Boss2.timer = 0
 
         Boss2.revolution_degree += Boss2.dir * DEGREE_PER_TIME* game_framework.frame_time
-        Boss2.rotate_degree = math.atan2(main_state2.LINK.y - Boss2.y, main_state2.LINK.x - Boss2.x) * Boss2.dir
-        Boss2.x = main_state2.Circle.x + (main_state2.Circle.r - SIZE) * math.cos(Boss2.revolution_degree)
-        Boss2.y = main_state2.Circle.y + (main_state2.Circle.r - SIZE) * math.sin(Boss2.revolution_degree)
+        Boss2.rotate_degree = math.atan2(main_state2_sunset.LINK.y - Boss2.y, main_state2_sunset.LINK.x - Boss2.x) * Boss2.dir
+        Boss2.x = main_state2_sunset.Circle.x + (main_state2_sunset.Circle.r - SIZE) * math.cos(Boss2.revolution_degree)
+        Boss2.y = main_state2_sunset.Circle.y + (main_state2_sunset.Circle.r - SIZE) * math.sin(Boss2.revolution_degree)
 
 
         if Boss2.life < 0:

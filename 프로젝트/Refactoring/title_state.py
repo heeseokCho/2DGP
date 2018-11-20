@@ -1,7 +1,7 @@
 import game_framework
 from pico2d import*
-import main_state1
-import main_state2
+import main_state1_day
+import main_state2_sunset
 import main_state_bonus
 import manual_state
 
@@ -61,9 +61,9 @@ def handle_events():
             elif event.key == SDLK_0:
                 game_framework.change_state(main_state_bonus)
             elif event.key == SDLK_1:
-                game_framework.change_state(main_state1)
+                game_framework.change_state(main_state1_day)
             elif event.key == SDLK_2:
-                game_framework.change_state(main_state2)
+                game_framework.change_state(main_state2_sunset)
         elif event.type == SDL_MOUSEBUTTONDOWN:
             if 250 - 160 < event.x and event.x < 250 + 160 and 600 - 40 < WINY-event.y and WINY-event.y < 600 + 40:
                 game_framework.change_state(main_state_bonus)

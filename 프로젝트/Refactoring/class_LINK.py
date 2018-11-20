@@ -3,7 +3,7 @@ import game_framework
 import game_world
 
 import title_state
-import main_state2
+import main_state2_sunset
 
 from class_ARROW import ARROW
 from class_ITEM import ITEM
@@ -373,7 +373,7 @@ class WinState:
 
     @staticmethod
     def exit(Link, event):
-        main_state2.game_cleared = False
+        main_state2_sunset.game_cleared = False
         LINK.velocityX,LINK.velocityY = 0,0
 
     @staticmethod
@@ -483,8 +483,8 @@ class LINK:
         if LINK.life == 0:
             self.add_event(LIFE_ZERO)
 
-        if main_state2.game_cleared == True:
-            main_state2.game_cleared = False
+        if main_state2_sunset.game_cleared == True:
+            main_state2_sunset.game_cleared = False
             self.add_event(CLEAR)
 
     def get_bb(self):

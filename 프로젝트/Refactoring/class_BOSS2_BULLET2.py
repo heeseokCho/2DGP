@@ -1,7 +1,7 @@
 from pico2d import*
 import game_framework
 import game_world
-import main_state2
+import main_state2_sunset
 
 import class_BOSS2
 
@@ -41,7 +41,7 @@ class BOSS2_BULLET2:
 
 
     def draw(self):
-        if main_state2.Boss2.life > 0:
+        if main_state2_sunset.Boss2.life > 0:
             BOSS2_BULLET2.image.clip_composite_draw(int(self.frame) * SIZE // 2, 0, SIZE // 2, SIZE // 2,
                                                     math.radians(self.degree),'v', self.x, self.y, SIZE, SIZE)
 

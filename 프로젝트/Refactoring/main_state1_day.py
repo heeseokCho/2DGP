@@ -2,7 +2,7 @@ from pico2d import*
 
 import title_state
 import main_state_bonus
-import main_state2
+import main_state2_sunset
 
 import game_framework
 import game_world
@@ -72,7 +72,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_0:
             game_framework.change_state(main_state_bonus)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
-            game_framework.change_state(main_state2)
+            game_framework.change_state(main_state2_sunset)
         else:
             Link.handle_event(event)
 

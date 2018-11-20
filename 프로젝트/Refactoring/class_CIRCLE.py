@@ -4,8 +4,8 @@ import random
 import math
 
 import main_state_bonus
-import main_state1
-import main_state2
+import main_state1_day
+import main_state2_sunset
 
 
 #윈도우 크기
@@ -36,7 +36,7 @@ class Stage0State:
 
         Circle.dirX, Circle.dirY = 0, 0
 
-        CIRCLE.x, CIRCLE.y = main_state2.LINK.x, main_state2.LINK.y
+        CIRCLE.x, CIRCLE.y = main_state2_sunset.LINK.x, main_state2_sunset.LINK.y
         Circle.r = 380
         if random.randint(0, 1) == 0:
             Circle.dirX = -1
@@ -104,7 +104,7 @@ class Stage1State:
         Circle.r = 300
         Circle.degree = 0
 
-        Circle.degree = math.atan2(main_state2.LINK.y - CIRCLE.y, main_state2.LINK.x - CIRCLE.x)
+        Circle.degree = math.atan2(main_state2_sunset.LINK.y - CIRCLE.y, main_state2_sunset.LINK.x - CIRCLE.x)
 
         CIRCLE.x, CIRCLE.y = CIRCLE.x + 300 * math.cos(Circle.degree), \
                              CIRCLE.y + 300 * math.sin(Circle.degree)
@@ -126,7 +126,7 @@ class Stage1State:
                 Circle.dir *= -1
             Circle.timer = 0
 
-        if main_state1.Link != None and main_state1.Link.collide_able:
+        if main_state1_day.Link != None and main_state1_day.Link.collide_able:
             CIRCLE.x =WINX//2+ 8*PIXEL_PER_METER*math.cos(Circle.degree)
             CIRCLE.y =WINY//2+ 8*PIXEL_PER_METER*math.sin(Circle.degree)
 
@@ -142,7 +142,7 @@ class Stage2State:
     def enter(Circle, event):
         Circle.dirX, Circle.dirY = 0, 0
 
-        CIRCLE.x, CIRCLE.y = main_state2.LINK.x, main_state2.LINK.y
+        CIRCLE.x, CIRCLE.y = main_state2_sunset.LINK.x, main_state2_sunset.LINK.y
         Circle.r = 380
         if random.randint(0, 1) == 0:
             Circle.dirX = -1
@@ -185,7 +185,7 @@ class Stage2State:
         elif (CIRCLE.y < Circle.r):
             Circle.dirY = 1
 
-        if main_state2.Link != None and main_state2.Link.collide_able:
+        if main_state2_sunset.Link != None and main_state2_sunset.Link.collide_able:
             CIRCLE.x += Circle.dirX * Circle.velocity
             CIRCLE.y += Circle.dirY * Circle.velocity
             Circle.r += Circle.dir * Circle.velocity*2

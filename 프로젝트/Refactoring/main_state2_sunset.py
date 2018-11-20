@@ -2,12 +2,10 @@ from pico2d import*
 
 import title_state
 import main_state_bonus
-import main_state1
+import main_state1_day
 
 import game_framework
 import game_world
-import math
-import random
 
 from class_LINK import LINK
 from class_ARROW import ARROW
@@ -78,7 +76,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_0:
             game_framework.change_state(main_state_bonus)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
-            game_framework.change_state(main_state1)
+            game_framework.change_state(main_state1_day)
         else:
             Link.handle_event(event)
 

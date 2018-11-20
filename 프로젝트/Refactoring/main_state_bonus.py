@@ -1,8 +1,8 @@
 from pico2d import*
 
 import title_state
-import main_state1
-import main_state2
+import main_state1_day
+import main_state2_sunset
 
 import game_framework
 import game_world
@@ -77,9 +77,9 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_5:
             game_framework.change_state(title_state)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
-            game_framework.change_state(main_state1)
+            game_framework.change_state(main_state1_day)
         elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
-            game_framework.change_state(main_state2)
+            game_framework.change_state(main_state2_sunset)
 
         else:
             Link.handle_event(event)
@@ -92,9 +92,9 @@ def update():
         collide_objects()
 
     if LINK.cur_stage == 1:
-        game_framework.change_state(main_state1)
+        game_framework.change_state(main_state1_day)
     elif LINK.cur_stage == 3:
-        game_framework.change_state(main_state2)
+        game_framework.change_state(main_state2_sunset)
 
 
     if Link.end == True:

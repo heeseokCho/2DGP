@@ -1,7 +1,7 @@
 from pico2d import*
 import game_world
 import game_framework
-import main_state2
+import main_state2_sunset
 
 import class_BOSS2
 import random
@@ -27,7 +27,7 @@ class BOSS2_BULLET1:
             BOSS2_BULLET1.image = load_image('Boss2_Bullet.png')
 
         self.startX,self.startY = x,y
-        self.endX,self.endY=main_state2.LINK.x,main_state2.LINK.y
+        self.endX,self.endY=main_state2_sunset.LINK.x,main_state2_sunset.LINK.y
         self.x,self.y =x,y
         self.velocity = RUN_SPEED_PPS
         self.bullet_rotate_degree = 0
@@ -41,7 +41,7 @@ class BOSS2_BULLET1:
 
 
     def draw(self):
-        if main_state2.Boss2.life > 0:
+        if main_state2_sunset.Boss2.life > 0:
             BOSS2_BULLET1.image.rotate_draw(math.radians(self.bullet_rotate_degree), self.x, self.y, SIZE / 2, SIZE / 2)
             draw_rectangle(*self.get_bb())
 

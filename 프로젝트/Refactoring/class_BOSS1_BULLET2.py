@@ -2,7 +2,6 @@ from pico2d import*
 import game_framework
 import game_world
 
-import random
 import class_BOSS1
 
 WINX,WINY = 1600,1000
