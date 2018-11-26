@@ -8,6 +8,7 @@ import game_framework
 import game_world
 
 import world_build_state
+import ranking_state
 
 name = "MainState"
 
@@ -67,7 +68,7 @@ def update():
 
     for zombie in zombies:
         if collide(boy,zombie):
-            print("collide")
+            game_framework.change_state(ranking_state)
 
 def draw():
     clear_canvas()
