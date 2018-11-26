@@ -77,6 +77,9 @@ def draw():
     update_canvas()
 
 
+def save_time():
+    pass
+
 
 
 
