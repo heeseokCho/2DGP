@@ -8,23 +8,19 @@ import game_framework
 import game_world
 
 import world_build_state
-from boy import Boy
 name = "RankingState"
 
-boy = None
+ranking = []
+font = None
 
 def enter():
     # game world is prepared already in world_build_state
-    global boy
-    boy = world_build_state.get_boy()
-
-    game_world.load()
-    for o in game_world.all_objects():
-        if isinstance(o,Boy):
-            boy = o
+    global font
+    font = load_font('ENCR10B.TTF',20)
+    load_ranking()
 
 def exit():
-    game_world.clear()
+    pass
 
 def pause():
     pass
@@ -47,11 +43,21 @@ def update():
 
 
 def draw():
-    clear_canvas()
+    global ranking
+    global font
 
+    clear_canvas()
+    space = 0
+    for data in ranking:
+        space += 20
+        font.draw(100,800-space,'# %d Time: %3.2f' % (data[0],data[1]),(0,0,0))
     update_canvas()
 
+def load_ranking():
+    global ranking
 
+    with open('ranking_data.json','r')as f:
+        ranking = json.load(f)
 
 
 

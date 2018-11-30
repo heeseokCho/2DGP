@@ -8,11 +8,8 @@ import game_framework
 import game_world
 
 import world_build_state
-import ranking_state
 
 name = "MainState"
-
-ranking_data = []
 
 
 def collide(a, b):
@@ -28,15 +25,12 @@ def collide(a, b):
     return True
 
 boy = None
-zombies = None
 
 def enter():
     # game world is prepared already in world_build_state
     global boy
     boy = world_build_state.get_boy()
-
-    global zombies
-    zombies = world_build_state.get_zombies()
+    pass
 
 def exit():
     game_world.clear()
@@ -63,40 +57,15 @@ def handle_events():
 
 
 def update():
-    global zombies,boy
-
     for game_object in game_world.all_objects():
         game_object.update()
 
-    for zombie in zombies:
-        if collide(boy,zombie):
-            save_time()
-            game_framework.change_state(ranking_state)
 
 def draw():
     clear_canvas()
     for game_object in game_world.all_objects():
         game_object.draw()
     update_canvas()
-
-
-def save_time():
-    count = 0
-    file = []
-    with open('ranking_data.json','r') as f:
-        files = json.load(f)
-
-    for i in files:
-        count +=1
-        file.append(i)
-
-    cur_boy_time = [count,get_time()-boy.start_time]
-    file.append(cur_boy_time)
-
-    with open('rank_data.json','w')as f:
-        json.dump(file,f)
-
-
 
 
 
