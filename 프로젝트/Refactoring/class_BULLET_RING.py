@@ -42,7 +42,7 @@ class BULLET_RING:
             BULLET_RING.image.clip_composite_draw(int(self.frame) * SIZE // 2, 0, SIZE // 2, SIZE // 2,
                                                     math.radians(self.degree),'v', self.x, self.y, SIZE, SIZE)
 
-            draw_rectangle(*self.get_bb())
+            #draw_rectangle(*self.get_bb())
 
     def update(self):
         self.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 6

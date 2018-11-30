@@ -73,14 +73,8 @@ def handle_events():
         if event.type == SDL_QUIT:
             game_framework.quit()
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.quit()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_5:
+            Link.reset_all()
             game_framework.change_state(title_state)
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_1:
-            game_framework.change_state(main_state1_day)
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_2:
-            game_framework.change_state(main_state2_sunset)
-
         else:
             Link.handle_event(event)
 

@@ -48,7 +48,7 @@ class BULLET_COLUMN:
             BULLET_COLUMN.image.clip_composite_draw(int(BULLET_COLUMN.frame) * SIZE//2, 0, SIZE//2, SIZE//2, math.radians(self.dir*self.degree),
                                            'v', self.x, self.y, SIZE, SIZE)
 
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
     def update(self):
         BULLET_COLUMN.frame = (self.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 7
 

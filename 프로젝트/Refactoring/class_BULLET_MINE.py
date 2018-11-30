@@ -39,7 +39,7 @@ class BULLET_MINE:
 
     def draw(self):
         self.image.draw(self.x,self.y,SIZE,SIZE)
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def update(self):
         self.timer += get_time()-self.cur_time

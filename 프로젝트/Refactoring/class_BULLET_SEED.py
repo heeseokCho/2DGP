@@ -45,7 +45,7 @@ class BULLET_SEED:
         elif self.dir == TOP:
             BULLET_SEED.image.clip_draw(SIZE//2*1,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y)
 
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
 
     def update(self):

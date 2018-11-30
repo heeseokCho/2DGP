@@ -31,7 +31,7 @@ class ITEM:
         elif self.kind == RUN_SPEED:
             ITEM.image.clip_draw(0, RUN_SPEED * SIZE//2, SIZE//2, SIZE//2, self.x, self.y)
 
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
     def update(self):
         pass
 

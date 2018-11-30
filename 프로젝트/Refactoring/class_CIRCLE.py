@@ -235,7 +235,7 @@ class CIRCLE:
 
     def draw(self):
         self.cur_state.draw(self)
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
 
     def draw_rect(self):

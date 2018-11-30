@@ -43,7 +43,7 @@ class BULLET_BALL:
     def draw(self):
         if main_state2_sunset.Boss2_Devil.life > 0:
             BULLET_BALL.image.rotate_draw(math.radians(self.bullet_rotate_degree), self.x, self.y, SIZE / 2, SIZE / 2)
-            draw_rectangle(*self.get_bb())
+            #draw_rectangle(*self.get_bb())
 
     def update(self):
         self.bullet_rotate_degree += self.bullet_rotate_dir*DEGREE_PER_TIME*game_framework.frame_time

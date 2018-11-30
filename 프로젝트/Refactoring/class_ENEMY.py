@@ -73,7 +73,7 @@ class ENEMY:
         elif self.dir == TOP:
             ENEMY.image.clip_draw(SIZE//2*1,SIZE//2*2,SIZE//2,SIZE//2,self.x,self.y,SIZE//self.size,SIZE//self.size)
 
-        draw_rectangle(*self.get_bb())
+        #draw_rectangle(*self.get_bb())
 
     def update(self):
        self.x += self.dirX*RUN_SPEED_PPS*game_framework.frame_time
